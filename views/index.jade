@@ -1,0 +1,18 @@
+extends layout
+
+block content
+ title= title 
+ h1= title
+ div
+   span= tablecount 
+   |  JTables angelegt 
+   br
+   br
+   button#btnCreate JTables bearbeiten
+   h2 Jtable-Konfigurationen:
+   ul
+    each record in records
+     li 
+      a(href='/?controller=jtable&action=show&id='+record.id) #{record.name}
+       
+       

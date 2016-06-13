@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <title>smartmatics clients</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font: 13px Helvetica, Arial;
+        }
+
+        #controls {
+            background: #DDD;
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 20%;
+            margin-right: .5%;
+        }
+
+        form button {
+            width: 20%;
+            border: none;
+            padding: 10px;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            #messages li {
+                padding: 5px 10px;
+                overflow-y: scroll;
+                height: 6em;
+            }
+
+
+                #messages li:nth-child(odd) {
+                    background: #eee;
+                }
+    </style>
+
+    <script src="public/jquery.min.js"></script>
+    <script src="public/socket.io.js"></script>
+</head>
+
+<body>
+    <a href="/mockClient" target="_blank">New Mock Client</a>&nbsp;&nbsp;<b>Connected clients:</b><br />
+    <ul id="messages"></ul>
+    <div id="controls">
+        SocketId:<input id="m" autocomplete="off" />
+        <button id="btnPush">Push</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="btnPushAll">Push all</button>
+    </div>
+</body>
+
+
+<script>
+
+    var socket = io.connect(document.location.host);
+
+    function pushClient(socketId, msg) {
+        socket.emit('push_client', socketId, msg);
+    }
+
+
+    $("#btnPushAll").click(function () {
+        socket.emit('push_all');
+    });
+    socket.on('client_query', function (msg) {
+        $('#li_' + msg.socketId).append($("<p>").text(JSON.stringify(msg)));
+    });
+    socket.on('client_connected', function (newClient) {
+        $('#messages').append($('<li id="li_' + newClient.socketId + '">').append($('<a class="btnPush" href="#">PUSH</a>').click(function () {
+            var client = $(this).data('client');
+            var msg = prompt('Nachrciht', $('#m').val());
+            pushClient(client.socketId, msg);
+        }).data('client', newClient)).append($("<p>").text(JSON.stringify(newClient))));
+    });
+
+    socket.on('client_disconnected', function (socketId) {
+        $('#li_' + socketId).remove();
+    });
+
+    socket.emit('register_admin');
+</script>
+</html>
