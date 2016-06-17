@@ -1,21 +1,29 @@
 ﻿
 var extend = require('extend');
 var base = this;
-var i18n = require('../localization.js').i18n('de');
 
-exports.exec = function (socket, config, dbCon, msg, callBack) {
+exports.exec = function (action, req, callBack) {
+    
+    
+    var method = this[action];
+    method.apply(this, [req, function (result) {
+            
+            result.route = req.params.section;
+            callBack(result);
+        }])
+}
+
+exports.execSocket = function (socket, config, dbCon, msg, callBack) {
     
     this.dbCon = dbCon;
     this.config = config;
     
-    i18n.setLocale(msg.locale);    
-    this.i18n = i18n;
+    var request = extend({}, msg, config, { dbCon: dbCon });
     
-    var request = msg.request;
-  
+    
+    
     var method = this[request.action];
-    method.apply(this, [ request, function (result) {
-       
-            socket.emit(request.action, extend({ }, result, { scopeId: request.scopeId }));
-        }])
+    method.apply(this, [request, function (result) {
+            socket.emit(request.action, result);
+    }])
 }

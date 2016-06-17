@@ -17,6 +17,18 @@
     "typings": "^1.0.4",
     "mobile-detect": "^1.3.2",
     "express": "^4.13.4",
-    "socket.io": "^1.4.6"
+    "socket.io": "^1.4.6",
+    "mysql": "^2.11.1",
+    "knex": "^0.11.5"
+  },
+  "dependencies": {
+    "elasticsearch": "^11.0.1",
+    "html-entities": "^1.2.0",
+    "knex": "^0.11.5",
+    "moment": "^2.13.0",
+    "mysql": "^2.11.1",
+    "q": "^1.4.1",
+    "qx": "^1.0.0",
+    "string": "^3.3.1"
   }
 }

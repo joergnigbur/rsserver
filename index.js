@@ -13,7 +13,7 @@ var io = require('socket.io')(http, {
     'pingTimeout': pingTimeout * 1000,
     'pingInterval': pingInterval * 1000
 });
-s;
+
 app.get('/clients', function (req, res) {
     res.sendFile(__dirname + '/clients.html');
 });

@@ -1,24 +1,12 @@
-﻿/* global instance */
-/* global connection */
-
-//require('./node_modules/knex-mssql/index.js');
-
-var getConnection = function (dbConf) {
-
-    var instance = require('knex')(dbConf);
-    
-    instance.provideConnection = function (req, res, next) {
-
-        req.dbCon = instance;
-        next();
-
+var Knex = require('knex');
+var RsKnexConnection = (function () {
+    function RsKnexConnection(dbConf) {
+        this.connection = Knex(dbConf);
     }
-
-    return instance;
-}
- 
-
-exports.getConnection = getConnection;
-
-
-
+    RsKnexConnection.prototype.getConnection = function () {
+        return this.connection;
+    };
+    return RsKnexConnection;
+})();
+exports.RsKnexConnection = RsKnexConnection;
+//# sourceMappingURL=db.js.map

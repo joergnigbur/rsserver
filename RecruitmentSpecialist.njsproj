@@ -20,21 +20,23 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="clients.html" />
+    <Content Include="config.json" />
     <Content Include="mockClient.html" />
     <Content Include="package.json" />
-    <Compile Include="config.js" />
     <Compile Include="db.js" />
     <Compile Include="esclient.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="index.ts" />
     <Compile Include="localization.js" />
+    <TypeScriptCompile Include="RsKnexConnection.ts" />
+    <TypeScriptCompile Include="RsSocket.ts" />
     <Compile Include="socket.io.js" />
     <Content Include="client\index.html" />
-    <Compile Include="controller\application.js" />
-    <Compile Include="controller\exec.js" />
-    <Compile Include="controller\jobs.js" />
-    <Compile Include="controller\states.js" />
-    <Compile Include="controller\stats.js" />
+    <Compile Include="client\controller\application.js" />
+    <Compile Include="client\controller\exec.js" />
+    <Compile Include="client\controller\jobs.js" />
+    <Compile Include="client\controller\states.js" />
+    <Compile Include="client\controller\stats.js" />
     <Content Include="iisnode\JOERG-PC-11820-stdout-1444164152530.txt" />
     <Content Include="iisnode\index.html" />
     <Compile Include="locales\de.js" />
@@ -58,12 +60,14 @@
     <Content Include="typings\globals\express\typings.json" />
     <Content Include="typings\globals\jasmine\typings.json" />
     <Content Include="typings\globals\jasmine\typings.json" />
+    <Content Include="typings\globals\knex\typings.json" />
     <Content Include="typings\globals\mime\typings.json" />
     <Content Include="typings\globals\mobile-detect\typings.json" />
     <Content Include="typings\globals\mobile-detect\typings.json" />
     <Content Include="typings\globals\node\typings.json" />
     <Content Include="typings\globals\node\typings.json" />
     <Content Include="typings\globals\serve-static\typings.json" />
+    <Content Include="typings\globals\socket.io\typings.json" />
     <Content Include="views\error.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
@@ -86,12 +90,14 @@
     <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\knex\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\mime\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\mobile-detect\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\mobile-detect\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\serve-static\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\socket.io\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +106,7 @@
     <Folder Include="client\js" />
     <Folder Include="client\js\bin" />
     <Folder Include="client\partials" />
-    <Folder Include="controller" />
+    <Folder Include="client\controller\" />
     <Folder Include="iisnode" />
     <Folder Include="index.js.debug" />
     <Folder Include="index.js.debug\node_modules" />
@@ -312,12 +318,14 @@
     <Folder Include="typings\globals\express\" />
     <Folder Include="typings\globals\jasmine\" />
     <Folder Include="typings\globals\jasmine\" />
+    <Folder Include="typings\globals\knex\" />
     <Folder Include="typings\globals\mime\" />
     <Folder Include="typings\globals\mobile-detect\" />
     <Folder Include="typings\globals\mobile-detect\" />
     <Folder Include="typings\globals\node\" />
     <Folder Include="typings\globals\node\" />
     <Folder Include="typings\globals\serve-static\" />
+    <Folder Include="typings\globals\socket.io\" />
     <Folder Include="views" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

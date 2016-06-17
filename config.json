@@ -1,0 +1,36 @@
+﻿{
+  "development": {
+    "env": "dev",
+    "defaultLocale": "de-DE",
+    "db": {
+      "connection": {
+        "host": "www.recruitment-specialist.de",
+        "user": "recruitment",
+        "password": "DykaybUdIEd7",
+        "database": "recruitment"
+      },
+      "client": "mysql"
+    },
+    "errorHandlerOptions": {
+      "dumpExceptions": true,
+      "showStack": true
+    }
+  },
+  "production": {
+    "env": "prod",
+    "defaultLocale": "de-DE",
+    "db": {
+      "connection": {
+        "host": "www.recruitment-specialist.de",
+        "user": "recruitment",
+        "password": "DykaybUdIEd7",
+        "database": "recruitment"
+      },
+      "client": "mysql"
+    },
+    "errorHandlerOptions": {
+      "dumpExceptions": false,
+      "showStack": false
+    }
+  }
+}
