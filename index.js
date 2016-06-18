@@ -13,7 +13,7 @@ var io = require('socket.io')(http, {
     'pingTimeout': pingTimeout * 1000,
     'pingInterval': pingInterval * 1000
 });
-
+s;
 app.get('/clients', function (req, res) {
     res.sendFile(__dirname + '/clients.html');
 });
@@ -193,4 +193,4 @@ console.log("start http.listen...");
 http.listen(config.port, function () {
     console.log('listening on *:' + config.port);
 });
-//#sourceMappingURL=index.js.map
+//# sourceMappingURL=index.js.map

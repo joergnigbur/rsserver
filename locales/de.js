@@ -1,5 +1,5 @@
 {
-	"countryName": "Deutschland",
-	"contryId": 65,
-	"countryId": "countryId"
+ countryName: "Deutschland",
+	contryId: 65,
+	countryId: "countryId"
 }

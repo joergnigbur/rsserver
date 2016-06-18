@@ -30,7 +30,6 @@ declare function setInterval(callback: (...args: any[]) => void, ms: number, ...
 declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
-declare type BufferEncoding = string;
 
 interface NodeRequireFunction {
     (id: string): any;
@@ -72,6 +71,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
 interface Buffer extends NodeBuffer {}
 
 /**
@@ -1903,9 +1903,9 @@ declare module "crypto" {
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding:string): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: string): string;
-        update(data: string, input_encoding:string, output_encoding: string): string;
+        update(data: string, input_encoding: "utf8"|"ascii"|"binary"): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: "binary"|"base64"|"hex"): string;
+        update(data: string, input_encoding: "utf8"|"ascii"|"binary", output_encoding: "binary"|"base64"|"hex"): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
@@ -1915,9 +1915,9 @@ declare module "crypto" {
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding: string): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding:string): string;
-        update(data: string, input_encoding: string, output_encoding:string): string;
+        update(data: string, input_encoding: "binary"|"base64"|"hex"): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: "utf8"|"ascii"|"binary"): string;
+        update(data: string, input_encoding: "binary"|"base64"|"hex", output_encoding: "utf8"|"ascii"|"binary"): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;

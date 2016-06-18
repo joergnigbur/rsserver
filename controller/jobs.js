@@ -102,8 +102,8 @@ function getEsJobsQuery(request) {
                                     "filters": [
                                         {
                                             "term": {
-                                                "active": "1",
-                                                "country_id": "65"
+                                                "active": "1"
+                                                
                                             }
                                         }
                                     ]
