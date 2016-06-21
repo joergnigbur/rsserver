@@ -1,4 +1,3 @@
-"use strict";
 var Socket = require('socket.io');
 var RsSocket = (function () {
     function RsSocket(http, dbCon) {
@@ -14,6 +13,6 @@ var RsSocket = (function () {
         });
     }
     return RsSocket;
-}());
+})();
 exports.RsSocket = RsSocket;
 //# sourceMappingURL=RsSocket.js.map

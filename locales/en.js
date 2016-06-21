@@ -1,3 +1,0 @@
-{
-	"loctable": "loctable"
-}

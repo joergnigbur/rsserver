@@ -254,8 +254,8 @@ function getEsCompanyJobsQuery(request) {
                     }
                 }
             },
-            "size": 1000,
-            "from": 0
+            "size": request.filter.limit,
+            "from": request.filter.from
         }
     }
     return queryObj;
@@ -365,7 +365,7 @@ var dataBind = function (req, row, opts) {
         row.released = moment(row.time).format('DD.MM.YYYY');
     
     var logoPath = '/img/kundenfotos/' + row.cid + '/logo/';
-    var themePath = '/images/' + opts.fileFolder + '/thumbs/' + row.cid + '/' + row.id + '/';
+    var themePath = '/img/kundenfotos/' + row.cid + '/' + row.id+'/';
     var themePathFull = '/images/' + opts.fileFolder + '/' + row.cid + '/' + row.id + '/';
     var videoPath = '/images/' + opts.fileFolder + '/thumbs/' + row.cid + '/video/';
     row['logoUrl'] = '';
@@ -399,8 +399,8 @@ var dataBind = function (req, row, opts) {
         row['sign_url'] = row['foreign_url'];
     
     function searchFile(path, key, typeRgx) {
-        if (fs.existsSync(req.baseDir + path)) {
-            var files = fs.readdirSync(req.baseDir + path);
+        if (fs.existsSync('C:\\xampp\\htdocs\\recspec' + path)) {
+            var files = fs.readdirSync('C:\\xampp\\htdocs\\recspec' + path);
             files.forEach(function (file) {
                 if (file.match(typeRgx) != null) {
                     row[key] = 'http://jnigbur.synology.me' + path + file;
@@ -433,7 +433,7 @@ function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
     
     console.log(jobIds);
     
-    var query = request.dbCon('joblist AS jl').select(['jl.*', 'jl.uniqueid AS cid', 'ag.url AS companyUrl']).join('arbeitgeber AS ag', 'jl.uniqueid', 'ag.id').orderByRaw('jl.is_premium DESC , jl.is_foreign ASC, jl.uniqueid').whereIn('jl.id', jobIds);
+    var query = req.dbCon('joblist AS jl').select(['jl.*', 'jl.uniqueid AS cid', 'ag.url AS companyUrl', 'ag.firma AS name', 'jt.name AS typeName']).join('arbeitgeber AS ag', 'jl.uniqueid', 'ag.id').join('auftraege AS a', 'a.id', 'jl.id').join('jobtypes AS jt', 'jt.id', 'a.jobtyp').orderByRaw('jl.is_premium DESC , jl.is_foreign ASC, jl.uniqueid').whereIn('jl.id', jobIds);
     console.log(query.toString());
     query.then(function (rows) {
         var records = [];
@@ -444,7 +444,7 @@ function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
                     row.firma = additional.groupname;
             }
             row.index = i;
-            dataBind(request, row);
+            dataBind(req, row);
 
         });
         
@@ -454,7 +454,11 @@ function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
 
 
 exports.getCompanyJobList = function (request, callBack) {
-    var query = request.dbCon('arbeitgeber AS ag').select(['ag.*', 'cg.name AS groupname']).leftJoin('company_groups AS cg', 'cg.id', 'ag.company_groupid').where('url', request.filter.keyword).orWhere('cg.name', request.filter.keyword.replace('-', ' ')).orWhere('ag.firma', request.filter.keyword);
+    var query;
+    if (request.filter.companyId)
+        query = request.dbCon('arbeitgeber AS ag').select(['ag.*', 'cg.name AS groupname']).leftJoin('company_groups AS cg', 'cg.id', 'ag.company_groupid').where('ag.id', request.filter.companyId);
+    else
+        query = request.dbCon('arbeitgeber AS ag').select(['ag.*', 'cg.name AS groupname']).leftJoin('company_groups AS cg', 'cg.id', 'ag.company_groupid').where('url', request.filter.keyword).orWhere('cg.name', request.filter.keyword.replace('-', ' ')).orWhere('ag.firma', request.filter.keyword).limit(request.filter.limit).offset(request.filter.from);
     
     query.then(function (rows) {
         
@@ -519,7 +523,7 @@ exports.getJobList = function (request, callBack) {
                     var newC = extend({}, { cid: cItem._id, jobs: [], branches: cbranches }, cItem._source);
                    newC =  dataBind(request, newC);
                     cItem.inner_hits.job.hits.hits.forEach(function (jItem) {
-                        var newJ = extend({}, { id: jItem._id, cid: newC.id }, jItem._source);
+                        var newJ = extend({}, { id: jItem._id, cid: cItem._id }, jItem._source);
                         dataBind(request, newJ);
                         newC.jobs.push(newJ);
                     })

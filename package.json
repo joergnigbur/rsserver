@@ -22,6 +22,7 @@
     "knex": "^0.11.5"
   },
   "dependencies": {
+    "rscommon": "file:///Projekte/RsCommon",
     "elasticsearch": "^11.0.1",
     "html-entities": "^1.2.0",
     "knex": "^0.11.5",

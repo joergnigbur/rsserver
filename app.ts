@@ -30,6 +30,7 @@ new RsSocket(http, dbCon);
 http.listen(3000);
 
 app.use('/img', express.static(__dirname + '/img'));
+app.use('/html', express.static('C:\\xampp\\htdocs\\recspec\\templates'));
 
 app.get('/mobile', function (req, res) {
 

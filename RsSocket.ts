@@ -1,6 +1,6 @@
 ﻿import Socket = require('socket.io');
 import {RsKnexConnection} from './RsKnexConnection';
-
+import {RsResult, RsRequest} from 'RsCommon';
 
 export class RsSocket {
     private io: SocketIO.Server;
