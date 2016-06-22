@@ -103,7 +103,11 @@ function getEsJobsQuery(request) {
                                         {
                                             "term": {
                                                 "active": "1"
-                                                
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "country_id": request.i18n.__('countryId')
                                             }
                                         }
                                     ]
@@ -515,6 +519,7 @@ exports.getJobList = function (request, callBack) {
                 cIds.push(cItem._id);
             })
             
+
             
             request.dbCon('company_branches AS cb').join('branches AS b', 'cb.branch_id', 'b.id').whereIn("cb.company_id", cIds).select('*').then(function (branches) {
                 
@@ -537,10 +542,7 @@ exports.getJobList = function (request, callBack) {
                 callBack({ records: companies, total: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
             
             })
-
-      
-        
-
+            
         });//.exec();
     }
     

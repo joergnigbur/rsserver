@@ -4,6 +4,7 @@
     "core-js": "registry:dt/core-js#0.0.0+20160317120654",
     "express": "registry:dt/express#4.0.0+20160317120654",
     "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
+    "extend": "registry:dt/extend#2.0.0+20160316155526",
     "form-data": "registry:dt/form-data#0.0.0+20160316155526",
     "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
     "knex": "registry:dt/knex#0.0.0+20160613144114",

@@ -19,7 +19,8 @@
     "express": "^4.13.4",
     "socket.io": "^1.4.6",
     "mysql": "^2.11.1",
-    "knex": "^0.11.5"
+    "knex": "^0.11.5",
+      "i18n-2": "^0.6.3"
   },
   "dependencies": {
     "RsCommon": "file:///C:\\Projekte\\RsCommon",

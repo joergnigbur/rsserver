@@ -1,6 +1,7 @@
 /// <reference path="globals/bluebird/index.d.ts" />
 /// <reference path="globals/express-serve-static-core/index.d.ts" />
 /// <reference path="globals/express/index.d.ts" />
+/// <reference path="globals/extend/index.d.ts" />
 /// <reference path="globals/form-data/index.d.ts" />
 /// <reference path="globals/jasmine/index.d.ts" />
 /// <reference path="globals/knex/index.d.ts" />
