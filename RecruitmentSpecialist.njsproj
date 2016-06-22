@@ -33,8 +33,6 @@
     <Compile Include="esclient.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="localization.js" />
-    <Compile Include="RsKnexConnection.js" />
-    <Compile Include="RsSocket.js" />
     <Compile Include="socket.io.js" />
     <Compile Include="controller\application.js" />
     <Compile Include="controller\branches.js" />
@@ -54,6 +52,8 @@
     <Compile Include="controller\translation.js" />
     <Compile Include="models\companies.js" />
     <Compile Include="models\jobs.js" />
+    <TypeScriptCompile Include="typings\globals\form-data\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\request\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
     <Content Include="img\kundenfotos\14844\Logo-end.jpg" />
     <Content Include="img\kundenfotos\158\155_155_Logo_gruen hinterlegt.png" />
@@ -531,12 +531,11 @@
     <Content Include="img\kundenfotos\9808\logo\thumbnail\Logo HSP neu.jpg" />
     <Content Include="typings\globals\bluebird\typings.json" />
     <TypeScriptCompile Include="typings\globals\bluebird\index.d.ts" />
-    <Content Include="typings\globals\core-js\typings.json" />
-    <TypeScriptCompile Include="typings\globals\core-js\index.d.ts" />
     <Content Include="typings\globals\express\typings.json" />
     <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
     <Content Include="typings\globals\express-serve-static-core\typings.json" />
     <TypeScriptCompile Include="typings\globals\express-serve-static-core\index.d.ts" />
+    <Content Include="typings\globals\form-data\typings.json" />
     <Content Include="typings\globals\jasmine\typings.json" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />
     <Content Include="typings\globals\knex\typings.json" />
@@ -549,6 +548,7 @@
     <TypeScriptCompile Include="typings\globals\mysql\index.d.ts" />
     <Content Include="typings\globals\node\typings.json" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
+    <Content Include="typings\globals\request\typings.json" />
     <Content Include="typings\globals\serve-static\typings.json" />
     <TypeScriptCompile Include="typings\globals\serve-static\index.d.ts" />
     <Content Include="typings\globals\socket.io\typings.json" />
@@ -859,15 +859,16 @@
     <Folder Include="typings" />
     <Folder Include="typings\globals" />
     <Folder Include="typings\globals\bluebird" />
-    <Folder Include="typings\globals\core-js" />
     <Folder Include="typings\globals\express" />
     <Folder Include="typings\globals\express-serve-static-core" />
+    <Folder Include="typings\globals\form-data\" />
     <Folder Include="typings\globals\jasmine" />
     <Folder Include="typings\globals\knex" />
     <Folder Include="typings\globals\mime" />
     <Folder Include="typings\globals\mobile-detect" />
     <Folder Include="typings\globals\mysql" />
     <Folder Include="typings\globals\node" />
+    <Folder Include="typings\globals\request\" />
     <Folder Include="typings\globals\serve-static" />
     <Folder Include="typings\globals\socket.io" />
   </ItemGroup>

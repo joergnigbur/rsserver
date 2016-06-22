@@ -403,7 +403,7 @@ var dataBind = function (req, row, opts) {
             var files = fs.readdirSync('C:\\xampp\\htdocs\\recspec' + path);
             files.forEach(function (file) {
                 if (file.match(typeRgx) != null) {
-                    row[key] = 'http://jnigbur.synology.me' + path + file;
+                    row[key] =  path + file;
                 }
             });
         }
@@ -413,6 +413,9 @@ var dataBind = function (req, row, opts) {
     searchFile(themePathFull, 'adthemeFull', /\.(gif|jpe?g|png|bmp)/i);
     searchFile(videoPath, 'video', /\.(mpe?g?4?|avi|movi?e?)/i);
     var themePath = '/img/' + opts.fileFolder + row.cid + '/' + row.id + '/';
+
+    if (row.logoUrl == '')
+        row.logoUrl = '/img/recspecLogo.png';
 
     return row;
 }

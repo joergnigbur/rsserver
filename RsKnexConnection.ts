@@ -4,6 +4,7 @@ export class RsKnexConnection {
 
     private connection: Knex;
 
+
     public getConnection(): Knex {
         return this.connection;
     }

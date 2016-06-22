@@ -1,6 +1,7 @@
 ﻿{
   "development": {
     "env": "dev",
+    "recspec_php_root": "C:\\xampp\\htdocs\\recspec",
     "defaultLocale": "de-DE",
     "db": {
       "connection": {

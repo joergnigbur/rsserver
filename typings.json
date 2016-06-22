@@ -4,12 +4,14 @@
     "core-js": "registry:dt/core-js#0.0.0+20160317120654",
     "express": "registry:dt/express#4.0.0+20160317120654",
     "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
+    "form-data": "registry:dt/form-data#0.0.0+20160316155526",
     "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
     "knex": "registry:dt/knex#0.0.0+20160613144114",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "mobile-detect": "registry:dt/mobile-detect#1.2.0+20160316155526",
     "mysql": "registry:dt/mysql#0.0.0+20160316155526",
     "node": "registry:dt/node#4.0.0+20160509154515",
+    "request": "registry:dt/request#0.0.0+20160524135346",
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
     "socket.io": "registry:dt/socket.io#1.4.4+20160317120654"
   }
