@@ -1,5 +1,14 @@
-[{
+{
+	"name": "de",
 	"countryName": "Deutschland",
-	"contryId": 65,
-	"countryId": "countryId"
-}]
+	"countryId": 65,
+	"loctable": "plz_de",
+	"tables": "Tabellen",
+	"defaultDateFormat": "DD.MM.YYYY",
+	"defaultDatePickerFormat": "dd.mm.yy",
+	"defaultTimeFormat": "HH:mm",
+	"defaultDateTimeFormat": "DD.MM.YYYY hh:mm",
+	"labelDate": "Datum",
+	"labelTime": "Uhrzeit",
+	"locTable": "locTable"
+}

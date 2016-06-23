@@ -28,6 +28,7 @@ export class RsSocket {
                 client = { socket: socket, socketId: socket.id, locale: 'de' };
                 self.clients.push(client);
                 console.log('Socket ' + socket.id + ' connected');
+
             } else {
                 client = self.getClientBySocketId(socket.id);
             }

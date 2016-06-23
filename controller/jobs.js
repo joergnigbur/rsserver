@@ -321,7 +321,7 @@ exports.getCategories = function (request, callBack) {
 
 exports.getJob = function (request, callBack) {
     
-    request.dbCon('auftraege as a').select(['a.*', 'ag.id AS cid', 'ag.*', 'a.id AS jobid']).join('arbeitgeber as ag', 'a.uniqueid', 'ag.id').where('a.id', request.filter.job).then(function (rows) {
+    request.dbCon('auftraege as a').select(['a.*', 'ag.id AS cid', 'ag.*', 'a.id AS jobid', 'jt.name AS typeName']).join('jobtypes AS jt', 'a.jobtyp', 'jt.id').join('arbeitgeber as ag', 'a.uniqueid', 'ag.id').where('a.id', request.filter.job).then(function (rows) {
         if (rows.length > 0) {
             exports.getJobLocations(request, function (locations) {
                 rows[0].locations = locations.records;
@@ -362,7 +362,9 @@ var dataBind = function (req, row, opts) {
     
     if (row.title)
         row['joburl'] = encodeURIComponent('job_' + row.title.split(' ').join('-').replace(/[/-]+/g, '-').toLowerCase() + '-anzeige-' + row.id);
-    
+    else
+        row.title = row.titel;
+
     if (row.is_foreign)
         row['joburl'] = 'ext.php?gotohash=' + row.gotohash;
     if (row.time)
@@ -426,7 +428,7 @@ var dataBind = function (req, row, opts) {
 
 exports.getJobLocations = function (request, callBack) {
     
-    var locTable = request.i18n? request.i18n.t('locTable') : 'plz_de';
+    var locTable = request.i18n? request.i18n.__('locTable') : 'plz_de';
     var query = request.dbCon('auftraege as a').select(['p.stadt', 'p.id', 'p.plz', 'p.latitude', 'p.longitude']).join('job_location as jl', 'a.id', 'jl.jobid').join(locTable + ' as p', 'jl.plzid', 'p.id').where('a.id', request.filter.id).orderBy('p.stadt');
     if (request.filter.limit > 0)
         query.limit(request.filter.limit);
@@ -524,22 +526,33 @@ exports.getJobList = function (request, callBack) {
             request.dbCon('company_branches AS cb').join('branches AS b', 'cb.branch_id', 'b.id').whereIn("cb.company_id", cIds).select('*').then(function (branches) {
                 
                 var companies = [];
+                var jobLocsToFetch = 0;
                 data.hits.hits.forEach(function (cItem) {
                     var cbranches = branches.filter(function (cb) {
                         return cb.company_id == cItem._id;
                     })
                     var newC = extend({}, { cid: cItem._id, jobs: [], branches: cbranches }, cItem._source);
-                   newC =  dataBind(request, newC);
+                    newC = dataBind(request, newC);
+                    jobLocsToFetch += cItem.inner_hits.job.hits.hits.length;
                     cItem.inner_hits.job.hits.hits.forEach(function (jItem) {
                         var newJ = extend({}, { id: jItem._id, cid: cItem._id }, jItem._source);
                         dataBind(request, newJ);
+                        request.filter.id = newJ.id;
+                        request.limit = 1;
+                        exports.getJobLocations(request, function (locations) {
+                            newJ.location = locations.records[0];
+                            jobLocsToFetch--;
+                            if (jobLocsToFetch == 0) {
+                                callBack({ records: companies, total: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
+                            }
+                        })
                         newC.jobs.push(newJ);
                     })
                     companies.push(newC);
          
                 })
                 
-                callBack({ records: companies, total: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
+          
             
             })
             

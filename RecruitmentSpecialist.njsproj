@@ -34,7 +34,6 @@
     <Compile Include="db.js" />
     <Compile Include="esclient.js" />
     <Compile Include="gulpfile.js" />
-    <Compile Include="localization.js" />
     <Compile Include="socket.io.js" />
     <Compile Include="controller\application.js" />
     <Compile Include="controller\branches.js" />
