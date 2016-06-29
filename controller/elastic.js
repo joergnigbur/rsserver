@@ -159,8 +159,8 @@ var getTopTermQuery = function (req, field) {
             },
             "aggs": {
                 "topLocs": {
+                    
                     "significant_terms": {
-                        
                         "field": field
                     }
                 }
@@ -181,7 +181,7 @@ function addDisplayText(response) {
 
 exports.getTopKeywords = function (req, callBack) {
     
-    esClient.search(getTopTermQuery(req, 'job.keywords'), function (error, response) {
+    esClient.search(getTopTermQuery(req, 'keyword-suggest'), function (error, response) {
         
         addDisplayText(response);
         callBack(response.aggregations.topLocs.buckets);

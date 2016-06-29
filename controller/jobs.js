@@ -278,7 +278,7 @@ exports.getKeywords = function (request, callBack) {
         'index': 'recspec',
         'body': {
             "keyword-suggest": {
-                "text": request.filter.keyword,
+                "text": request.filter.searchText,
                 "completion": {
                     "field": "keyword-suggest"
                 }
@@ -294,7 +294,7 @@ exports.getLocations = function (request, callBack) {
         'index': 'recspec',
         'body': {
             "location-suggest": {
-                "text": request.filter.location.name,
+                "text": request.filter.searchText,
                 "completion": {
                     "field": "location-suggest"
                 }
