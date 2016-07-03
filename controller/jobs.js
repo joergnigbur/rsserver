@@ -152,7 +152,7 @@ function getEsJobsQuery(request) {
             queryObj.body.query.has_child.query.filtered.filter.and.filters.push({
                 "geo_distance": {
                     "distance": filter.location.radius + "km",
-                    "locations.latlon": {
+                    "locations.loc": {
                         "lat": filter.location.latitude,
                         "lon": filter.location.longitude
                     }
@@ -446,6 +446,7 @@ function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
     console.log(query.toString());
     query.then(function (rows) {
         var records = [];
+        var jobLocsToFetch = rows.length;
         rows.forEach(function (row, i) {
             
             if (additional) {
@@ -454,12 +455,25 @@ function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
             }
             row.index = i;
             dataBind(req, row);
+         
+        
+                req.filter.id = row.id;
+                exports.getJobLocations(req, function (locations) {
+                    row.location = locations.records[0];
+                    jobLocsToFetch--;
+                    if (jobLocsToFetch == 0) {
+                        callBack({ records: rows, totalcount: totalCount });
+                    }
+                })
+       
 
         });
         
-        callBack({ records: rows, totalcount: totalCount });
+     
     })
 }
+
+
 
 
 exports.getCompanyJobList = function (request, callBack) {
@@ -496,11 +510,18 @@ exports.getCompanyJobList = function (request, callBack) {
                 add.groupname = rows[0].groupname;
             
             getFromElasticResult(request, jobIds, data["hits"]["total"], callBack, add);
+            
+
+
+            
         });
     })
 
 }
-
+exports.getJobsByIdString = function (request, callBack) {
+    var jobIds = request.filter.ids;
+    getFromElasticResult(request, jobIds, jobIds.length, callBack);
+}
 exports.getJobList = function (request, callBack) {
     
     var self = this;
@@ -543,7 +564,7 @@ exports.getJobList = function (request, callBack) {
                             newJ.location = locations.records[0];
                             jobLocsToFetch--;
                             if (jobLocsToFetch == 0) {
-                                callBack({ records: companies, total: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
+                                callBack({ records: companies, totalcount: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
                             }
                         })
                         newC.jobs.push(newJ);
@@ -561,11 +582,11 @@ exports.getJobList = function (request, callBack) {
     
     if (request.filter.location) {
         //request.filter.location = { radius: request.filter.distance };
-        lCtrl.getLocationByName(request, function (res) {
-            request.filter.location.latitude = res.latitude;
-            request.filter.location.longitude = res.longitude;
+       // lCtrl.getLocationByName(request, function (res) {
+         //   request.filter.location.latitude = res.latitude;
+      //      request.filter.location.longitude = res.longitude;
             getJobList(request, callBack);
-        });
+        
         
 
     } else {

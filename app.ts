@@ -22,11 +22,11 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
 
-    
+
     var mDetect: MobileDetect = new md(req.headers['user-agent']);
     app.set('platform', mDetect);
     console.log(mDetect.mobile());
-    
+
     if (!app.get('db')) {
         app.set('db', dbCon);
     }
@@ -51,7 +51,7 @@ new RsSocket(http, dbCon);
 http.listen(3000);
 
 app.use('/', express.static(__dirname + '/RsMobile/www'));
-app.use('/img', express.static(conf.development.recspec_php_root+'\\img'));
+app.use('/img', express.static(conf.development.recspec_php_root + '\\img'));
 
 
 let proxy = new ApacheProxy(app);
