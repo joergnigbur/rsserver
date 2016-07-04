@@ -359,7 +359,9 @@ var dataBind = function (req, row, opts) {
     
     if (row.jobid)
         row['id'] = row.jobid;
-    
+    if (row.titel && !row.title)
+        row.title = row.titel;
+
     if (row.title)
         row['joburl'] = encodeURIComponent('job_' + row.title.split(' ').join('-').replace(/[/-]+/g, '-').toLowerCase() + '-anzeige-' + row.id);
     else
@@ -485,15 +487,12 @@ exports.getCompanyJobList = function (request, callBack) {
     
     query.then(function (rows) {
         
-        
         request.filter.keyword = rows[0].firma;
         if (rows[0].groupname != null && rows[0].groupname != '')
             request.filter.keyword = rows[0].groupname;
         var esQuery = getEsCompanyJobsQuery(request);
         
         esClient.search(esQuery, function (err, data) {
-            
-            //console.log(data)
             
             if (err) {
                 console.log(err);
@@ -511,8 +510,6 @@ exports.getCompanyJobList = function (request, callBack) {
             
             getFromElasticResult(request, jobIds, data["hits"]["total"], callBack, add);
             
-
-
             
         });
     })
