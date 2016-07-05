@@ -24,7 +24,7 @@
     "rscommon": "file://C:/Projekte/RsCommon"
   },
   "dependencies": {
-    "RsCommon": "file:///C:\\Projekte\\RsCommon",
+    
     "elasticsearch": "^11.0.1",
     "form-data": "^1.0.0-rc4",
     "html-entities": "^1.2.0",

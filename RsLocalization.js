@@ -1,6 +1,6 @@
 var moment = require('moment');
-class RsLocalization {
-    constructor() {
+var RsLocalization = (function () {
+    function RsLocalization() {
         this._i18n = new (require('i18n-2'))({
             locales: {
                 'de': {
@@ -40,7 +40,7 @@ class RsLocalization {
             }
         });
     }
-    i18n(locale) {
+    RsLocalization.prototype.i18n = function (locale) {
         this._i18n.formatDate = function (time) {
             return moment(time).format('DD.MM.YYYY');
         };
@@ -52,7 +52,8 @@ class RsLocalization {
         };
         this._i18n.setLocale(locale);
         return this._i18n;
-    }
-}
+    };
+    return RsLocalization;
+})();
 exports.RsLocalization = RsLocalization;
 //# sourceMappingURL=RsLocalization.js.map

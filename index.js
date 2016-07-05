@@ -33,7 +33,7 @@ new RsSocket_1.RsSocket(http, dbCon);
 http.listen(3000);
 app.use('/', express.static(__dirname + '/RsMobile/www'));
 app.use('/img', express.static(conf.development.recspec_php_root + '\\img'));
-let proxy = new apacheproxy_1.ApacheProxy(app);
+var proxy = new apacheproxy_1.ApacheProxy(app);
 proxy.applyAjaxProxy();
 app.get('/mobile', function (req, res) {
     app.use('/', express.static(__dirname + '/RsMobile/platforms/browser/www'));

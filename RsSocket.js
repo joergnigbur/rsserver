@@ -1,13 +1,13 @@
 var Socket = require('socket.io');
 var RsLocalization_1 = require('./RsLocalization');
-class RsSocket {
-    constructor(http, dbCon) {
+var RsSocket = (function () {
+    function RsSocket(http, dbCon) {
         this.clients = [];
         this.i18n = new RsLocalization_1.RsLocalization();
         this.dbCon = dbCon;
         this.io = Socket(http);
         var self = this;
-        this.io.on('connection', socket => {
+        this.io.on('connection', function (socket) {
             var client;
             if (!self.isConnected(socket)) {
                 var locale = socket.client.request.headers.host.match(/\.(de|at|ch)/);
@@ -28,17 +28,18 @@ class RsSocket {
             });
         });
     }
-    isConnected(socket) {
-        return this.clients.filter(openSocket => {
+    RsSocket.prototype.isConnected = function (socket) {
+        return this.clients.filter(function (openSocket) {
             return socket.id == openSocket.socketId;
         }).length > 0;
-    }
-    getClientBySocketId(id) {
-        var sockets = this.clients.filter(openSocket => {
+    };
+    RsSocket.prototype.getClientBySocketId = function (id) {
+        var sockets = this.clients.filter(function (openSocket) {
             return id == openSocket.socketId;
         });
         return sockets.length > 0 ? null : sockets[0];
-    }
-}
+    };
+    return RsSocket;
+})();
 exports.RsSocket = RsSocket;
 //# sourceMappingURL=RsSocket.js.map

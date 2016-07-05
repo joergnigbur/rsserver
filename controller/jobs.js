@@ -398,8 +398,8 @@ var dataBind = function (req, row, opts) {
     
     var logoPath = '/img/kundenfotos/' + row.cid + '/logo/';
     var themePath = '/img/kundenfotos/' + row.cid + '/' + row.id+'/';
-    var themePathFull = '/images/' + opts.fileFolder + '/' + row.cid + '/' + row.id + '/';
-    var videoPath = '/images/' + opts.fileFolder + '/thumbs/' + row.cid + '/video/';
+    var themePathFull = '/img/' + opts.fileFolder + '/' + row.cid + '/' + row.id + '/';
+    var videoPath = '/img/' + opts.fileFolder + '/thumbs/' + row.cid + '/video/';
     row['logoUrl'] = '';
     row['adtheme'] = '';
     row['adthemeFull'] = '';
@@ -424,15 +424,13 @@ var dataBind = function (req, row, opts) {
         }
 
     }
-    //  row.joburl = row.titel.split(' ').join('-').replace(/[-]+/g, '-').toLowerCase();
-    
-    
+  
     if (row.is_foreign)
         row['sign_url'] = row['foreign_url'];
     
     function searchFile(path, key, typeRgx) {
-        if (fs.existsSync('C:\\xampp\\htdocs\\recspec' + path)) {
-            var files = fs.readdirSync('C:\\xampp\\htdocs\\recspec' + path);
+        if (fs.existsSync(__dirname.replace('/node', '').replace('/controller', '') + path)) {
+            var files = fs.readdirSync(__dirname.replace('/node', '').replace('/controller', '') + path);
             files.forEach(function (file) {
                 if (file.match(typeRgx) != null) {
                     row[key] =  path + file;
@@ -446,8 +444,6 @@ var dataBind = function (req, row, opts) {
     searchFile(videoPath, 'video', /\.(mpe?g?4?|avi|movi?e?)/i);
     var themePath = '/img/' + opts.fileFolder + row.cid + '/' + row.id + '/';
 
-    if (row.logoUrl == '')
-        row.logoUrl = '/img/recspecLogo.png';
 
     return row;
 }
@@ -455,7 +451,7 @@ var dataBind = function (req, row, opts) {
 exports.getJobLocations = function (request, callBack) {
     
     var locTable = request.i18n? request.i18n.__('locTable') : 'plz_de';
-    var query = request.dbCon('auftraege as a').select(['p.stadt', 'p.id', 'p.plz', 'p.latitude', 'p.longitude']).join('job_location as jl', 'a.id', 'jl.jobid').join(locTable + ' as p', 'jl.plzid', 'p.id').where('a.id', request.filter.id).orderBy('p.stadt');
+    var query = request.dbCon('auftraege as a').select(['p.stadt', 'p.id', 'p.plz', 'p.latitude', 'p.longitude']).join('job_location as jl', 'a.id', 'jl.jobid').join(locTable + ' as p', 'jl.plzid', 'p.id').where('a.id', request.filter.job ? request.filter.job : request.filter.id).orderBy('p.stadt');
     if (request.filter.limit > 0)
         query.limit(request.filter.limit);
     

@@ -1,12 +1,12 @@
 var express = require('express');
 var request = require('request');
-class ApacheProxy {
-    constructor(app) {
+var ApacheProxy = (function () {
+    function ApacheProxy(app) {
         this.app = app;
         this.router = express.Router();
     }
     ;
-    applyAjaxProxy() {
+    ApacheProxy.prototype.applyAjaxProxy = function () {
         var self = this;
         self.router.get('/ajax/*', function (req, res) {
             var headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
@@ -52,7 +52,8 @@ class ApacheProxy {
             });
         });
         self.app.use(self.router);
-    }
-}
+    };
+    return ApacheProxy;
+})();
 exports.ApacheProxy = ApacheProxy;
 //# sourceMappingURL=apacheproxy.js.map
