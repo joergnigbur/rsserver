@@ -1,4 +1,5 @@
 /// <reference path="globals/bluebird/index.d.ts" />
+/// <reference path="globals/core-js/index.d.ts" />
 /// <reference path="globals/express-serve-static-core/index.d.ts" />
 /// <reference path="globals/express/index.d.ts" />
 /// <reference path="globals/extend/index.d.ts" />

@@ -17,13 +17,15 @@ exports.execSocket = function (socket, config, dbCon, msg, callBack) {
     
     this.dbCon = dbCon;
     this.config = config;
-    
+    this.i18n = config.i18n;
     var request = extend({}, msg, config, { dbCon: dbCon });
     
     
     
     var method = this[request.action];
     method.apply(this, [request, function (result) {
+        if (msg.scopeId)
+            result.scopeId = msg.scopeId;
             socket.emit(request.action, result);
     }])
 }

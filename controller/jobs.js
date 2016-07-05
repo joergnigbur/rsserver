@@ -58,6 +58,7 @@ exports.index = function (req, res) {
 
 function getEsJobsQuery(request) {
     var filter = request.filter;
+    var actDate = moment();
     normalizeFilter(filter);
     var queryObj = {
         "index": "recspec",
@@ -92,6 +93,29 @@ function getEsJobsQuery(request) {
                                                 }, "boost": 9
 
 
+                                            }
+                                        }, {
+                                            "range": {
+                                                "last_update": {
+                                                    "boost": 5,
+                                                    "gte": actDate.format('YYYY-MM-DD') + ' 00:00:00'
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "range": {
+                                                "last_update": {
+                                                    "boost": 4,
+                                                    "gte": actDate.subtract(7, 'days').format('YYYY-MM-DD') + ' 00:00:00'
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "range": {
+                                                "last_update": {
+                                                    "boost": 3,
+                                                    "gte": actDate.subtract(30, 'days').format('YYYY-MM-DD') + ' 00:00:00'
+                                                }
                                             }
                                         }
                                     ]
@@ -278,14 +302,14 @@ exports.getKeywords = function (request, callBack) {
         'index': 'recspec',
         'body': {
             "keyword-suggest": {
-                "text": request.filter.searchText,
+                "text": request.filter.searchText ? request.filter.searchText : request.filter.keyword,
                 "completion": {
                     "field": "keyword-suggest"
                 }
             }
         }
     }, function (err, data) {
-        callBack({ records: data['keyword-suggest'][0]['options'], totalcount: data['keyword-suggest'][0]['options'].length });
+        callBack({ records: data['keyword-suggest'].length > 0 ? data['keyword-suggest'][0]['options'] : [], totalcount: data['keyword-suggest'].length > 0 ? data['keyword-suggest'][0]['options'].length:0 });
     })
 
 }
@@ -294,7 +318,7 @@ exports.getLocations = function (request, callBack) {
         'index': 'recspec',
         'body': {
             "location-suggest": {
-                "text": request.filter.searchText,
+                "text": request.filter.searchText ? request.filter.searchText : request.filter.location,
                 "completion": {
                     "field": "location-suggest"
                 }
@@ -539,19 +563,25 @@ exports.getJobList = function (request, callBack) {
                 cIds.push(cItem._id);
             })
             
+            request.dbCon('arbeitgeber AS ag').select(['ag.id', 'ag.url AS companyUrl']).whereIn("ag.id", cIds).then(function (companies) {
 
             
-            request.dbCon('company_branches AS cb').join('branches AS b', 'cb.branch_id', 'b.id').whereIn("cb.company_id", cIds).select('*').then(function (branches) {
+
+            request.dbCon('company_branches AS cb').join('branches AS b', 'cb.branch_id', 'b.id').select(['*']).whereIn("cb.company_id", cIds).then(function (branches) {
                 
-                var companies = [];
                 var jobLocsToFetch = 0;
                 data.hits.hits.forEach(function (cItem) {
                     var cbranches = branches.filter(function (cb) {
                         return cb.company_id == cItem._id;
                     })
-                    var newC = extend({}, { cid: cItem._id, jobs: [], branches: cbranches }, cItem._source);
-                    newC = dataBind(request, newC);
+                    var newC = companies.filter(function (c) {
+                        return c.id == cItem._id;
+                    })[0];
                     jobLocsToFetch += cItem.inner_hits.job.hits.hits.length;
+
+                    newC = extend(newC, { cid: cItem._id, jobs: [], branches: cbranches, firma:cItem._source.name, uniqueid: cItem._id }, cItem._source);
+                    newC = dataBind(request, newC);
+               
                     cItem.inner_hits.job.hits.hits.forEach(function (jItem) {
                         var newJ = extend({}, { id: jItem._id, cid: cItem._id }, jItem._source);
                         dataBind(request, newJ);
@@ -566,12 +596,11 @@ exports.getJobList = function (request, callBack) {
                         })
                         newC.jobs.push(newJ);
                     })
-                    companies.push(newC);
          
                 })
                 
           
-            
+            })
             })
             
         });//.exec();

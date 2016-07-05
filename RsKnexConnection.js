@@ -1,12 +1,11 @@
 var Knex = require('knex');
-var RsKnexConnection = (function () {
-    function RsKnexConnection(dbConf) {
+class RsKnexConnection {
+    constructor(dbConf) {
         this.connection = Knex(dbConf);
     }
-    RsKnexConnection.prototype.getConnection = function () {
+    getConnection() {
         return this.connection;
-    };
-    return RsKnexConnection;
-})();
+    }
+}
 exports.RsKnexConnection = RsKnexConnection;
 //# sourceMappingURL=RsKnexConnection.js.map

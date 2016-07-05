@@ -2,7 +2,7 @@
 	"name": "de",
 	"countryName": "Deutschland",
 	"countryId": 65,
-	"loctable": "plz_de",
+	"locTable": "plz_de",
 	"tables": "Tabellen",
 	"defaultDateFormat": "DD.MM.YYYY",
 	"defaultDatePickerFormat": "dd.mm.yy",
@@ -10,5 +10,5 @@
 	"defaultDateTimeFormat": "DD.MM.YYYY hh:mm",
 	"labelDate": "Datum",
 	"labelTime": "Uhrzeit",
-	"locTable": "locTable"
+	"loctable": "loctable"
 }

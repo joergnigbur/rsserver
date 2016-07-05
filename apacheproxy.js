@@ -1,12 +1,12 @@
 var express = require('express');
 var request = require('request');
-var ApacheProxy = (function () {
-    function ApacheProxy(app) {
+class ApacheProxy {
+    constructor(app) {
         this.app = app;
         this.router = express.Router();
     }
     ;
-    ApacheProxy.prototype.applyAjaxProxy = function () {
+    applyAjaxProxy() {
         var self = this;
         self.router.get('/ajax/*', function (req, res) {
             var headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
@@ -37,7 +37,7 @@ var ApacheProxy = (function () {
                     data[keyVal[0]] = keyVal[1];
                 });
                 var options = {
-                    url: 'http://localhost.recspec.de' + req.originalUrl,
+                    url: 'http://localhost' + req.originalUrl,
                     method: 'POST',
                     headers: headers,
                     form: data
@@ -52,8 +52,7 @@ var ApacheProxy = (function () {
             });
         });
         self.app.use(self.router);
-    };
-    return ApacheProxy;
-})();
+    }
+}
 exports.ApacheProxy = ApacheProxy;
 //# sourceMappingURL=apacheproxy.js.map

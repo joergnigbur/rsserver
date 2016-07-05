@@ -1,21 +1,24 @@
 ﻿import Socket = require('socket.io');
 import {RsKnexConnection} from './RsKnexConnection';
-import {RsResult, RsRequest} from 'RsCommon';
+import {RsResult, RsRequest} from 'rscommon';
 import {RsLocalization} from './RsLocalization';
 
 interface RsSocketClient {
     socket: SocketIO.Socket;
     socketId: string;
     locale: string;
+    connectedSince: Date;
+   
 }
 
 export class RsSocket {
     private io: SocketIO.Server;
-    private dbCon: RsKnexConnection;
-    private localize: RsLocalization;
+    public dbCon: RsKnexConnection;
+    public i18n: RsLocalization;
     private clients: RsSocketClient[] = [];
+    
     constructor(http, dbCon: RsKnexConnection) {
-        this.localize = new RsLocalization();
+        this.i18n = new RsLocalization();
         this.dbCon = dbCon;
         this.io = Socket(http);
         var self = this;
@@ -24,22 +27,27 @@ export class RsSocket {
             if (!self.isConnected(socket)) {
                 
                 var locale = socket.client.request.headers.host.match(/\.(de|at|ch)/);
-                locale = locale ? locale[0] : 'de';
-                client = { socket: socket, socketId: socket.id, locale: 'de' };
+                locale = locale ? locale[1] : 'de';
+                client = { socket: socket, socketId: socket.id, locale: locale, connectedSince:new Date() };
                 self.clients.push(client);
+
+            
                 console.log('Socket ' + socket.id + ' connected');
 
             } else {
                 client = self.getClientBySocketId(socket.id);
             }
-
+            socket.emit('register', { socketId: socket.id, locale: self.i18n.i18n(locale) });
             socket.on('query', function (data: RsRequest) {
 
+                if (data.request)
+                    data = data.request;
+
                 var controller = require('./controller/' + data.controller);
-                controller.execSocket(socket, { baseDir: __dirname, i18n: self.localize.i18n(client.locale) }, self.dbCon.getConnection(), data);
+                controller.execSocket(socket, { baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
 
             })
-
+            
 
         })
 

@@ -48,7 +48,7 @@ export class ApacheProxy {
                 })
 
                 var options = {
-                    url: 'http://localhost.recspec.de' + req.originalUrl,
+                    url: 'http://localhost' + req.originalUrl,
                     method: 'POST',
                     headers: headers,
                     form: data

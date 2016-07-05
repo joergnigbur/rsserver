@@ -7,7 +7,7 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RecruitmentSpecialist", "Re
 EndProject
 Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "RsMobile", "RsMobile\RsMobile.jsproj", "{8FC43BE0-720C-45E3-BF8A-8FB0F1D09B2C}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RsCommon", "..\RsCommon\RsCommon.njsproj", "{8C331314-DD61-43ED-932F-A5D05746758C}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RsCommon", "RsCommon\RsCommon.njsproj", "{8C331314-DD61-43ED-932F-A5D05746758C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

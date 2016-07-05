@@ -6,7 +6,7 @@
     <ProjectGuid>{fcff14cf-7ef9-4240-8c21-80f369928ae3}</ProjectGuid>
     <ProjectHome />
     <ProjectView>ShowAllFiles</ProjectView>
-    <StartupFile>app.ts</StartupFile>
+    <StartupFile>index.ts</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -26,11 +26,10 @@
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
     <TypeScriptCompile Include="apacheproxy.ts" />
-    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="index.ts" />
     <TypeScriptCompile Include="RsKnexConnection.ts" />
     <TypeScriptCompile Include="RsLocalization.ts" />
     <TypeScriptCompile Include="RsSocket.ts" />
-    <Compile Include="app.js" />
     <Compile Include="db.js" />
     <Compile Include="esclient.js" />
     <Compile Include="gulpfile.js" />
