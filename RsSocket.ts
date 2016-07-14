@@ -17,7 +17,7 @@ export class RsSocket {
     public i18n: RsLocalization;
     private clients: RsSocketClient[] = [];
     
-    constructor(http, dbCon: RsKnexConnection) {
+    constructor(http, dbCon: RsKnexConnection, config:any) {
         this.i18n = new RsLocalization();
         this.dbCon = dbCon;
         this.io = Socket(http);
@@ -44,7 +44,7 @@ export class RsSocket {
                     data = data.request;
 
                 var controller = require('./controller/' + data.controller);
-                controller.execSocket(socket, { baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
+                controller.execSocket(socket, { rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
 
             })
             

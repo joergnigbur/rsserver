@@ -30,6 +30,7 @@
     <TypeScriptCompile Include="RsKnexConnection.ts" />
     <TypeScriptCompile Include="RsLocalization.ts" />
     <TypeScriptCompile Include="RsSocket.ts" />
+    <Compile Include="controller\advices.js" />
     <Compile Include="db.js" />
     <Compile Include="esclient.js" />
     <Compile Include="gulpfile.js" />

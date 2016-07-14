@@ -1,7 +1,7 @@
 var Socket = require('socket.io');
 var RsLocalization_1 = require('./RsLocalization');
 var RsSocket = (function () {
-    function RsSocket(http, dbCon) {
+    function RsSocket(http, dbCon, config) {
         this.clients = [];
         this.i18n = new RsLocalization_1.RsLocalization();
         this.dbCon = dbCon;
@@ -24,7 +24,7 @@ var RsSocket = (function () {
                 if (data.request)
                     data = data.request;
                 var controller = require('./controller/' + data.controller);
-                controller.execSocket(socket, { baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
+                controller.execSocket(socket, { rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
             });
         });
     }

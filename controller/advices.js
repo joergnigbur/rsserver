@@ -8,13 +8,12 @@ exports.exec = function () {
 exports.execSocket = function () {
     execSocket.apply(base, arguments);
 }
-base.parseUrl = function (request, callBack) {
+base.getAdvices = function (request, callBack) {
     
     var query = this.dbCon;
-    
-    query(base.i18n.__('locTable')).select(['stadt', 'url']).where('stadt', decodeURIComponent(request.filter.location)).limit(1).then(function (rows) {
-        if (rows.length == 0)
-            rows = [{ stadt: '' }];
+
+    query('seo').select(['*']).orderBy('time', 'DESC').limit(20).offset(request.filter.from).then(function (rows) {
+        
 
         callBack({ records: rows, totalcount: rows.length });
 

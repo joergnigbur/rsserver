@@ -23,3 +23,22 @@ gulp.task('scripts', function () {
    
  
 })
+
+gulp.task('build', function () {
+
+
+
+    gulp.src('./*.*')
+        .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec\\node'));
+
+    gulp.src('./controller/*.*')
+        .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec\\node\\controller'));
+
+    gulp.src(['./RsMobile/www/**/*.*'])
+        .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec'));
+
+    return gulp.src('./RsMobile/www/index.html')
+        .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec\\build'));
+
+
+})

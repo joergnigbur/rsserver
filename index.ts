@@ -3,9 +3,10 @@ import * as express from 'express';
 import {RsSocket} from './RsSocket';
 import {RsKnexConnection} from './RsKnexConnection';
 import {ApacheProxy} from './apacheproxy';
-
+import * as os from 'os';
 var md = require('mobile-detect');
 var conf = require('./config.json');
+conf = os.hostname().match(/Joerg/) ? conf.development : conf.production;
 
 var app = express();
 
@@ -14,7 +15,7 @@ var app = express();
 import * as Http from 'http';
 var http: Http.Server = Http.createServer(app);
 
-var dbCon: RsKnexConnection = new RsKnexConnection(conf.development.db);
+var dbCon: RsKnexConnection = new RsKnexConnection(conf.db);
 
 
 app.use(function (req, res, next) {
@@ -47,12 +48,11 @@ app.use(function (req, res, next) {
 
 });
 
-new RsSocket(http, dbCon);
+new RsSocket(http, dbCon, conf);
 http.listen(3000);
 
 app.use('/', express.static(__dirname + '/RsMobile/www'));
-app.use('/img', express.static(conf.development.recspec_php_root + '\\img'));
-
+app.use('/img', express.static(conf.rsBaseDir + '\\img'));
 
 let proxy = new ApacheProxy(app);
 proxy.applyAjaxProxy();

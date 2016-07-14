@@ -184,10 +184,10 @@ function getEsJobsQuery(request) {
             })
         } else {
             
-            if (filter.location.name)
+            if (filter.location.stadt)
                 queryObj.body.query.has_child.query.filtered.query.bool.must.push({
                     "match": {
-                        "locations.tag": filter.location.name
+                        "locations.name": filter.location.stadt
                     }
                 });
         }
@@ -274,7 +274,7 @@ function getEsCompanyJobsQuery(request) {
                                 },
                                 {
                                     "term": {
-                                        "country_id": "65"
+                                        "country_id": request.i18n.__('countryId')
                                     }
                                 }
                             ]
@@ -294,8 +294,13 @@ function normalizeFilter(filter) {
         filter.branches.forEach(function (branch) {
             filter.branchIds.push(branch.id);
         })
+
     }
+    if (filter.keyword && filter.location && filter.location.stadt && decodeURIComponent(filter.keyword).toLocaleLowerCase() == filter.location.stadt.toLocaleLowerCase())
+        delete filter.keyword;
 }
+
+
 
 exports.getKeywords = function (request, callBack) {
     esClient.suggest({
@@ -429,8 +434,8 @@ var dataBind = function (req, row, opts) {
         row['sign_url'] = row['foreign_url'];
     
     function searchFile(path, key, typeRgx) {
-        if (fs.existsSync(__dirname.replace('/node', '').replace('/controller', '') + path)) {
-            var files = fs.readdirSync(__dirname.replace('/node', '').replace('/controller', '') + path);
+        if (fs.existsSync(req.rsBaseDir + path)) {
+            var files = fs.readdirSync(req.rsBaseDir + path);
             files.forEach(function (file) {
                 if (file.match(typeRgx) != null) {
                     row[key] =  path + file;
@@ -503,7 +508,7 @@ exports.getCompanyJobList = function (request, callBack) {
     if (request.filter.companyId)
         query = request.dbCon('arbeitgeber AS ag').select(['ag.*', 'cg.name AS groupname']).leftJoin('company_groups AS cg', 'cg.id', 'ag.company_groupid').where('ag.id', request.filter.companyId);
     else
-        query = request.dbCon('arbeitgeber AS ag').select(['ag.*', 'cg.name AS groupname']).leftJoin('company_groups AS cg', 'cg.id', 'ag.company_groupid').where('url', request.filter.keyword).orWhere('cg.name', request.filter.keyword.replace('-', ' ')).orWhere('ag.firma', request.filter.keyword).limit(request.filter.limit).offset(request.filter.from);
+        query = request.dbCon('arbeitgeber AS ag').select(['ag.*', 'cg.name AS groupname']).leftJoin('company_groups AS cg', 'cg.id', 'ag.company_groupid').where('url', request.filter.keyword).orWhere('cg.name', request.filter.keyword.replace('-', ' ')).orWhere('ag.firma', request.filter.keyword);//.limit(request.filter.limit).offset(request.filter.from);
     
     query.then(function (rows) {
         

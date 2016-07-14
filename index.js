@@ -2,12 +2,14 @@ var express = require('express');
 var RsSocket_1 = require('./RsSocket');
 var RsKnexConnection_1 = require('./RsKnexConnection');
 var apacheproxy_1 = require('./apacheproxy');
+var os = require('os');
 var md = require('mobile-detect');
 var conf = require('./config.json');
+conf = os.hostname().match(/Joerg/) ? conf.development : conf.production;
 var app = express();
 var Http = require('http');
 var http = Http.createServer(app);
-var dbCon = new RsKnexConnection_1.RsKnexConnection(conf.development.db);
+var dbCon = new RsKnexConnection_1.RsKnexConnection(conf.db);
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
@@ -29,10 +31,10 @@ app.use(function (req, res, next) {
     */
     next();
 });
-new RsSocket_1.RsSocket(http, dbCon);
+new RsSocket_1.RsSocket(http, dbCon, conf);
 http.listen(3000);
 app.use('/', express.static(__dirname + '/RsMobile/www'));
-app.use('/img', express.static(conf.development.recspec_php_root + '\\img'));
+app.use('/img', express.static(conf.rsBaseDir + '\\img'));
 var proxy = new apacheproxy_1.ApacheProxy(app);
 proxy.applyAjaxProxy();
 app.get('/mobile', function (req, res) {

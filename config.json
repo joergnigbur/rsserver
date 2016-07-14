@@ -1,7 +1,7 @@
 ﻿{
   "development": {
     "env": "dev",
-    "recspec_php_root": "C:\\xampp\\htdocs\\recspec",
+    "rsBaseDir": "C:\\xampp\\htdocs\\recspec",
     "defaultLocale": "de-DE",
     "db": {
       "connection": {
@@ -20,6 +20,7 @@
   "production": {
     "env": "prod",
     "defaultLocale": "de-DE",
+    "rsBaseDir": "/var/www/clients/client0/web1/web",
     "db": {
       "connection": {
         "host": "www.recruitment-specialist.de",
