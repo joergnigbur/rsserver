@@ -22,3 +22,29 @@ base.getAdvices = function (request, callBack) {
    
 }
 
+base.getAdviceByUrl = function (request, callBack) {
+
+    var query = this.dbCon;
+
+    query('seo').select(['*']).where('page', request.filter.url).then(function (rows) {
+
+
+        callBack({ records: rows, totalcount: rows.length });
+
+    })
+
+
+}
+base.getAdvice = function (request, callBack) {
+    
+    var query = this.dbCon;
+
+    query('seo').select(['*']).where('id', request.filter.id).then(function (rows) {
+        
+
+        callBack({ records: rows, totalcount: rows.length });
+
+        })
+  
+   
+}
