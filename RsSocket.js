@@ -1,3 +1,4 @@
+"use strict";
 var Socket = require('socket.io');
 var RsLocalization_1 = require('./RsLocalization');
 var RsSocket = (function () {
@@ -40,6 +41,6 @@ var RsSocket = (function () {
         return sockets.length > 0 ? null : sockets[0];
     };
     return RsSocket;
-})();
+}());
 exports.RsSocket = RsSocket;
 //# sourceMappingURL=RsSocket.js.map

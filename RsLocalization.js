@@ -1,3 +1,4 @@
+"use strict";
 var moment = require('moment');
 var RsLocalization = (function () {
     function RsLocalization() {
@@ -54,6 +55,6 @@ var RsLocalization = (function () {
         return this._i18n;
     };
     return RsLocalization;
-})();
+}());
 exports.RsLocalization = RsLocalization;
 //# sourceMappingURL=RsLocalization.js.map

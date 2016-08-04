@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var RsSocket_1 = require('./RsSocket');
 var RsKnexConnection_1 = require('./RsKnexConnection');

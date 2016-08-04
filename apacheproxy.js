@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var request = require('request');
 var ApacheProxy = (function () {
@@ -54,6 +55,6 @@ var ApacheProxy = (function () {
         self.app.use(self.router);
     };
     return ApacheProxy;
-})();
+}());
 exports.ApacheProxy = ApacheProxy;
 //# sourceMappingURL=apacheproxy.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var Knex = require('knex');
 var RsKnexConnection = (function () {
     function RsKnexConnection(dbConf) {
@@ -7,6 +8,6 @@ var RsKnexConnection = (function () {
         return this.connection;
     };
     return RsKnexConnection;
-})();
+}());
 exports.RsKnexConnection = RsKnexConnection;
 //# sourceMappingURL=RsKnexConnection.js.map
