@@ -455,14 +455,36 @@ var dataBind = function (req, row, opts) {
 
 exports.getJobLocations = function (request, callBack) {
     
+    var jobId = request.filter.job ? request.filter.job : request.filter.id;
     var locTable = request.i18n? request.i18n.__('locTable') : 'plz_de';
-    var query = request.dbCon('auftraege as a').select(['p.stadt', 'p.id', 'p.plz', 'p.latitude', 'p.longitude']).join('job_location as jl', 'a.id', 'jl.jobid').join(locTable + ' as p', 'jl.plzid', 'p.id').where('a.id', request.filter.job ? request.filter.job : request.filter.id).orderBy('p.stadt');
+    var query = request.dbCon('auftraege as a').select(['p.stadt', 'p.id', 'p.plz', 'p.latitude', 'p.longitude']).join('job_location as jl', 'a.id', 'jl.jobid').join(locTable + ' as p', 'jl.plzid', 'p.id').where('a.id', jobId).orderBy('p.stadt');
     if (request.filter.limit > 0)
         query.limit(request.filter.limit);
     
-    query.then(function (rows) {
-        callBack({ records: rows, totalcount: rows.length });
-    });
+    if (request.filter.stadt) {
+        query = "select p.stadt, p.id, p.plz, p.latitude, p.longitude, (CASE  p.stadt WHEN '"+request.filter.stadt+"' THEN 1 ELSE 0 END) AS hit ";
+        query += "from auftraege AS a ";
+        query += "inner join  job_location as  jl on  a.id  =  jl.jobid ";
+        query += "inner join  plz_de as  p on  jl.plzid  =  p.id ";
+        query += "where  a.id  = '"+jobId+"' ";
+        query += "order by hit DESC, p.stadt asc ";
+        query+=" limit 1" ;
+        query = request.dbCon.raw(query);
+        query.then(function (rows) {
+            var retRows = [];
+            rows.forEach(function (row) { 
+                retRows.push(row[0]);
+            })
+            callBack({ records: retRows, totalcount: retRows.length });
+        });
+    } else {
+        query.then(function (rows) {
+            callBack({ records: rows, totalcount: rows.length });
+        });
+    }
+
+    
+   
 
 }
 function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
@@ -587,12 +609,15 @@ exports.getJobList = function (request, callBack) {
                         var newJ = extend({}, { id: jItem._id, cid: cItem._id }, jItem._source);
                         dataBind(request, newJ);
                         request.filter.id = newJ.id;
-                        request.limit = 1;
-                        exports.getJobLocations(request, function (locations) {
+                            request.limit = 1;
+                            if (request.filter.location)
+                                request.filter.stadt = request.filter.location.name;
+                            exports.getJobLocations(request, function (locations) {
                             newJ.location = locations.records[0];
                             jobLocsToFetch--;
                             if (jobLocsToFetch == 0) {
-                                callBack({ records: companies, totalcount: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
+                                    
+                                    callBack({ records: companies, totalcount: data.hits.total, search: { keyword: request.filter.keyword, location: request.filter.location } });
                             }
                         })
                         newC.jobs.push(newJ);

@@ -21,7 +21,7 @@
     "mysql": "^2.11.1",
     "knex": "^0.11.5",
     "i18n-2": "^0.6.3",
-    "rscommon": "file://C:/Projekte/RsCommon"
+    "rscommon": "file://C:/Projekte/RecruitmentSpecialist/RsCommon"
   },
   "dependencies": {
     "elasticsearch": "^11.0.1",
