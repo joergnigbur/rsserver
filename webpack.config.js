@@ -24,7 +24,7 @@ var clientConfig = {
   target: 'web',
   entry: './RsDesktop/app/client',
   output: {
-    path: root('RsDesktop/www')
+    path: root('RsDesktop')
   },
   node: {
     global: true,
@@ -59,7 +59,7 @@ var serverConfig = {
 var defaultConfig = {
   context: __dirname,
   resolve: {
-    root: root('/RsDesktop')
+    root: root('/RsDesktop/www')
   },
   output: {
     publicPath: path.resolve(__dirname),

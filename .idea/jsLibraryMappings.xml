@@ -2,5 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{RecruitmentSpecialist/node_modules}" />
+    <file url="file://$PROJECT_DIR$/RsDesktop" libraries="{RecruitmentSpecialist/RsDesktop/node_modules}" />
   </component>
 </project>
