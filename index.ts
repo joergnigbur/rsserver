@@ -1,68 +1,59 @@
-﻿
+﻿// the polyfills must be the first thing imported in node.js
+import 'angular2-universal/polyfills';
+
+import * as path from 'path';
 import * as express from 'express';
-import {RsSocket} from './RsSocket';
-import {RsKnexConnection} from './RsKnexConnection';
-import {ApacheProxy} from './apacheproxy';
-import * as os from 'os';
-var md = require('mobile-detect');
-var conf = require('./config.json');
-conf = os.hostname().match(/Joerg/) ? conf.development : conf.production;
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 
-var app = express();
+// Angular 2
+import { enableProdMode } from '@angular/core';
+// Angular 2 Universal
+import { expressEngine } from 'angular2-universal';
+
+// enable prod for faster renders
+enableProdMode();
+
+const app = express();
+const ROOT = path.join(__dirname,  "RsDesktop");
+
+// Express View
+app.engine('.html', expressEngine);
+app.set('views', path.join(ROOT, 'src'));
+app.set('view engine', 'html');
+
+app.use(cookieParser('Angular 2 Universal'));
+app.use(bodyParser.json());
+
+// Serve static files
+app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
+app.use(express.static(path.join(ROOT,'www'), {index: false}));
 
 
+import { ngApp } from './RsDesktop/src/main.node';
+// Routes with html5pushstate
+// ensure routes match client-side-app
+app.get('/', ngApp);
+app.get('/about', ngApp);
+app.get('/about/*', ngApp);
+app.get('/home', ngApp);
+app.get('/home/*', ngApp);
 
-import * as Http from 'http';
-var http: Http.Server = Http.createServer(app);
+// use indexFile over ngApp only when there is too much load on the server
+function indexFile(req, res) {
+    // when there is too much load on the server just send
+    // the index.html without prerendering for client-only
+    res.sendFile('/index.html', {root: __dirname});
+}
 
-var dbCon: RsKnexConnection = new RsKnexConnection(conf.db);
-
-
-app.use(function (req, res, next) {
-
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-
-
-    var mDetect: MobileDetect = new md(req.headers['user-agent']);
-    app.set('platform', mDetect);
-    console.log(mDetect.mobile());
-
-    if (!app.get('db')) {
-        app.set('db', dbCon);
-    }
-
-    var cordovaPath = __dirname + "/RsMobile/platforms/browser/www/";
-    if (app.get('platform').os() == 'AndroidOs') {
-        cordovaPath = __dirname + "/RsMobile/platforms/android/www/";
-    }
-    
-
-    /*
-    app.use('/cordova.js', express.static(cordovaPath + 'cordova.js'));
-    app.use('/cordova_plugins.js', express.static(cordovaPath + 'cordova_plugins.js'));
-    app.use('/config.xml', express.static(cordovaPath + 'config.xml'));
-    app.use('/plugins', express.static(cordovaPath + 'plugins'));
-    */
-    next();
-
+app.get('*', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    var pojo = { status: 404, message: 'No Content' };
+    var json = JSON.stringify(pojo, null, 2);
+    res.status(404).send(json);
 });
 
-new RsSocket(http, dbCon, conf);
-http.listen(3000);
-
-app.use('/', express.static(__dirname + '/RsMobile/www'));
-app.use('/img', express.static(conf.rsBaseDir + '\\img'));
-
-let proxy = new ApacheProxy(app);
-proxy.applyAjaxProxy();
-
-app.get('/mobile', function (req, res) {
-
-    app.use('/', express.static(__dirname + '/RsMobile/platforms/browser/www'));
-    res.sendFile(__dirname + '/RsMobile/platforms/browser/www/index.html');
-
+// Server
+let server = app.listen(process.env.PORT || 80, () => {
+    console.log(`Listening on: http://localhost:${server.address().port}`);
 });
-
-
-

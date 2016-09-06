@@ -16,10 +16,8 @@ var ApacheProxy = (function () {
                 method: 'GET',
                 headers: headers
             };
-            // Start the request
             request(options, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    // Print out the response body
                     res.json(JSON.parse(body));
                 }
             });
@@ -43,10 +41,8 @@ var ApacheProxy = (function () {
                     headers: headers,
                     form: data
                 };
-                // Start the request
                 request(options, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
-                        // Print out the response body
                         res.json(JSON.parse(body));
                     }
                 });
