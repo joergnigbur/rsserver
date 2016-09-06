@@ -4,6 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/RsDesktop/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/RsMobile/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/RsMobile/plugins/cordova-plugin-crosswalk-webview/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/platforms" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>

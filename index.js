@@ -14,7 +14,7 @@ app.set('views', path.join(ROOT, 'src'));
 app.set('view engine', 'html');
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
-app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
+app.use('/assets', express.static(path.join(path.join(ROOT, 'src'), 'assets'), { maxAge: 30 }));
 app.use(express.static(path.join(ROOT, 'www'), { index: false }));
 var main_node_1 = require('./RsDesktop/src/main.node');
 app.get('/', main_node_1.ngApp);
@@ -23,7 +23,7 @@ app.get('/about/*', main_node_1.ngApp);
 app.get('/home', main_node_1.ngApp);
 app.get('/home/*', main_node_1.ngApp);
 function indexFile(req, res) {
-    res.sendFile('/index.html', { root: __dirname });
+    res.sendFile('/index.html', { root: path.join(ROOT, 'www') });
 }
 app.get('*', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

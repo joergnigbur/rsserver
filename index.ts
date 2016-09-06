@@ -26,9 +26,8 @@ app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
 // Serve static files
-app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
+app.use('/assets', express.static(path.join(path.join(ROOT, 'src'), 'assets'), {maxAge: 30}));
 app.use(express.static(path.join(ROOT,'www'), {index: false}));
-
 
 import { ngApp } from './RsDesktop/src/main.node';
 // Routes with html5pushstate
@@ -43,7 +42,7 @@ app.get('/home/*', ngApp);
 function indexFile(req, res) {
     // when there is too much load on the server just send
     // the index.html without prerendering for client-only
-    res.sendFile('/index.html', {root: __dirname});
+    res.sendFile('/index.html', {root: path.join(ROOT,'www')});
 }
 
 app.get('*', function(req, res) {
