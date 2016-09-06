@@ -109,9 +109,7 @@ var App = (function () {
             moduleId: module.i,
             template: __webpack_require__(10),
             selector: 'app',
-            directives: [
-                router_1.ROUTER_DIRECTIVES
-            ]
+            directives: router_1.ROUTER_DIRECTIVES.slice()
         }), 
         __metadata('design:paramtypes', [])
     ], App);
@@ -155,7 +153,7 @@ function ngApp(req, res) {
             angular2_universal_1.NODE_LOCATION_PROVIDERS
         ],
         async: true,
-        preboot: { appRoot: 'app' }
+        preboot: false
     };
     res.render('index', config);
 }
@@ -285,14 +283,14 @@ var core_1 = __webpack_require__(0);
 var angular2_universal_1 = __webpack_require__(1);
 core_1.enableProdMode();
 var app = express();
-var ROOT = path.join(path.resolve(__dirname));
+var ROOT = path.join(path.resolve(__dirname, 'RsDesktop'));
 app.engine('.html', angular2_universal_1.expressEngine);
-app.set('views', path.join(__dirname, 'www/build'));
+app.set('views', path.join(ROOT, 'src'));
 app.set('view engine', 'html');
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
-app.use('/assets', express.static(path.join(__dirname + '/src', 'assets'), { maxAge: 30 }));
-app.use(express.static(path.join(ROOT, 'www/build'), { index: false }));
+app.use('/assets', express.static(path.join(ROOT, 'src/assets'), { maxAge: 30 }));
+app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 var main_node_1 = __webpack_require__(4);
 app.get('/', main_node_1.ngApp);
 app.get('/about', main_node_1.ngApp);
@@ -300,7 +298,7 @@ app.get('/about/*', main_node_1.ngApp);
 app.get('/home', main_node_1.ngApp);
 app.get('/home/*', main_node_1.ngApp);
 function indexFile(req, res) {
-    res.sendFile('/index.html', { root: path.join(__dirname, 'www/build') });
+    res.sendFile('/index.html', { root: path.join(ROOT, 'src') });
 }
 app.get('*', function (req, res) {
     res.setHeader('Content-Type', 'application/json');

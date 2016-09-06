@@ -24,7 +24,7 @@ var clientConfig = {
   target: 'web',
   entry: './RsDesktop/src/client',
   output: {
-    path: root('RsDesktop/www/build')
+    path: root('RsDesktop/www')
   },
   node: {
     global: true,
