@@ -24,7 +24,7 @@ var clientConfig = {
   target: 'web',
   entry: './RsDesktop/src/client',
   output: {
-    path: root('RsDesktop/www')
+    path: root('RsDesktop/dist/client')
   },
   node: {
     global: true,
@@ -38,11 +38,11 @@ var clientConfig = {
 
 var serverConfig = {
   target: 'node',
-  entry: './RsDesktop/server', // use the entry file of the node server if everything is ts rather than es5
+  entry: './server', // use the entry file of the node server if everything is ts rather than es5
   output: {
-    path: root('/'),
+    path: root('./RsDesktop/dist/server'),
     libraryTarget: 'commonjs2',
-    filename: 'server.js'
+    filename: 'index.js'
   },
   externals: checkNodeImport,
   node: {
