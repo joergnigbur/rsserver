@@ -1,14 +1,17 @@
-﻿import Socket = require('socket.io');
+﻿
+import socketIO = require('socket.io');
+
 import {RsKnexConnection} from './RsKnexConnection';
 import {RsResult, RsRequest} from 'rscommon';
 import {RsLocalization} from './RsLocalization';
+import {RsSycProvider} from './RsSycProvider';
 
 interface RsSocketClient {
-    socket: SocketIO.Socket;
+    socket: SocketIO.Socket,
     socketId: string;
     locale: string;
     connectedSince: Date;
-   
+
 }
 
 export class RsSocket {
@@ -16,22 +19,27 @@ export class RsSocket {
     public dbCon: RsKnexConnection;
     public i18n: RsLocalization;
     private clients: RsSocketClient[] = [];
+    private socketIds = [];
     
-    constructor(http, dbCon: RsKnexConnection, config:any) {
+    constructor(server, dbCon: RsKnexConnection, config:any) {
         this.i18n = new RsLocalization();
         this.dbCon = dbCon;
-        this.io = Socket(http);
+        this.io = socketIO().attach(server);
         var self = this;
+        var sycProvider = new RsSycProvider();
+        
+        sycProvider.syncList("clients", this.socketIds);
+
         this.io.on('connection', socket => {
             var client: RsSocketClient;
             if (!self.isConnected(socket)) {
-                
+                sycProvider.connect(socket);
                 var locale = socket.client.request.headers.host.match(/\.(de|at|ch)/);
                 locale = locale ? locale[1] : 'de';
-                client = { socket: socket, socketId: socket.id, locale: locale, connectedSince:new Date() };
+                client = { socket: socket, socketId: socket.id, locale: locale, connectedSince:new Date()  };
                 self.clients.push(client);
+                self.socketIds.push(socket.id);
 
-            
                 console.log('Socket ' + socket.id + ' connected');
 
             } else {
@@ -47,8 +55,19 @@ export class RsSocket {
                 controller.execSocket(socket, { rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
 
             })
-            
+            socket.on('sycRequest', function (requestName: string) {
+;
 
+                var controller = require('./controller/syc.js');
+
+                controller.execSocket(socket, { action: requestName, rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), {});
+
+            })
+            socket.on("disconnect", socket => {
+
+                self.socketIds.splice(self.socketIds.indexOf(socket.id), 1);
+
+            })
         })
 
     }

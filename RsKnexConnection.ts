@@ -1,11 +1,11 @@
 ﻿
-import * as Knex from 'knex';
+var  Knex = require('knex');
 export class RsKnexConnection {
 
-    private connection: Knex;
+    private connection;
 
 
-    public getConnection(): Knex {
+    public getConnection() {
         return this.connection;
     }
         

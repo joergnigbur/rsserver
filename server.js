@@ -1,412 +1,36 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-
-
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// identity function for calling harmory imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-
-/******/ 	// define getter function for harmory exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
-/******/ 	};
-
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "C:\\Projekte\\RecruitmentSpecialist";
-
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 22);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports) {
-
-module.exports = require("@angular/core");
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-module.exports = require("angular2-universal");
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
 "use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(3);
-var card_1 = __webpack_require__(19);
-var headbar_component_1 = __webpack_require__(14);
-var socket_service_1 = __webpack_require__(17);
-var About = (function () {
-    function About() {
-    }
-    return About;
-}());
-exports.About = About;
-var App = (function () {
-    function App(service) {
-        var self = this;
-    }
-    App = __decorate([
-        core_1.Component({
-            moduleId: module.i,
-            template: __webpack_require__(10),
-            selector: 'app',
-            directives: router_1.ROUTER_DIRECTIVES.concat([
-                card_1.MdCard,
-                headbar_component_1.Headbar
-            ]),
-            providers: [socket_service_1.SocketService]
-        }),
-        __param(0, core_1.Inject(socket_service_1.SocketService)), 
-        __metadata('design:paramtypes', [Object])
-    ], App);
-    return App;
-}());
-exports.App = App;
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-module.exports = require("@angular/router");
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var angular2_universal_1 = __webpack_require__(1);
-var router_1 = __webpack_require__(3);
-var common_1 = __webpack_require__(18);
-var app_component_1 = __webpack_require__(2);
-var app_routes_1 = __webpack_require__(13);
-function ngApp(req, res) {
-    var baseUrl = '/';
-    var url = req.originalUrl || '/';
-    var config = {
-        directives: [
-            app_component_1.App
-        ],
-        platformProviders: [
-            { provide: angular2_universal_1.ORIGIN_URL, useValue: 'http://localhost' },
-            { provide: common_1.APP_BASE_HREF, useValue: baseUrl },
-        ],
-        providers: [
-            { provide: angular2_universal_1.REQUEST_URL, useValue: url },
-            angular2_universal_1.NODE_HTTP_PROVIDERS,
-            router_1.provideRouter(app_routes_1.routes),
-            angular2_universal_1.NODE_LOCATION_PROVIDERS
-        ],
-        async: true,
-        preboot: { appRoot: 'app' }
-    };
-    res.render('index', config);
-}
-exports.ngApp = ngApp;
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-module.exports = require("angular2-universal/polyfills");
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-module.exports = require("body-parser");
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-module.exports = require("cookie-parser");
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-module.exports = require("express");
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-module.exports = require("path");
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-module.exports = "<md-card>\n  <headbar></headbar>\n  <router-outlet></router-outlet>\n</md-card>\n"
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-module.exports = "<md-toolbar class=\"fill\">\n\n  <h2>Titel</h2>\n\n  <md-toolbar-row>\n    <div class=\"fill\">Was ?</div>\n    <div class=\"fill\">Wo? </div>\n  </md-toolbar-row>\n\n</md-toolbar>\n\n"
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-module.exports = "<md-card>\n  Startseite\n</md-card>\n\n"
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var home_1 = __webpack_require__(16);
-var app_component_1 = __webpack_require__(2);
-exports.routes = [
-    { path: '', component: home_1.Home },
-    { path: 'about', component: app_component_1.About },
-    { path: '**', redirectTo: 'home' }
-];
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(0);
-var toolbar_1 = __webpack_require__(20);
-var Headbar = (function () {
-    function Headbar() {
-    }
-    Headbar = __decorate([
-        core_1.Component({
-            moduleId: module.i,
-            selector: 'headbar',
-            template: __webpack_require__(11),
-            directives: [toolbar_1.MdToolbar]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], Headbar);
-    return Headbar;
-}());
-exports.Headbar = Headbar;
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(0);
-var Home = (function () {
-    function Home() {
-    }
-    Home = __decorate([
-        core_1.Component({
-            moduleId: module.i,
-            selector: 'home',
-            template: __webpack_require__(12)
-        }), 
-        __metadata('design:paramtypes', [])
-    ], Home);
-    return Home;
-}());
-exports.Home = Home;
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-__export(__webpack_require__(15));
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(0);
-var io = __webpack_require__(21);
-var SocketService = (function () {
-    function SocketService() {
-        if (!SocketService.socket)
-            SocketService.socket = io(window.location.host.replace(/:[0-9]+/, ''));
-    }
-    SocketService.prototype.request = function (controller, action, filter) {
-        var reqObj = { controller: controller, action: action, filter: filter };
-        var req = SocketService.socket.emit('query', reqObj);
-        return new Promise(function (resolve) {
-            req.on(action, function (data) {
-                resolve(data);
-            });
-        });
-    };
-    SocketService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], SocketService);
-    return SocketService;
-}());
-exports.SocketService = SocketService;
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-module.exports = require("@angular/common");
-
-/***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-module.exports = require("@angular2-material/card");
-
-/***/ },
-/* 20 */
-/***/ function(module, exports) {
-
-module.exports = require("@angular2-material/toolbar");
-
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-module.exports = require("socket.io-client");
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
-__webpack_require__(5);
-var path = __webpack_require__(9);
-var express = __webpack_require__(8);
-var bodyParser = __webpack_require__(6);
-var cookieParser = __webpack_require__(7);
-var core_1 = __webpack_require__(0);
-var angular2_universal_1 = __webpack_require__(1);
+require('angular2-universal/polyfills');
+var path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var RsSocket_1 = require('./RsSocket');
+var RsKnexConnection_1 = require('./RsKnexConnection');
+var core_1 = require('@angular/core');
+var angular2_universal_1 = require('angular2-universal');
 core_1.enableProdMode();
 var app = express();
 var ROOT = path.join(path.resolve(__dirname));
+var AppROOT = path.join(path.resolve(__dirname), 'RsDesktop');
 app.engine('.html', angular2_universal_1.expressEngine);
-app.set('views', path.join(ROOT, 'src'));
+app.set('views', path.join(AppROOT, 'src'));
 app.set('view engine', 'html');
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
-app.use('/assets', express.static(path.join(ROOT, 'src/assets'), { maxAge: 30 }));
-app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
-var main_node_1 = __webpack_require__(4);
+app.use('/assets', express.static(path.join(AppROOT, 'src/assets'), { maxAge: 30 }));
+app.use(express.static(path.join(AppROOT, 'dist/client'), { index: false }));
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+});
+var main_node_1 = require('./RsDesktop/src/main.node');
 app.get('/', main_node_1.ngApp);
 app.get('/about', main_node_1.ngApp);
 app.get('/about/*', main_node_1.ngApp);
 app.get('/home', main_node_1.ngApp);
 app.get('/home/*', main_node_1.ngApp);
 function indexFile(req, res) {
-    res.sendFile('/index.html', { root: path.join(ROOT, 'src') });
+    res.sendFile('/index.html', { root: path.join(AppROOT, 'src') });
 }
 app.get('*', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -417,8 +41,7 @@ app.get('*', function (req, res) {
 var server = app.listen(process.env.PORT || 80, function () {
     console.log("Listening on: http://localhost:" + server.address().port);
 });
-
-/* WEBPACK VAR INJECTION */}.call(exports, "RsDesktop"))
-
-/***/ }
-/******/ ]);
+var conf = require('./config.json');
+var dbCon = new RsKnexConnection_1.RsKnexConnection(conf.development.db);
+new RsSocket_1.RsSocket(server, dbCon, {});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VydmVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsic2VydmVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQSxRQUFPLDhCQUE4QixDQUFDLENBQUE7QUFFdEMsSUFBWSxJQUFJLFdBQU0sTUFBTSxDQUFDLENBQUE7QUFDN0IsSUFBWSxPQUFPLFdBQU0sU0FBUyxDQUFDLENBQUE7QUFDbkMsSUFBWSxVQUFVLFdBQU0sYUFBYSxDQUFDLENBQUE7QUFDMUMsSUFBWSxZQUFZLFdBQU0sZUFBZSxDQUFDLENBQUE7QUFDOUMseUJBQXVCLFlBQVksQ0FBQyxDQUFBO0FBQ3BDLGlDQUErQixvQkFBb0IsQ0FBQyxDQUFBO0FBR3BELHFCQUErQixlQUFlLENBQUMsQ0FBQTtBQUUvQyxtQ0FBOEIsb0JBQW9CLENBQUMsQ0FBQTtBQUduRCxxQkFBYyxFQUFFLENBQUM7QUFFakIsSUFBTSxHQUFHLEdBQUcsT0FBTyxFQUFFLENBQUM7QUFDdEIsSUFBTSxJQUFJLEdBQUcsSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxDQUFDLENBQUM7QUFDaEQsSUFBTSxPQUFPLEdBQUcsSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxFQUFFLFdBQVcsQ0FBQyxDQUFDO0FBR2hFLEdBQUcsQ0FBQyxNQUFNLENBQUMsT0FBTyxFQUFFLGtDQUFhLENBQUMsQ0FBQztBQUNuQyxHQUFHLENBQUMsR0FBRyxDQUFDLE9BQU8sRUFBRSxJQUFJLENBQUMsSUFBSSxDQUFDLE9BQU8sRUFBRSxLQUFLLENBQUMsQ0FBQyxDQUFDO0FBQzVDLEdBQUcsQ0FBQyxHQUFHLENBQUMsYUFBYSxFQUFFLE1BQU0sQ0FBQyxDQUFDO0FBRy9CLEdBQUcsQ0FBQyxHQUFHLENBQUMsWUFBWSxDQUFDLHFCQUFxQixDQUFDLENBQUMsQ0FBQztBQUM3QyxHQUFHLENBQUMsR0FBRyxDQUFDLFVBQVUsQ0FBQyxJQUFJ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
