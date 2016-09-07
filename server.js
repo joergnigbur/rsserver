@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "C:\\Projekte\\RecruitmentSpecialist";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,8 +92,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(3);
+var card_1 = __webpack_require__(19);
+var headbar_component_1 = __webpack_require__(14);
+var socket_service_1 = __webpack_require__(17);
 var About = (function () {
     function About() {
     }
@@ -101,7 +107,7 @@ var About = (function () {
 }());
 exports.About = About;
 var App = (function () {
-    function App() {
+    function App(service) {
         var self = this;
     }
     App = __decorate([
@@ -109,9 +115,14 @@ var App = (function () {
             moduleId: module.i,
             template: __webpack_require__(10),
             selector: 'app',
-            directives: router_1.ROUTER_DIRECTIVES.slice()
-        }), 
-        __metadata('design:paramtypes', [])
+            directives: router_1.ROUTER_DIRECTIVES.concat([
+                card_1.MdCard,
+                headbar_component_1.Headbar
+            ]),
+            providers: [socket_service_1.SocketService]
+        }),
+        __param(0, core_1.Inject(socket_service_1.SocketService)), 
+        __metadata('design:paramtypes', [Object])
     ], App);
     return App;
 }());
@@ -132,9 +143,9 @@ module.exports = require("@angular/router");
 "use strict";
 var angular2_universal_1 = __webpack_require__(1);
 var router_1 = __webpack_require__(3);
-var common_1 = __webpack_require__(15);
+var common_1 = __webpack_require__(18);
 var app_component_1 = __webpack_require__(2);
-var app_routes_1 = __webpack_require__(12);
+var app_routes_1 = __webpack_require__(13);
 function ngApp(req, res) {
     var baseUrl = '/';
     var url = req.originalUrl || '/';
@@ -153,7 +164,7 @@ function ngApp(req, res) {
             angular2_universal_1.NODE_LOCATION_PROVIDERS
         ],
         async: true,
-        preboot: false
+        preboot: { appRoot: 'app' }
     };
     res.render('index', config);
 }
@@ -194,32 +205,71 @@ module.exports = require("path");
 /* 10 */
 /***/ function(module, exports) {
 
-module.exports = "<div>\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<md-card>\n  <headbar></headbar>\n  <router-outlet></router-outlet>\n</md-card>\n"
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"home\">\r\n  This is the \"Home\" page\r\n</div>\r\n"
+module.exports = "<md-toolbar class=\"fill\">\n\n  <h2>Titel</h2>\n\n  <md-toolbar-row>\n    <div class=\"fill\">Was ?</div>\n    <div class=\"fill\">Wo? </div>\n  </md-toolbar-row>\n\n</md-toolbar>\n\n"
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+module.exports = "<md-card>\n  Startseite\n</md-card>\n\n"
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
-var home_1 = __webpack_require__(14);
+var home_1 = __webpack_require__(16);
 var app_component_1 = __webpack_require__(2);
 exports.routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: home_1.Home },
+    { path: '', component: home_1.Home },
     { path: 'about', component: app_component_1.About },
     { path: '**', redirectTo: 'home' }
 ];
 
 
 /***/ },
-/* 13 */
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var toolbar_1 = __webpack_require__(20);
+var Headbar = (function () {
+    function Headbar() {
+    }
+    Headbar = __decorate([
+        core_1.Component({
+            moduleId: module.i,
+            selector: 'headbar',
+            template: __webpack_require__(11),
+            directives: [toolbar_1.MdToolbar]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], Headbar);
+    return Headbar;
+}());
+exports.Headbar = Headbar;
+
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -241,7 +291,7 @@ var Home = (function () {
         core_1.Component({
             moduleId: module.i,
             selector: 'home',
-            template: __webpack_require__(11)
+            template: __webpack_require__(12)
         }), 
         __metadata('design:paramtypes', [])
     ], Home);
@@ -251,7 +301,7 @@ exports.Home = Home;
 
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -259,17 +309,75 @@ exports.Home = Home;
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-__export(__webpack_require__(13));
+__export(__webpack_require__(15));
 
 
 /***/ },
-/* 15 */
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = __webpack_require__(0);
+var io = __webpack_require__(21);
+var SocketService = (function () {
+    function SocketService() {
+        if (!SocketService.socket)
+            SocketService.socket = io(window.location.host.replace(/:[0-9]+/, ''));
+    }
+    SocketService.prototype.request = function (controller, action, filter) {
+        var reqObj = { controller: controller, action: action, filter: filter };
+        var req = SocketService.socket.emit('query', reqObj);
+        return new Promise(function (resolve) {
+            req.on(action, function (data) {
+                resolve(data);
+            });
+        });
+    };
+    SocketService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], SocketService);
+    return SocketService;
+}());
+exports.SocketService = SocketService;
+
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 module.exports = require("@angular/common");
 
 /***/ },
-/* 16 */
+/* 19 */
+/***/ function(module, exports) {
+
+module.exports = require("@angular2-material/card");
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+module.exports = require("@angular2-material/toolbar");
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+module.exports = require("socket.io-client");
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -283,7 +391,7 @@ var core_1 = __webpack_require__(0);
 var angular2_universal_1 = __webpack_require__(1);
 core_1.enableProdMode();
 var app = express();
-var ROOT = path.join(path.resolve(__dirname, 'RsDesktop'));
+var ROOT = path.join(path.resolve(__dirname));
 app.engine('.html', angular2_universal_1.expressEngine);
 app.set('views', path.join(ROOT, 'src'));
 app.set('view engine', 'html');
