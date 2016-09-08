@@ -4,9 +4,7 @@
     "experimentalDecorators": true,
     "target": "es5",
     "module": "commonjs",
-    "removeComments": true,
-    "sourceMap": true,
-    "inlineSourceMap": true
+    "removeComments": true
   },
   "compileOnSave": false,
   "buildOnSave": false,

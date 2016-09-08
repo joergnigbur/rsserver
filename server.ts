@@ -18,7 +18,7 @@ enableProdMode();
 
 const app = express();
 const ROOT = path.join(path.resolve(__dirname));
-const AppROOT = path.join(path.resolve(__dirname), 'RsDesktop');
+const AppROOT = path.join(path.resolve(__dirname, '..'), 'RsDesktop');
 
 // Express View
 app.engine('.html', expressEngine);
@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
 })
 
 
-import { ngApp } from './RsDesktop/src/main.node';
+import { ngApp } from '../RsDesktop/src/main.node';
 // Routes with html5pushstate
 // ensure routes match client-side-app
 app.get('/', ngApp);

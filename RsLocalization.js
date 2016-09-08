@@ -15,7 +15,7 @@ var RsLocalization = (function () {
                     'defaultTimeFormat': 'HH:mm',
                     'defaultDateTimeFormat': 'DD.MM.YYYY hh:mm',
                     'labelDate': 'Datum',
-                    'labelTime': 'Uhrzeit',
+                    'labelTime': 'Uhrzeit'
                 },
                 'at': {
                     'name': 'at',
@@ -26,7 +26,7 @@ var RsLocalization = (function () {
                     'defaultDateFormat': 'DD.MM.YYYY',
                     'defaultDatePickerFormat': 'dd.mm.yy',
                     'defaultTimeFormat': 'HH:mm',
-                    'defaultDateTimeFormat': 'DD.MM.YYYY hh:mm',
+                    'defaultDateTimeFormat': 'DD.MM.YYYY hh:mm'
                 }, 'ch': {
                     'name': 'ch',
                     'countryName': 'Schweiz',
@@ -36,7 +36,7 @@ var RsLocalization = (function () {
                     'defaultDateFormat': 'DD.MM.YYYY',
                     'defaultDatePickerFormat': 'dd.mm.yy',
                     'defaultTimeFormat': 'H:mm',
-                    'defaultDateTimeFormat': 'DD.MM.YYYY hh:mm',
+                    'defaultDateTimeFormat': 'DD.MM.YYYY hh:mm'
                 }
             }
         });
@@ -57,4 +57,3 @@ var RsLocalization = (function () {
     return RsLocalization;
 }());
 exports.RsLocalization = RsLocalization;
-//# sourceMappingURL=RsLocalization.js.map

@@ -1,0 +1,12 @@
+{
+  "name": "rsdesktop",
+  "dependencies": {},
+  "devDependencies": {},
+  "ambientDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
+    "node": "registry:dt/node#6.0.0+20160831021119"
+  },
+  "globalDependencies": {
+    "node": "registry:dt/node#6.0.0+20160831021119"
+  }
+}

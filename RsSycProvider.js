@@ -12,4 +12,3 @@ var RsSycProvider = (function () {
     return RsSycProvider;
 }());
 exports.RsSycProvider = RsSycProvider;
-//# sourceMappingURL=RsSycProvider.js.map
