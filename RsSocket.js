@@ -57,3 +57,4 @@ var RsSocket = (function () {
     return RsSocket;
 }());
 exports.RsSocket = RsSocket;
+//# sourceMappingURL=RsSocket.js.map

@@ -6,7 +6,10 @@
     "module": "commonjs",
     "removeComments": true
   },
-  "compileOnSave": false,
+  "files":[
+    "./server.ts"
+  ],
+  "compileOnSave": true,
   "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }
 }

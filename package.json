@@ -34,7 +34,7 @@
     "mysql": "^2.11.1",
     "knex": "^0.11.5",
     "i18n-2": "^0.6.3",
-    "rscommon": "file://C:/Projekte/RecruitmentSpecialist/RsCommon",
+
     "webpack": "^2.1.0-beta.20",
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-merge": "^0.13.0",
@@ -71,12 +71,11 @@
     "mysql": "^2.11.1",
     "parse5": "^1.5.0",
     "preboot": "^2.1.2",
+    "rscommon": "file://C:/Projekte/RecruitmentSpecialist/RsCommon",
     "q": "^1.4.1",
     "qx": "^1.0.0",
     "request": "^2.72.0",
     "rxjs": "5.0.0-beta.6",
-    "socket-io": "0.0.0",
-    "socket.io": "^1.4.8",
     "string": "^3.3.1",
     "syc": "2.0.5",
     "zone.js": "0.6.12"

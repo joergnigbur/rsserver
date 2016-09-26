@@ -43,15 +43,6 @@ app.use(function (req, res, next) {
 })
 
 
-import { ngApp } from '../RsDesktop/src/main.node';
-// Routes with html5pushstate
-// ensure routes match client-side-app
-app.get('/', ngApp);
-app.get('/about', ngApp);
-app.get('/about/*', ngApp);
-app.get('/home', ngApp);
-app.get('/home/*', ngApp);
-
 // use indexFile over ngApp only when there is too much load on the server
 function indexFile(req, res) {
   // when there is too much load on the server just send

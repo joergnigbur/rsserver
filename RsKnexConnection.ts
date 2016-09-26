@@ -1,5 +1,5 @@
 ﻿
-var  Knex = require('knex');
+import * as  Knex from 'knex';
 export class RsKnexConnection {
 
     private connection;

@@ -24,12 +24,6 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "*");
     next();
 });
-var main_node_1 = require('../RsDesktop/src/main.node');
-app.get('/', main_node_1.ngApp);
-app.get('/about', main_node_1.ngApp);
-app.get('/about/*', main_node_1.ngApp);
-app.get('/home', main_node_1.ngApp);
-app.get('/home/*', main_node_1.ngApp);
 function indexFile(req, res) {
     res.sendFile('/index.html', { root: path.join(AppROOT, 'src') });
 }

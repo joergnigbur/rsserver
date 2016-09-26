@@ -196,7 +196,7 @@ exports.getToplocations = function (req, callBack) {
     esClient.search(getTopTermQuery(req, 'job.locations.name'), function (error, response) {
         
         addDisplayText(response);
-        callBack(response.aggregations.topLocs.buckets);
+        callBack({records: response.aggregations.topLocs.buckets, total: response.aggregations.topLocs.buckets.length});
         
     })
 }
