@@ -10,4 +10,3 @@ var RsKnexConnection = (function () {
     return RsKnexConnection;
 }());
 exports.RsKnexConnection = RsKnexConnection;
-//# sourceMappingURL=RsKnexConnection.js.map

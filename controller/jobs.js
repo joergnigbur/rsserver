@@ -392,7 +392,7 @@ var dataBind = function (req, row, opts) {
         row.title = row.titel;
 
     if (row.title)
-        row['joburl'] = encodeURIComponent('job_' + row.title.split(' ').join('-').replace(/[/-]+/g, '-').toLowerCase() + '-anzeige-' + row.id);
+        row['joburl'] = 'job/'+ encodeURIComponent( row.title.split(' ').join('-').replace(/[/-]+/g, '-').toLowerCase() + '-anzeige-' + row.id);
     else
         row.title = row.titel;
 

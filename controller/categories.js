@@ -16,8 +16,8 @@ exports.getCategories = function (req, callBack) {
     req.dbCon('jobtypes').select('*').then(function (records){
         
             records.forEach(function (jobType) {
-
-            jobType.key = jobType.url;
+            jobType.url = "jobs/"+jobType.name.toLowerCase();
+            jobType.key = jobType.name.toLowerCase();
             jobType.displayText = jobType.name;
         })
         callBack({records: records, total:records.length});

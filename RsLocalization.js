@@ -57,4 +57,3 @@ var RsLocalization = (function () {
     return RsLocalization;
 }());
 exports.RsLocalization = RsLocalization;
-//# sourceMappingURL=RsLocalization.js.map

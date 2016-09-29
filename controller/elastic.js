@@ -174,6 +174,7 @@ function addDisplayText(response) {
     response.aggregations.topLocs.buckets.forEach(function (bucket) {
         var F = bucket.key.charAt(0).toUpperCase();
         var f = bucket.key.charAt(0).toLowerCase();
+        bucket.url = 'jobs/in/'+ bucket.key.toLowerCase();
         bucket.displayText = F + bucket.key.substr(1);
         bucket.key = bucket.key.toLowerCase();
     })
