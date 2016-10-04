@@ -1,5 +1,5 @@
 ﻿
-import socketIO = require('socket.io');
+import * as socketIO from 'socket.io';
 
 import {RsKnexConnection} from './RsKnexConnection';
 import {RsResult, RsRequest} from 'rscommon';
@@ -21,16 +21,24 @@ export class RsSocket {
     private clients: RsSocketClient[] = [];
     private socketIds = [];
     
-    constructor(server, dbCon: RsKnexConnection, config:any) {
+    constructor(sharedSession, session, server, dbCon: RsKnexConnection, config:any) {
         this.i18n = new RsLocalization();
         this.dbCon = dbCon;
         this.io = socketIO().attach(server);
         var self = this;
         var sycProvider = new RsSycProvider();
-        
-        sycProvider.syncList("clients", this.socketIds);
+
+        this.io.use(sharedSession(session, {
+            autoSave:true
+        }));
 
         this.io.on('connection', socket => {
+
+
+            var sessionIst = socket.handshake['session'];
+
+            console.log(sessionIst);
+
             var client: RsSocketClient;
             if (!self.isConnected(socket)) {
                 sycProvider.connect(socket);
@@ -52,15 +60,15 @@ export class RsSocket {
                     data = data.request;
 
                 var controller = require('./controller/' + data.controller);
-                controller.execSocket(socket, { rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
+                controller.execSocket(socket, { session: sessionIst, rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
 
             })
             socket.on('sycRequest', function (requestName: string) {
-;
+
 
                 var controller = require('./controller/syc.js');
 
-                controller.execSocket(socket, { action: requestName, rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), {});
+                controller.execSocket(socket, { session: sessionIst, action: requestName, rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), {});
 
             })
             socket.on("disconnect", socket => {

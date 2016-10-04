@@ -1,15 +1,35 @@
 ﻿{
   "compilerOptions": {
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
     "module": "commonjs",
-    "removeComments": true
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "sourceMap": true,
+    "sourceRoot": "src",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "types": [
+      "body-parser",
+      "compression",
+      "cookie-parser",
+      "express",
+      "express-serve-static-core",
+      "mime",
+      "node",
+      "serve-static",
+      "hammerjs",
+      "express-session"
+    ]
   },
-  "files":[
-    "./server.ts"
+  "exclude": [
+    "node_modules",
+    "server.ts",
+    "RsCommon",
+    "typings"
   ],
-  "compileOnSave": true,
+  "compileOnSave": false,
   "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }
 }
