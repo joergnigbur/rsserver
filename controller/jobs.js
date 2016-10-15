@@ -438,7 +438,7 @@ var dataBind = function (req, row, opts) {
             var files = fs.readdirSync(req.rsBaseDir + path);
             files.forEach(function (file) {
                 if (file.match(typeRgx) != null) {
-                    row[key] =  path + file;
+                    row[key] = req.rsImgServer + path + file;
                 }
             });
         }
@@ -447,7 +447,7 @@ var dataBind = function (req, row, opts) {
     searchFile(themePath, 'adtheme', /\.(gif|jpe?g|png|bmp)/i);
     searchFile(themePathFull, 'adthemeFull', /\.(gif|jpe?g|png|bmp)/i);
     searchFile(videoPath, 'video', /\.(mpe?g?4?|avi|movi?e?)/i);
-    var themePath = '/img/' + opts.fileFolder + row.cid + '/' + row.id + '/';
+    var themePath =  '/img/' + opts.fileFolder + row.cid + '/' + row.id + '/';
 
 
     return row;

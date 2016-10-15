@@ -5,31 +5,20 @@
     "experimentalDecorators": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist",
     "sourceMap": true,
-    "sourceRoot": "src",
+    "sourceRoot": "",
+    "outDir": "dist",
     "target": "es5",
-    "lib": ["es6", "dom"],
-    "types": [
-      "body-parser",
-      "compression",
-      "cookie-parser",
-      "express",
-      "express-serve-static-core",
-      "mime",
-      "node",
-      "serve-static",
-      "hammerjs",
-      "express-session"
+    "typeRoots": [
+      "node_modules/@types"
     ]
   },
   "exclude": [
-    "node_modules",
-    "server.ts",
-    "RsCommon",
-    "typings"
+    "node_modules"
   ],
-  "compileOnSave": false,
+  "compileOnSave": true,
   "buildOnSave": false,
-  "atom": { "rewriteTsconfig": false }
+  "atom": {
+    "rewriteTsconfig": false
+  }
 }

@@ -32,12 +32,12 @@ export class RsSocket {
             autoSave:true
         }));
 
-        this.io.on('connection', socket => {
+        this.io.on('connection', socket=> {
 
 
             var sessionIst = socket.handshake['session'];
 
-            console.log(sessionIst);
+         //   console.log(sessionIst);
 
             var client: RsSocketClient;
             if (!self.isConnected(socket)) {
@@ -53,22 +53,22 @@ export class RsSocket {
             } else {
                 client = self.getClientBySocketId(socket.id);
             }
-            socket.emit('register', { socketId: socket.id, locale: self.i18n.i18n(locale) });
+           // socket.emit('register', { socketId: socket.id, locale: self.i18n.i18n(locale) });
             socket.on('query', function (data: RsRequest) {
 
                 if (data.request)
                     data = data.request;
 
-                var controller = require('./controller/' + data.controller);
-                controller.execSocket(socket, { session: sessionIst, rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
+                var controller = require('../../controller/' + data.controller);
+                controller.execSocket(socket, { session: sessionIst, rsBaseDir: config.rsBaseDir, rsImgServer: config.rsImgServer, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
 
             })
             socket.on('sycRequest', function (requestName: string) {
 
 
-                var controller = require('./controller/syc.js');
+                var controller = require('./../controller/syc.js');
 
-                controller.execSocket(socket, { session: sessionIst, action: requestName, rsBaseDir: config.rsBaseDir, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), {});
+                controller.execSocket(socket, { session: sessionIst, action: requestName, rsBaseDir: config.rsBaseDir,rsImgServer: config.rsImgServer,  baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), {});
 
             })
             socket.on("disconnect", socket => {

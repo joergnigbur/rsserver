@@ -13,6 +13,16 @@ exports.execSocket = function () {
     execSocket.apply(this, arguments);
 }
 
+
+function normalize(user){
+    delete user.pic;
+    delete user.email_rep;
+    delete user.tel_rep;
+    delete user.passwort_rep;
+    delete user.role;
+    delete user.bdate;
+}
+
 function findByEmail(req, callBack) {
     req.dbCon("studenten").select("id").where("email", req.filter.email).then(function (result) {
         callBack(result);
@@ -50,7 +60,7 @@ exports.loginUser = function (req, callBack) {
             req.session.user = result[0];
             req.session.user.role = 'jobber';
 
-            bindPicture(req, req.session.user);
+            bindFiles(req, req.session.user);
             req.session.save();
 
             console.log(req.session.user);
@@ -88,7 +98,7 @@ function persistPicture(req, pic) {
 }
 
 function searchFile( path, typeRgx) {
-    var foundFile;
+    var foundFiles = [];
     if (fs.existsSync(path)) {
         var files = fs.readdirSync(path);
 
@@ -96,15 +106,14 @@ function searchFile( path, typeRgx) {
             if (file.match(typeRgx) != null) {
                 var found = {name: file, src:  path +'/'+ file};
                 console.log('FOUND FILE', found);
-                foundFile = found;
-                return;
+                foundFiles.push(found);
             }
         });
     }
-    return foundFile;
+    return foundFiles;
 }
 
-function bindPicture(req, user) {
+function bindFiles(req, user) {
 
 
 
@@ -113,14 +122,35 @@ function bindPicture(req, user) {
     var pic = searchFile(path, /\.(gif|jpe?g|png|bmp)/i);
 
 
-    if (pic && fs.existsSync(pic.src)) {
-        var buffer = fs.readFileSync(pic.src);
-        pic.src = 'data:image/gif;base64,'+ buffer.toString('base64')
-            user.pic = pic;
+    if (pic.length > 0 && fs.existsSync(pic[0].src)) {
+        var buffer = fs.readFileSync(pic[0].src);
+        pic[0].src = 'data:image/gif;base64,'+ buffer.toString('base64');
+            user.pic = pic[0];
     }
+    path = req.rsBaseDir + '/img/users/' + user.id+ '/pdf';
+    var pdfs = searchFile(path, /\.(pdf)/i);
+    user.pdfs = [];
+
+    if (pdfs.length > 0) {
+        pdfs.forEach(function (pdf) {
+            if(fs.existsSync(pdf.src)) {
+
+                pdf.src = req.rsImgServer + 'img/users/' + user.id+ '/pdf/' + pdf.name;
+                user.pdfs.push(pdf);
+            }
+        })
+    }
+
 
 }
 
+
+exports.saveUser = function(req, callBack){
+    var pic = Object.assign({}, req.filter.pic);
+    normalize(req.filter);
+    console.log('update', req.filter);
+    req.dbCon("studenten").update(req.filter).where("id", req.filter.id).then(callBack);
+}
 
 
 exports.registerUser = function (req, callBack) {
@@ -135,10 +165,7 @@ exports.registerUser = function (req, callBack) {
 
             req.filter.passwort = md5(req.filter.passwort);
             var pic = Object.assign({}, req.filter.pic);
-            delete req.filter.pic;
-            delete req.filter.email_rep;
-            delete req.filter.tel_rep;
-            delete req.filter.passwort_rep;
+            normalize(req.filter);
             req.dbCon("studenten").insert(req.filter).then(function (result) {
                 console.log(result);
                 req.session.user = req.filter;
