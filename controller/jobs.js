@@ -298,6 +298,14 @@ function normalizeFilter(filter) {
     }
     if (filter.keyword && filter.location && filter.location.stadt && decodeURIComponent(filter.keyword).toLocaleLowerCase() == filter.location.stadt.toLocaleLowerCase())
         delete filter.keyword;
+
+    if(filter.keyword)
+        filter.keyword = filter.keyword.toLowerCase();
+
+    if(filter.location.stadt){
+        var fC = filter.location.stadt.slice(0,1).toUpperCase();
+        filter.location.stadt = fC + filter.location.stadt.slice(1, filter.location.stadt.length).toLowerCase();
+    }
 }
 
 

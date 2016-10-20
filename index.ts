@@ -1,2 +1,2 @@
 ﻿
-var server =  require('../RsDesktop/dist/server/index.js');
+var server =  require('../rsdesktop/dist/server/index.js');

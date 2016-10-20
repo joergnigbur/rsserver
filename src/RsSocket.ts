@@ -11,6 +11,7 @@ interface RsSocketClient {
     socketId: string;
     locale: string;
     connectedSince: Date;
+    session: any;
 
 }
 
@@ -44,7 +45,7 @@ export class RsSocket {
                 sycProvider.connect(socket);
                 var locale = socket.client.request.headers.host.match(/\.(de|at|ch)/);
                 locale = locale ? locale[1] : 'de';
-                client = { socket: socket, socketId: socket.id, locale: locale, connectedSince:new Date()  };
+                client = { socket: socket, socketId: socket.id, locale: locale, connectedSince:new Date() , session: sessionIst };
                 self.clients.push(client);
                 self.socketIds.push(socket.id);
 
@@ -60,6 +61,16 @@ export class RsSocket {
                     data = data.request;
 
                 var controller = require('../../controller/' + data.controller);
+                controller.pushToClient = function(clientObj, msgObj){
+                    self.clients.filter(client=>{
+                        var idField = clientObj.role == 'jobber' ? 'jobber_id' : 'company_id'
+                        return client.session.user && client.session.user.role == clientObj.role && client.session.user.id == clientObj[idField];
+                    }).forEach(function(client){
+                        client.socket.emit('pushMessage', msgObj);
+                    });
+
+
+                }
                 controller.execSocket(socket, { session: sessionIst, rsBaseDir: config.rsBaseDir, rsImgServer: config.rsImgServer, baseDir: __dirname, i18n: self.i18n.i18n(client.locale) }, self.dbCon.getConnection(), data);
 
             })

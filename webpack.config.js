@@ -22,9 +22,9 @@ var commonConfig = {
 
 var clientConfig = {
   target: 'web',
-  entry: './RsDesktop/src/client',
+  entry: './rsdesktop/src/client',
   output: {
-    path: root('RsDesktop/dist/client')
+    path: root('rsdesktop/dist/client')
   },
   node: {
     global: true,
@@ -40,7 +40,7 @@ var serverConfig = {
   target: 'node',
   entry: './server', // use the entry file of the node server if everything is ts rather than es5
   output: {
-    path: root('./RsDesktop/dist/server'),
+    path: root('./rsdesktop/dist/server'),
     libraryTarget: 'commonjs2',
     filename: 'index.js'
   },
@@ -60,7 +60,7 @@ var serverConfig = {
 var defaultConfig = {
   context: __dirname,
   resolve: {
-    root: root('/RsDesktop/www')
+    root: root('/rsdesktop/www')
   },
   output: {
     publicPath: path.resolve(__dirname),

@@ -2,24 +2,61 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fa0c599-be6d-47ab-9bd6-4f4497cb7ff3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/src/config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/server.ts" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RsSycProvider.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RsSycProvider.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/apacheproxy.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server.ts" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/RsFileupload.js" afterPath="$PROJECT_DIR$/src/RsFileupload.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/RsKnexConnection.ts" afterPath="$PROJECT_DIR$/src/RsKnexConnection.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/RsLocalization.ts" afterPath="$PROJECT_DIR$/src/RsLocalization.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/RsSocket.ts" afterPath="$PROJECT_DIR$/src/RsSocket.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/RsSycProvider.ts" afterPath="$PROJECT_DIR$/src/RsSycProvider.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controller/messages.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RsCommon" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RecruitmentSpecialist.sln" afterPath="$PROJECT_DIR$/RecruitmentSpecialist.sln" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/application.js" afterPath="$PROJECT_DIR$/controller/application.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/companies.js" afterPath="$PROJECT_DIR$/controller/companies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/exec.js" afterPath="$PROJECT_DIR$/controller/exec.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/jobber.js" afterPath="$PROJECT_DIR$/controller/jobber.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/jobs.js" afterPath="$PROJECT_DIR$/controller/jobs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/upload.js" afterPath="$PROJECT_DIR$/controller/upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app.node.module.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app.node.module.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/app.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/app.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/app.routes.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/app.routes.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/category-links/category-links.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/category-links/category-links.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/editable/editable-listitem.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/editable/editable-listitem.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/filemanager/filemanager.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/filemanager/filemanager.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/headbar/headbar.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/headbar/headbar.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/linkbox/linkbox.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/linkbox/linkbox.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/titlebar/titlebar.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/components/titlebar/titlebar.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/directives/equal-validator.directive.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/directives/equal-validator.directive.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/account/account.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/account/account.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/account/company/account-company.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/account/company/account-company.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/account/jobber/account-jobber.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/account/jobber/account-jobber.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/home/home.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/home/home.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/job/job.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/job/job.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/jobs/jobs.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/jobs/jobs.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/login/login.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/login/login.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/register/register.component.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/pages/register/register.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/services/jobs.service.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/services/jobs.service.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/services/upload.service.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/services/upload.service.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsDesktop/src/app/services/user.service.js.map" afterPath="$PROJECT_DIR$/dist/RsDesktop/src/app/services/user.service.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/index.js" afterPath="$PROJECT_DIR$/dist/RsServer/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/index.js.map" afterPath="$PROJECT_DIR$/dist/RsServer/index.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/src/RsKnexConnection.js.map" afterPath="$PROJECT_DIR$/dist/RsServer/src/RsKnexConnection.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/src/RsLocalization.js.map" afterPath="$PROJECT_DIR$/dist/RsServer/src/RsLocalization.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/src/RsSocket.js.map" afterPath="$PROJECT_DIR$/dist/RsServer/src/RsSocket.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/src/RsSycProvider.js.map" afterPath="$PROJECT_DIR$/dist/RsServer/src/RsSycProvider.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/src/server.js" afterPath="$PROJECT_DIR$/dist/RsServer/src/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/RsServer/src/server.js.map" afterPath="$PROJECT_DIR$/dist/RsServer/src/server.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.js" afterPath="$PROJECT_DIR$/dist/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.js.map" afterPath="$PROJECT_DIR$/dist/index.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/RsKnexConnection.js.map" afterPath="$PROJECT_DIR$/dist/src/RsKnexConnection.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/RsLocalization.js.map" afterPath="$PROJECT_DIR$/dist/src/RsLocalization.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/RsSocket.js" afterPath="$PROJECT_DIR$/dist/src/RsSocket.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/RsSocket.js.map" afterPath="$PROJECT_DIR$/dist/src/RsSocket.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/RsSycProvider.js.map" afterPath="$PROJECT_DIR$/dist/src/RsSycProvider.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/server.js" afterPath="$PROJECT_DIR$/dist/src/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/src/server.js.map" afterPath="$PROJECT_DIR$/dist/src/server.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.ts" afterPath="$PROJECT_DIR$/index.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tsconfig.json" afterPath="$PROJECT_DIR$/tsconfig.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RsSocket.ts" afterPath="$PROJECT_DIR$/src/RsSocket.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/server.ts" afterPath="$PROJECT_DIR$/src/server.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="RecruitmentSpecialist.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,17 +79,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="application.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/application.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="95" column="47" selection-start-line="95" selection-start-column="47" selection-end-line="95" selection-end-column="47" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#103#132#0" expanded="true" />
-                <element signature="e#277#319#0" expanded="true" />
-                <element signature="e#2935#2971#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="340">
+              <caret line="102" column="7" selection-start-line="102" selection-start-column="7" selection-end-line="102" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="exec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/exec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="369">
+              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RsSocket.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dist/src/RsSocket.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,30 +122,58 @@
       <file leaf-file-name="RsSocket.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RsSocket.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="61" column="48" selection-start-line="61" selection-start-column="48" selection-end-line="61" selection-end-column="48" />
-              <folding>
-                <element signature="e#1#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="9" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="9" />
+            <state relative-caret-position="199">
+              <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsconfig.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <file leaf-file-name="upload.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/upload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            <state relative-caret-position="323">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jobs.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/jobs.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-23">
+              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jobber.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/jobber.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="236" column="0" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="companies.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/companies.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="13" column="15" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controller/messages.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -97,18 +187,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/RsDesktop/app/app.component.ts" />
-        <option value="$PROJECT_DIR$/RsDesktop/config.xml" />
-        <option value="$PROJECT_DIR$/RsMobile/typings/index.d.ts" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
-        <option value="$PROJECT_DIR$/RsDesktop/src/main.node.ts" />
-        <option value="fs.js" />
-        <option value="$PROJECT_DIR$/RsDesktop/src/client.ts" />
-        <option value="$PROJECT_DIR$/RsDesktop/src/main.browser.ts" />
-        <option value="$PROJECT_DIR$/RsMobile/typings.json" />
-        <option value="$PROJECT_DIR$/RsMobile/tsconfig.json" />
-        <option value="$PROJECT_DIR$/nodemon.json" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/RsDesktop/src/theme/app.core.scss" />
         <option value="$PROJECT_DIR$/RsDesktop/nodemon.json" />
         <option value="$PROJECT_DIR$/RsDesktop/src/app/home/home.style.scss" />
@@ -131,23 +209,35 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/index.ts" />
         <option value="$PROJECT_DIR$/../RsDesktop/src/main.node.js" />
-        <option value="$PROJECT_DIR$/controller/companies.js" />
         <option value="$PROJECT_DIR$/controller/categories.js" />
-        <option value="$PROJECT_DIR$/controller/jobs.js" />
         <option value="$PROJECT_DIR$/RsFileupload.ts" />
         <option value="$PROJECT_DIR$/RsFileupload.js" />
-        <option value="$PROJECT_DIR$/controller/upload.js" />
-        <option value="$PROJECT_DIR$/controller/exec.js" />
         <option value="$PROJECT_DIR$/RsSocket.ts" />
-        <option value="$PROJECT_DIR$/controller/jobber.js" />
         <option value="$PROJECT_DIR$/RsKnexConnection.ts" />
         <option value="$PROJECT_DIR$/server.ts" />
-        <option value="$PROJECT_DIR$/tsconfig.json" />
         <option value="_stream_readable.js" />
-        <option value="$PROJECT_DIR$/dist/src/RsSocket.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/RsSocket.ts" />
+        <option value="$PROJECT_DIR$/tsconfig.json" />
+        <option value="$PROJECT_DIR$/dist/src/RsSocket.js" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app/app.component.js.map" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app/app.routes.js.map" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app/components/category-links/category-links.component.js.map" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app/components/editable/editable-listitem.component.js.map" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app/components/filemanager/filemanager.component.js.map" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app/components/headbar/headbar.component.js.map" />
+        <option value="$PROJECT_DIR$/dist/RsDesktop/src/app.node.module.js.map" />
+        <option value="$PROJECT_DIR$/RecruitmentSpecialist.sln" />
+        <option value="$PROJECT_DIR$/controller/jobs.js" />
+        <option value="$PROJECT_DIR$/controller/locations.js" />
+        <option value="$PROJECT_DIR$/dist/src/server.js" />
+        <option value="$PROJECT_DIR$/controller/upload.js" />
+        <option value="$PROJECT_DIR$/controller/jobber.js" />
         <option value="$PROJECT_DIR$/src/server.ts" />
+        <option value="$PROJECT_DIR$/controller/application.js" />
+        <option value="$PROJECT_DIR$/controller/companies.js" />
+        <option value="$PROJECT_DIR$/controller/exec.js" />
+        <option value="$PROJECT_DIR$/src/RsSocket.ts" />
+        <option value="$PROJECT_DIR$/controller/messages.js" />
       </list>
     </option>
   </component>
@@ -168,10 +258,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
-    <option name="y" value="19" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -204,31 +294,45 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="RsServer" />
+              <option name="myItemId" value="rsserver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="RsServer" />
+              <option name="myItemId" value="rsserver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="RsServer" />
+              <option name="myItemId" value="rsserver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="RsServer" />
+              <option name="myItemId" value="rsserver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="RsServer" />
+              <option name="myItemId" value="rsserver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rsserver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rsserver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -237,7 +341,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../rsdesktop" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
@@ -246,16 +350,16 @@
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Projekte\RecruitmentSpecialist\RsServer\src" />
-      <recent name="C:\Projekte\RecruitmentSpecialist\RsDesktop\src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projekte\RecruitmentSpecialist\rsserver\controller" />
       <recent name="C:\Projekte\RecruitmentSpecialist\RsServer\dist\src" />
       <recent name="C:\Projekte\RecruitmentSpecialist\RsServer" />
       <recent name="C:\Projekte\RecruitmentSpecialist\RsServer\controller" />
       <recent name="C:\Projekte\RecruitmentSpecialist" />
-      <recent name="C:\Projekte\RecruitmentSpecialist\RsDesktop\www" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projekte\RecruitmentSpecialist\RsServer\src" />
+      <recent name="C:\Projekte\RecruitmentSpecialist\RsDesktop\src" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Node Server">
@@ -388,35 +492,45 @@
       <workItem from="1476539839081" duration="2530000" />
       <workItem from="1476543751593" duration="186000" />
       <workItem from="1476545768718" duration="10453000" />
-      <workItem from="1476560754798" duration="600000" />
+      <workItem from="1476560754798" duration="2529000" />
+      <workItem from="1476568967182" duration="4802000" />
+      <workItem from="1476651035303" duration="614000" />
+      <workItem from="1476672878560" duration="1857000" />
+      <workItem from="1476674791868" duration="13763000" />
+      <workItem from="1476692530931" duration="10000" />
+      <workItem from="1476900584617" duration="1582000" />
+      <workItem from="1476930220198" duration="4698000" />
+      <workItem from="1476936759738" duration="44000" />
+      <workItem from="1476941452053" duration="7597000" />
+      <workItem from="1476953666825" duration="26916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89882000" />
+    <option name="totallyTimeSpent" value="153694000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="19" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34826428" sideWeight="0.40952957" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24969843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34669557" sideWeight="0.39726028" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21812434" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31578946" sideWeight="0.57599515" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3672806" sideWeight="0.5068493" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.49758744" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31578946" sideWeight="0.42400482" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.49525815" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27193934" sideWeight="0.33561644" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3488624" sideWeight="0.42096943" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3488624" sideWeight="0.4130664" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38353196" sideWeight="0.41570073" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3672806" sideWeight="0.49315068" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49367756" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -479,93 +593,54 @@
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/controller/jobber.js</url>
-          <line>38</line>
-          <option name="timeStamp" value="82" />
+          <url>file://$PROJECT_DIR$/controller/upload.js</url>
+          <line>11</line>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controller/companies.js</url>
+          <line>10</line>
+          <properties />
+          <option name="timeStamp" value="200" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/RsSocket.ts</url>
-          <line>37</line>
-          <option name="timeStamp" value="87" />
+          <line>71</line>
+          <properties />
+          <option name="timeStamp" value="231" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/RsSocket.ts</url>
-          <line>55</line>
-          <option name="timeStamp" value="88" />
+          <url>file://$PROJECT_DIR$/controller/messages.js</url>
+          <line>21</line>
+          <properties />
+          <option name="timeStamp" value="232" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/RsSocket.ts</url>
-          <line>58</line>
-          <option name="timeStamp" value="90" />
+          <url>file://$PROJECT_DIR$/controller/messages.js</url>
+          <line>22</line>
+          <properties />
+          <option name="timeStamp" value="233" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/RsSocket.ts</url>
-          <line>75</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/RsSocket.ts</url>
-          <line>70</line>
-          <option name="timeStamp" value="93" />
+          <url>file://$PROJECT_DIR$/controller/messages.js</url>
+          <line>23</line>
+          <properties />
+          <option name="timeStamp" value="234" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="99" />
+      <option name="time" value="235" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="NodeJSConfigurationType">
+        <watch expression="req" language="JavaScript" />
+        <watch expression="base" language="JavaScript" />
+        <watch expression="client.session.user" />
+        <watch expression="client.session.user.role == clientObj.role" />
+        <watch expression="client.session.user.id == clientObj[idField]" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RsDesktop/typings/browser.d.ts" />
-    <entry file="file://$PROJECT_DIR$/RsDesktop/typings/main.d.ts" />
-    <entry file="file://$PROJECT_DIR$/RsDesktop/node_modules/@types/socket.io-client/index.d.ts" />
-    <entry file="file://$PROJECT_DIR$/RsDesktop/typings.json" />
-    <entry file="file://$PROJECT_DIR$/RsDesktop/tsconfig.json" />
-    <entry file="file://$PROJECT_DIR$/RsDesktop/server.ts" />
-    <entry file="file://$PROJECT_DIR$/RsDesktop/src/app/app.component.ts" />
-    <entry file="file://$PROJECT_DIR$/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="49" selection-start-line="1" selection-start-column="49" selection-end-line="1" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../RsDesktop/dist/server/index.js" />
-    <entry file="file://$PROJECT_DIR$/server.js" />
-    <entry file="file://$PROJECT_DIR$/../RsDesktop/node_modules/@angular/common/src/directives/ng_class.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../RsDesktop/src/main.node.js" />
-    <entry file="file://$PROJECT_DIR$/node_modules/knex/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/keywords.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/companies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/locations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="49" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controller/categories.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -573,47 +648,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/jobs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6698">
-          <caret line="394" column="31" selection-start-line="394" selection-start-column="31" selection-end-line="394" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/RsFileupload.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/upload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/branches.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/exec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/jobber.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -646,7 +684,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../RsDesktop/server.ts">
+    <entry file="file://$PROJECT_DIR$/../rsdesktop/server.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
@@ -661,7 +699,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/RsCommon/src/socket.service.ts">
+    <entry file="file://$PROJECT_DIR$/node_modules/rscommon/src/socket.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
@@ -682,7 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -694,25 +731,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/src/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/RsLocalization.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -727,7 +749,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -745,24 +766,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/src/RsSocket.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/src/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../RsDesktop/src/app.node.module.ts">
+    <entry file="file://$PROJECT_DIR$/../rsdesktop/src/app.node.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-695">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/@types/es6-shim/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -770,38 +784,230 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="9" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tsconfig.json">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/job.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="36" column="59" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/pages/jobs/jobs.component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/app.component.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="110" selection-start-line="0" selection-start-column="110" selection-end-line="0" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/app.routes.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="107" selection-start-line="0" selection-start-column="107" selection-end-line="0" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/components/category-links/category-links.component.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="121" selection-start-line="0" selection-start-column="121" selection-end-line="0" selection-end-column="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/components/editable/editable-listitem.component.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="124" selection-start-line="0" selection-start-column="124" selection-end-line="0" selection-end-column="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/components/filemanager/filemanager.component.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="118" selection-start-line="0" selection-start-column="118" selection-end-line="0" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app/components/headbar/headbar.component.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/RsDesktop/src/app.node.module.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="89" selection-start-line="0" selection-start-column="89" selection-end-line="0" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RecruitmentSpecialist.sln">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="77" selection-start-line="25" selection-start-column="77" selection-end-line="25" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/locations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/branches.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/src/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="104" column="1" selection-start-line="104" selection-start-column="1" selection-end-line="104" selection-end-column="1" />
+          <folding>
+            <marker date="1476991625564" expanded="true" signature="3371:3507" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/jobs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-23">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/jobber.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="236" column="0" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/exec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/companies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="13" column="15" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="102" column="7" selection-start-line="102" selection-start-column="7" selection-end-line="102" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/src/RsSocket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RsSocket.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="61" column="48" selection-start-line="61" selection-start-column="48" selection-end-line="61" selection-end-column="48" />
-          <folding>
-            <element signature="e#1#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="199">
+          <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server.ts">
+    <entry file="file://$PROJECT_DIR$/controller/messages.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="95" column="47" selection-start-line="95" selection-start-column="47" selection-end-line="95" selection-end-column="47" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#103#132#0" expanded="true" />
-            <element signature="e#277#319#0" expanded="true" />
-            <element signature="e#2935#2971#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -17,12 +17,12 @@ var angular2_express_engine_1 = require('angular2-express-engine');
 //enableProdMode();
 var app = express();
 var ROOT = path.resolve(__dirname, '..');
-var BUILDPATH = '../RsDesktop/dist/client';
-//var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'RsServer'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
+var BUILDPATH = '../rsdesktop/dist/client';
+//var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'rsserver'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
 //conf = JSON.parse(conf);
 var conf = require('./config.js');
 // App
-var app_node_module_1 = require('../../RsDesktop/src/app.node.module');
+var app_node_module_1 = require('../../rsdesktop/src/app.node.module');
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", req.headers["origin"]);
     // res.header("Access-Control-Allow-Origin", "*");

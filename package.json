@@ -8,11 +8,11 @@
     "build": "webpack",
     "build:prod": "webpack --progress -p",
     "prestart": "npm run build",
-    "server": "nodemon RsDesktop/server.js",
+    "server": "nodemon rsdesktop/server.js",
     "start": "npm run server",
     "predebug": "npm run build",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",
-    "debug": "node --debug-brk RsDesktop/server.js"
+    "debug": "node --debug-brk rsdesktop/server.js"
   },
 
   "devDependencies": {

@@ -15,7 +15,7 @@ exports.exec = function (action, req, callBack) {
 
 exports.execSocket = function (socket, config, dbCon, msg, callBack) {
 
-
+    this.socket = socket;
     this.dbCon = dbCon;
     this.config = config;
     this.i18n = config.i18n;

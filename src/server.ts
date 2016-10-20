@@ -22,8 +22,8 @@ import {createEngine} from 'angular2-express-engine';
 
 const app = express();
 const ROOT = path.resolve(__dirname, '..');
-const BUILDPATH = '../RsDesktop/dist/client';
-//var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'RsServer'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
+const BUILDPATH = '../rsdesktop/dist/client';
+//var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'rsserver'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
 //conf = JSON.parse(conf);
 var conf = require('./config.js');
 
@@ -33,7 +33,6 @@ app.use(function (req, res, next) {
   res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
   // res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
-
   res.header("Access-Control-Allow-Headers", "*");
 
   next();
@@ -77,6 +76,9 @@ interface FileReq extends Request{
 }
 
 //Fileupload
+
+var apCtrl = require("../../controller/application.js");
+var jCtrl = require("../../controller/jobber.js");
 var upload = require('../../controller/upload.js')(conf.development);
 app.post('/upload', function(req  : FileReq , res) {
 
@@ -84,9 +86,66 @@ app.post('/upload', function(req  : FileReq , res) {
     res.send('No files were uploaded.');
     return;
   }
-  upload.uploadFile(req, function () {
-    res.json({base64: new Buffer(req.files.file.data).toString('base64'), name: req.files.file.name})
+
+
+
+
+
+    upload.uploadFile(req, function (additional) {
+      let file = {src: undefined, name: req.files.file.name};
+      Object.assign(file, additional);
+
+        if (req.files.file.name.match(/\.(pdf)$/i) == null) {
+          jCtrl.persistPicture(req, file)
+        }
+
+        res.json(file)
+    });
+
+})
+
+
+function writeAsImage(res,name,content){
+  res.writeHead(200, {
+    'Content-Type': 'image/' + name.match(/\.(jpe?g|png)$/i)[1],
+    'Content-Disposition': 'attachment;filename="'+name+'"',
+    'Content-Length': content.length
   });
+  res.end(content);
+}
+
+function writeAsPdf(res, name, content){
+  res.writeHead(200, {
+    'Content-Type': 'application/pdf',
+    'Content-Disposition': 'attachment;filename="'+name+'"',
+    'Content-Length': content.length
+  });
+  res.end(content);
+}
+
+app.get('/app_endix', function(req, res) {
+
+  var filter = {filter: {application_id : req.query.id, filename: req.query.fname}};
+  apCtrl.dbCon = dbCon.getConnection();
+  apCtrl.getAppFiles(filter, function(files) {
+    if (req.query.fname.match(/\.(pdf)$/i) != null)
+      writeAsPdf(res, req.query.fname, files.records[0].data);
+    else
+      writeAsImage(res, req.query.fname, files.records[0].data);
+
+  })
+})
+
+app.get('/pdf', function(req, res) {
+
+  let path = jCtrl.getUserFolder(req, req.query.fname);
+  if(!path) {
+    res.write("ERROR - no Session alive");
+    res.end();
+    return;
+  }
+  var content = fs.readFileSync(path);
+  writeAsPdf(res, req.query.fname, content);
 })
 
 // use indexFile over ngApp only when there is too much load on the server

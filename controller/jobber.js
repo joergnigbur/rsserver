@@ -5,6 +5,8 @@ var base = this;
 var exec = require('./exec.js').exec;
 var execSocket = require('./exec.js').execSocket;
 var base64 = require('base-64');
+var extend = require('extend');
+var apCtrl = require('./application.js');
 
 exports.exec = function () {
     exec.apply(this, arguments);
@@ -13,7 +15,6 @@ exports.execSocket = function () {
     execSocket.apply(this, arguments);
 }
 
-
 function normalize(user){
     delete user.pic;
     delete user.email_rep;
@@ -21,6 +22,7 @@ function normalize(user){
     delete user.passwort_rep;
     delete user.role;
     delete user.bdate;
+    delete user.pdfs;
 }
 
 function findByEmail(req, callBack) {
@@ -28,6 +30,16 @@ function findByEmail(req, callBack) {
         callBack(result);
     })
 }
+
+exports.getApplicationHistory = function(req, callBack){
+
+    apCtrl.fetch(req, req.session.user.id, undefined, function(records){
+
+        callBack({records: records, total:records.length});
+    })
+
+}
+
 
 exports.logout = function (req, callBack) {
 
@@ -81,10 +93,57 @@ exports.loginUser = function (req, callBack) {
 }
 
 exports.persistPicture = persistPicture;
+exports.getUserFolder = getUserFolder;
+
+function getUserFolder(req, fName){
+    var id = req.query ? req.query.id : undefined;
+
+    if(!id && req.session.user) {
+        id = req.session.user.id;
+    }
+
+
+    var path = base.config.rsBaseDir + '/img/users/' +   id
+    if(fName)
+        path += (fName.match(/\.(pdf)$/i) == null ? "/foto/" : "/pdf/") + fName
+    return path;
+}
+
+exports.deletePic = function(req, callBack){
+    exports.deleteFile(req, function(){
+        delete req.session.user.pic;
+        req.session.save();
+        callBack();
+    })
+}
+
+exports.deletePdf =function(req,callBack){
+    exports.deleteFile(req, function(){
+
+        var idx = req.session.user.pdfs.indexOf(req.session.user.pdfs.filter(function(pdf){
+                return req.filter.filename == pdf.name
+        })[0]);
+        req.session.user.pdfs.splice(idx,1);
+        req.session.save();
+        callBack();
+    })
+}
+
+exports.deleteFile = function(req, callBack){
+
+    var fName = req.filter.filename;
+
+    var path = getUserFolder(req, fName);
+    if(fs.existsSync(path))
+        fs.unlinkSync(path);
+
+    callBack();
+
+}
 
 function persistPicture(req, pic) {
-    var base64Str = pic.src.replace('data:image/gif;base64,', '');
-    var path = req.rsBaseDir + '/img/users/' + req.session.user.id;
+    var base64Str = pic.base64.replace('data:image/gif;base64,', '');
+    var path = base.config.rsBaseDir + '/img/users/' + req.session.user.id;
 
     if (!fs.existsSync(path))
         fs.mkdirSync(path);
@@ -93,8 +152,15 @@ function persistPicture(req, pic) {
 
     if (!fs.existsSync(path))
         fs.mkdirSync(path);
-
+    else{
+        var existing = fs.readdirSync(path);
+        existing.forEach(function(file){
+            if(fs.lstatSync(path + '/' + file).isFile())
+            fs.unlinkSync(path + '/' + file);
+        })
+    }
     fs.writeFileSync(path + '/' + pic.name, new Buffer(base64Str, 'base64'));
+    req.session.user.pic = pic;
 }
 
 function searchFile( path, typeRgx) {
@@ -113,6 +179,7 @@ function searchFile( path, typeRgx) {
     return foundFiles;
 }
 
+exports.bindFiles = bindFiles;
 function bindFiles(req, user) {
 
 
@@ -124,7 +191,8 @@ function bindFiles(req, user) {
 
     if (pic.length > 0 && fs.existsSync(pic[0].src)) {
         var buffer = fs.readFileSync(pic[0].src);
-        pic[0].src = 'data:image/gif;base64,'+ buffer.toString('base64');
+        pic[0].base64 = buffer.toString('base64');
+        pic[0].src =  req.rsImgServer + 'img/users/' + user.id+ '/foto/' + pic[0].name;
             user.pic = pic[0];
     }
     path = req.rsBaseDir + '/img/users/' + user.id+ '/pdf';
@@ -149,7 +217,11 @@ exports.saveUser = function(req, callBack){
     var pic = Object.assign({}, req.filter.pic);
     normalize(req.filter);
     console.log('update', req.filter);
-    req.dbCon("studenten").update(req.filter).where("id", req.filter.id).then(callBack);
+    req.dbCon("studenten").update(req.filter).where("id", req.filter.id).then(function(){
+        extend(req.session.user, req.filter);
+        req.session.save();
+        callBack();
+    });
 }
 
 

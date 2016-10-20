@@ -34,10 +34,10 @@ gulp.task('build', function () {
     gulp.src('./controller/*.*')
         .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec\\node\\controller'));
 
-    gulp.src(['./RsMobile/www/**/*.*'])
+    gulp.src(['./rsmobile/www/**/*.*'])
         .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec'));
 
-    return gulp.src('./RsMobile/www/index.html')
+    return gulp.src('./rsmobile/www/index.html')
         .pipe(gulp.dest('C:\\xampp\\htdocs\\recspec\\build'));
 
 

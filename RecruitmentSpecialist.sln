@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RecruitmentSpecialist", "RecruitmentSpecialist.njsproj", "{FCFF14CF-7EF9-4240-8C21-80F369928AE3}"
 EndProject
-Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "RsMobile", "RsMobile\RsMobile.jsproj", "{8FC43BE0-720C-45E3-BF8A-8FB0F1D09B2C}"
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "rsmobile", "rsmobile\rsmobile.jsproj", "{8FC43BE0-720C-45E3-BF8A-8FB0F1D09B2C}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "RsCommon", "RsCommon\RsCommon.njsproj", "{8C331314-DD61-43ED-932F-A5D05746758C}"
 EndProject
