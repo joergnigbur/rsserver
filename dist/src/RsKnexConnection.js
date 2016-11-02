@@ -2,6 +2,7 @@
 var Knex = require('knex');
 var RsKnexConnection = (function () {
     function RsKnexConnection(dbConf) {
+        dbConf.connection.timezone = 'utc';
         this.connection = Knex(dbConf);
     }
     RsKnexConnection.prototype.getConnection = function () {

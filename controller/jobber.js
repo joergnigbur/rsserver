@@ -50,9 +50,14 @@ exports.logout = function (req, callBack) {
 }
 exports.getSessionInfo = function (req, callBack) {
 
-    console.log(req.session);
-    var user = req.session && req.session.user ? req.session.user : false;
-    callBack({records: [user]});
+
+        console.log(req.session);
+        var user = req.session && req.session.user ? req.session.user : false;
+        if(user)
+            bindFiles(req, user);
+        callBack({records: [user]});
+
+
 
 }
 

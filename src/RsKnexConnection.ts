@@ -9,7 +9,8 @@ export class RsKnexConnection {
         return this.connection;
     }
         
-    constructor(dbConf: Object) {
+    constructor(dbConf: any) {
+        dbConf.connection.timezone = 'utc';
         this.connection = Knex(dbConf);
     }
 }
