@@ -60,7 +60,7 @@ export class RsSocket {
                 if (data.request)
                     data = data.request;
 
-                var controller = require('../../controller/' + data.controller);
+                var controller = require('./../controller/' + data.controller);
                 controller.pushToClient = function(clientObj, msgObj){
                     self.clients.filter(client=>{
                         var idField = clientObj.role == 'jobber' ? 'jobber_id' : 'company_id'
