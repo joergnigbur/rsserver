@@ -141,7 +141,7 @@ function getEsJobsQuery(request) {
                     },
                     "inner_hits": {
                         "_source": { "exclude": ["location-suggest"] }, 
-                        "size": 3
+                        "size": 1
                     }
 
                 }
@@ -460,6 +460,7 @@ var dataBind = function (req, row, opts) {
 
     return row;
 }
+exports.dataBind = dataBind;
 
 exports.getJobLocations = function (request, callBack) {
     
@@ -660,6 +661,14 @@ exports.getJobList = function (request, callBack) {
    
 }
 
+
+exports.updateJob = function(req, callBack){
+
+    req.dbCon("auftraege").update(req.filter).where('id', req.filter.id).then(function(result){
+        callBack({records: [result]})
+    })
+
+}
 
 
 

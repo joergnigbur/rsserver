@@ -5,6 +5,7 @@ var execSocket = require('./exec.js').execSocket;
 var md5 = require('md5');
 var extend = require('extend');
 var jCtrl = require("./jobber.js");
+var jobCtrl = require("./jobs.js");
 var qx = require('qx');
 
 exports.exec = function () {
@@ -23,8 +24,16 @@ exports.getTeaserCompanies = function (req, callBack) {
 
 exports.getJobs = function (req, callBack) {
 
-    req.dbCon("arbeitgeber AS ag").join("auftraege AS a", "ag.id", "a.uniqueid").where("ag.id", req.filter.id).then(function (result) {
-        callBack({records: result, total: result.length});
+
+    req.dbCon("arbeitgeber AS ag").join("auftraege AS a", "ag.id", "a.uniqueid").where("ag.id", req.filter.id).select('a.*').orderBy('a.time','desc').then(function (result) {
+        req.filter.id = result[0].id;
+        req.filter.limit = 1;
+        jobCtrl.getJobLocations(req, function (locations) {
+            if(locations.records.length > 0)
+            result[0].location = locations.records[0];
+            jobCtrl.dataBind(req, result[0]);
+            callBack({records: result, total: result.length});
+        })
     })
 
 

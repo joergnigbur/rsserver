@@ -43,6 +43,7 @@ var session = expSession({
 app.use(session);
 // Serve static files
 app.use('/assets', express.static(path.join(BUILDPATH, 'assets')));
+app.use('/ckeditor', express.static('../rsdesktop/node_modules/ckeditor'));
 app.use(express.static(BUILDPATH, { index: false }));
 app.use('/img', express.static(conf.development.rsBaseDir + '/img'));
 app.use(fileUpload());
