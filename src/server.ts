@@ -5,6 +5,8 @@ import * as path from 'path';
 import * as express from 'express';
 import * as expSession from 'express-session';
 
+process.env.TZ = 'Europe/Berlin';
+console.log(new Date());
 
 var sharedSession = require("express-socket.io-session");
 
@@ -30,8 +32,8 @@ var conf = require('./config.js');
 
 app.use(function (req, res, next) {
 
-  res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
-  // res.header("Access-Control-Allow-Origin", "*");
+  //res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "*");
 
@@ -67,87 +69,6 @@ app.use('/img', express.static(conf.development.rsBaseDir + '/img'));
 
 app.use(fileUpload());
 
-interface FileReq extends Request{
-  files:{
-    file:{
-      data:any,
-      name:string
-    }
-  }
-}
-
-//Fileupload
-
-var apCtrl = require("../../controller/application.js");
-var jCtrl = require("../../controller/jobber.js");
-var upload = require('../../controller/upload.js')(conf.development);
-app.post('/upload', function(req  : FileReq , res) {
-
-  if (!req["files"]) {
-    res.send('No files were uploaded.');
-    return;
-  }
-
-
-
-
-
-    upload.uploadFile(req, function (additional) {
-      let file = {src: undefined, name: req.files.file.name};
-      Object.assign(file, additional);
-
-        if (req.files.file.name.match(/\.(pdf)$/i) == null) {
-          jCtrl.persistPicture(req, file)
-        }
-
-        res.json(file)
-    });
-
-})
-
-
-function writeAsImage(res,name,content){
-  res.writeHead(200, {
-    'Content-Type': 'image/' + name.match(/\.(jpe?g|png)$/i)[1],
-    'Content-Disposition': 'attachment;filename="'+name+'"',
-    'Content-Length': content.length
-  });
-  res.end(content);
-}
-
-function writeAsPdf(res, name, content){
-  res.writeHead(200, {
-    'Content-Type': 'application/pdf',
-    'Content-Disposition': 'attachment;filename="'+name+'"',
-    'Content-Length': content.length
-  });
-  res.end(content);
-}
-
-app.get('/app_endix', function(req, res) {
-
-  var filter = {filter: {application_id : req.query.id, filename: req.query.fname}};
-  apCtrl.dbCon = dbCon.getConnection();
-  apCtrl.getAppFiles(filter, function(files) {
-    if (req.query.fname.match(/\.(pdf)$/i) != null)
-      writeAsPdf(res, req.query.fname, files.records[0].data);
-    else
-      writeAsImage(res, req.query.fname, files.records[0].data);
-
-  })
-})
-
-app.get('/pdf', function(req, res) {
-
-  let path = jCtrl.getUserFolder(req, req.query.fname);
-  if(!path) {
-    res.write("ERROR - no Session alive");
-    res.end();
-    return;
-  }
-  var content = fs.readFileSync(path);
-  writeAsPdf(res, req.query.fname, content);
-})
 
 // use indexFile over ngApp only when there is too much load on the server
 function indexFile(req, res) {
@@ -165,17 +86,31 @@ app.get("/", function (req, res) {
 })
 
 import {RsKnexConnection} from './RsKnexConnection';
-var dbCon: RsKnexConnection = new RsKnexConnection(conf.development.db);
-
-
-let server = app.listen(process.env.PORT || 80, () => {
-  console.log(`Listening on: http://localhost:${server.address().port}`);
-});
-
+import {RsResourceServer} from './RsResourceServer';
 import {RsSocket} from './RsSocket';
 
-import {Request} from "express-serve-static-core";
+var dbCon: RsKnexConnection = new RsKnexConnection(conf.development.db);
+
+new RsResourceServer(conf, app, dbCon)
+
+let server = app.listen(80 || process.env.PORT || 80, () => {
+  console.log(`Listening on: http://localhost:${server.address().port}`);
+});
 
 
 new RsSocket(sharedSession, session, server, dbCon, conf.development);
 
+
+var exec = require('../../controller/exec.js');
+
+  var jController = require('../../controller/jobs.js');
+
+  app.get('/complete/:action/:searchText', (req, res)=>{
+
+    jController.dbCon = dbCon.getConnection();
+    jController[req.params.action]({filter:{searchText:req.params.searchText}}, result => {
+
+      res.json(result);
+
+    })
+  })

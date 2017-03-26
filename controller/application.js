@@ -111,7 +111,7 @@ exports.getApplications = function (req, callBack) {
                             record.pic = ({
                                 name: file.filename,
                                 application_id: record.bid,
-                                base64: new Buffer(fData[0].data).toString("base64")
+                                src: 'data:image/gif;base64,' + new Buffer(fData[0].data).toString("base64")
                             });
                         })
                     })

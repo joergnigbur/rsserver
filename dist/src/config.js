@@ -2,7 +2,7 @@
   "development": {
     "env": "dev",
     "rsBaseDir": "C:\\xampp\\htdocs\\recspec",
-    "rsImgServer": "http://www.recspec.de",
+    "rsImgServer": "http://jnigbur.synology.me/",
     "defaultLocale": "de-DE",
     "db": {
       "connection": {

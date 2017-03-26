@@ -62,7 +62,7 @@ base.getCompanyStats = function (request, callBack) {
     var endDate = request.filter.endDate;
     
     var query = getStatsQuery(base.dbCon, 'a.uniqueid = \'' + request.filter.companyId + '\' ', startDate, endDate);
-    console.log(query.toString());
+
     query.then(function (rows) {
         rows = rows[0];
         rows = addEmptyDays(startDate, endDate, rows);
@@ -79,7 +79,6 @@ base.getJobStats = function (request, callBack) {
     
     var query = getStatsQuery(base.dbCon, 'a.id = ' + request.filter.id, startDate, endDate);
     
-    console.log(query.toString());
     query.then(function (rows) {
         rows = rows[0];
         rows = addEmptyDays(startDate, endDate,rows);
@@ -112,7 +111,6 @@ base.getReferrerStats = function (request, callBack) {
     
     var query = getReffererStatsQuery(base.dbCon, startDate, endDate);
     
-    console.log(query.toString());
     query.then(function (rows) {
         rows = rows[0];
         var series = [];

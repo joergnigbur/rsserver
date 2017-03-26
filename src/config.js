@@ -2,7 +2,7 @@
   "development": {
     "env": "dev",
     "rsBaseDir": "C:\\xampp\\htdocs\\recspec",
-    "rsImgServer": "http://www.recspec.de",
+    "rsImgServer": "http://localhost/",
     "defaultLocale": "de-DE",
     "db": {
       "connection": {

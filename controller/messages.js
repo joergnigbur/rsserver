@@ -20,7 +20,7 @@ function normalize(obj){
     delete obj.id;
     delete obj.vorname;
     delete obj.nachname;
-    obj.time = new Date(obj.time);
+
 }
 
 
@@ -31,8 +31,9 @@ exports.saveMessage = function(req, callBack){
         req.filter.role = req.filter.direction == 1 ? 'jobber' : 'unternehmen'
         req.dbCon("messages AS m").join("arbeitgeber AS ag","ag.id","m.company_id").join("studenten AS s","s.id","m.jobber_id").where({'m.id': result[0]}).select(['m.*','ag.firma', 's.vorname','s.nachname']).then(function(records){
             base.pushToClient(req.filter, records[0]);
+            callBack({records: records});
         })
-        callBack({records: [{id:result[0]}]});
+
     })
 
 }

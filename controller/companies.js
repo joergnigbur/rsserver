@@ -7,7 +7,7 @@ var extend = require('extend');
 var jCtrl = require("./jobber.js");
 var jobCtrl = require("./jobs.js");
 var qx = require('qx');
-
+var fs = require('fs');
 exports.exec = function () {
     exec.apply(this, arguments);
 }
@@ -21,18 +21,44 @@ exports.getTeaserCompanies = function (req, callBack) {
     });
 
 }
+exports.bindFiles = bindFiles;
+function bindFiles(req, job) {
+
+
+    var path = req.rsBaseDir + '/img/kundenfotos/' + (job.uniqueid ? job.uniqueid : job.id) + '/' + (job.uniqueid? job.id : 'logo');
+    console.log("BIND PICTURE", path);
+    var pic = jCtrl.searchFile(path, /\.(gif|jpe?g|png|bmp)/i);
+
+
+    if (pic.length > 0 && fs.existsSync(pic[0].src)) {
+        var buffer = fs.readFileSync(pic[0].src);
+         //= buffer.toString('base64');
+        pic[0].src = req.rsImgServer + 'img/kundenfotos/' + (job.uniqueid ? job.uniqueid : job.id) + '/' + (job.uniqueid? job.id : 'logo') + '/' + pic[0].name;
+        pic[0].thumb = pic[0].src;
+        job.pic = pic[0];
+    }
+
+}
+
 
 exports.getJobs = function (req, callBack) {
 
 
-    req.dbCon("arbeitgeber AS ag").join("auftraege AS a", "ag.id", "a.uniqueid").where("ag.id", req.filter.id).select('a.*').orderBy('a.time','desc').then(function (result) {
-        req.filter.id = result[0].id;
-        req.filter.limit = 1;
-        jobCtrl.getJobLocations(req, function (locations) {
-            if(locations.records.length > 0)
-            result[0].location = locations.records[0];
-            jobCtrl.dataBind(req, result[0]);
-            callBack({records: result, total: result.length});
+    req.dbCon("arbeitgeber AS ag").join("auftraege AS a", "ag.id", "a.uniqueid").join("jobtypes AS jt", "a.jobtyp", "jt.id").where("ag.id", req.filter.id).select('a.*','jt.name AS typeName').orderBy('a.time', 'DESC').offset(req.filter.from).limit(req.filter.limit).then(function (result) {
+        req.dbCon("auftraege AS a").where("uniqueid", result[0].uniqueid).count('a.id as jobcount').then(function (count) {
+            req.filter.id = result[0].id;
+            req.filter.limit = 1;
+            result.forEach(function (job) {
+                jobCtrl.dataBind(req, job);
+                bindFiles(req, job);
+
+            })
+            jobCtrl.getJobLocations(req, function (locations) {
+                if (locations.records.length > 0)
+                    result[0].location = locations.records[0];
+                //jobCtrl.dataBind(req, result[0]);
+                callBack({records: result, totalcount: count[0].jobcount});
+            })
         })
     })
 
@@ -70,7 +96,7 @@ exports.loginUser = function (req, callBack) {
                 callBack({records: [req.session.user]});
 
                 req.dbCon("arbeitgeber").update("lastVisit", new Date()).where("id", req.session.user.id).then(function (result) {
-                    console.log(result);
+
                 });
             })
 
@@ -111,7 +137,7 @@ exports.saveUser = function (req, callBack) {
     req.dbCon("arbeitgeber").update(req.filter).where("id", req.filter.id).then(function () {
         req.dbCon('company_branches').delete().where("company_id", req.filter.id).then(function () {
 
-            branches.filter(function(branch){
+            branches.filter(function (branch) {
                 return branch.selected;
             }).forEach(function (branch) {
                 req.dbCon("company_branches").insert({company_id: req.filter.id, branch_id: branch.id}).then();
@@ -126,4 +152,54 @@ exports.saveUser = function (req, callBack) {
         })
 
     });
+}
+
+
+exports.deleteFile = function (req, callBack) {
+
+    var file = req.filter.file
+    var parent = req.filter.parent
+
+
+    var path = base.config.rsBaseDir + '/img/kundenfotos/' + (!file.isLogo ? parent.uniqueid : parent.id ) + '/' + (!file.isLogo ? parent.id : 'logo')  + '/' + file.name;
+
+    if (fs.existsSync(path))
+        fs.unlinkSync(path);
+
+    delete req.session.user.pic;
+    req.session.save();
+    callBack();
+
+}
+
+exports.persistFile = function (req, callBack) {
+
+    var file = Object.assign({}, req.filter.file);
+    var additional = req.filter.additional;
+
+
+
+    var base64Str = file.base64.replace('data:image/gif;base64,', '');
+    var path = base.config.rsBaseDir + '/img/kundenfotos/' + additional.uniqueid;
+
+    var path = base.config.rsBaseDir + '/img/kundenfotos/' + (!file.isLogo ? additional.uniqueid : additional.id );
+
+    if (!fs.existsSync(path))
+        fs.mkdirSync(path);
+
+    path += '/' + (!file.isLogo ? additional.id : 'logo');
+
+    if (!fs.existsSync(path))
+        fs.mkdirSync(path);
+    else {
+        var existing = fs.readdirSync(path);
+        existing.forEach(function (file) {
+            if (fs.lstatSync(path + '/' + file).isFile())
+                fs.unlinkSync(path + '/' + file);
+        })
+    }
+    fs.writeFileSync(path + '/' + file.name, new Buffer(base64Str, 'base64'));
+
+    callBack({records: [file]});
+
 }

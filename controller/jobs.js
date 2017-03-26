@@ -327,20 +327,17 @@ exports.getKeywords = function (request, callBack) {
 
 }
 exports.getLocations = function (request, callBack) {
-    esClient.suggest({
-        'index': 'recspec',
-        'body': {
-            "location-suggest": {
-                "text": request.filter.searchText ? request.filter.searchText : request.filter.location,
-                "completion": {
-                    "field": "location-suggest"
-                }
-            }
-        }
-    }, function (err, data) {
-        
-        callBack({ records: data['location-suggest'][0]['options'], totalcount: data['location-suggest'][0]['options'].length } );
+
+    base.dbCon(request.i18n ? request.i18n.__('locTable') : 'plz_de').select(['plz', 'stadt']).where('plz','like', request.filter.searchText + '%').orWhere('stadt','like', request.filter.searchText + '%').then(function(records){
+
+        records.forEach(function(rec){
+            rec.text = rec.plz+' '+rec.stadt;
+        })
+
+        callBack({ records: records, totalcount: records.length } );
+
     })
+
 }
 
 
@@ -355,15 +352,16 @@ exports.getCategories = function (request, callBack) {
     });
 }
 
-
 exports.getJob = function (request, callBack) {
     
-    request.dbCon('auftraege as a').select(['a.*', 'ag.id AS cid', 'ag.*', 'a.id AS jobid', 'jt.name AS typeName']).join('jobtypes AS jt', 'a.jobtyp', 'jt.id').join('arbeitgeber as ag', 'a.uniqueid', 'ag.id').where('a.id', request.filter.job).then(function (rows) {
+    request.dbCon('auftraege as a').select(['a.*', 'ag.id AS cid', 'a.id AS jobid', 'jt.name AS typeName']).join('jobtypes AS jt', 'a.jobtyp', 'jt.id').join('arbeitgeber as ag', 'a.uniqueid', 'ag.id').where('a.id', request.filter.job).then(function (rows) {
         if (rows.length > 0) {
             exports.getJobLocations(request, function (locations) {
                 rows[0].locations = locations.records;
                 rows[0].jobbeschreibung = htmlentities.decode(rows[0].jobbeschreibung);
                 dataBind(request, rows[0]);
+
+
                 callBack({ records: rows, totalcount: rows.length });
             });
         }
@@ -414,8 +412,8 @@ var dataBind = function (req, row, opts) {
     var themePathFull = '/img/' + opts.fileFolder + '/' + row.cid + '/' + row.id + '/';
     var videoPath = '/img/' + opts.fileFolder + '/thumbs/' + row.cid + '/video/';
     row['logoUrl'] = '';
-    row['adtheme'] = '';
-    row['adthemeFull'] = '';
+    row['pic'] = '';
+    row['picFull'] = '';
     row['video'] = '';
     
     if (row.jobbeschreibung) {
@@ -452,8 +450,8 @@ var dataBind = function (req, row, opts) {
         }
     }
     searchFile(logoPath, 'logoUrl', /\.(gif|jpe?g|png|bmp)/i);
-    searchFile(themePath, 'adtheme', /\.(gif|jpe?g|png|bmp)/i);
-    searchFile(themePathFull, 'adthemeFull', /\.(gif|jpe?g|png|bmp)/i);
+    searchFile(themePath, 'pic', /\.(gif|jpe?g|png|bmp)/i);
+    searchFile(themePathFull, 'picFull', /\.(gif|jpe?g|png|bmp)/i);
     searchFile(videoPath, 'video', /\.(mpe?g?4?|avi|movi?e?)/i);
     var themePath =  '/img/' + opts.fileFolder + row.cid + '/' + row.id + '/';
 
@@ -498,10 +496,9 @@ exports.getJobLocations = function (request, callBack) {
 }
 function getFromElasticResult(req, jobIds, totalCount, callBack, additional) {
     
-    console.log(jobIds);
-    
+
     var query = req.dbCon('joblist AS jl').select(['jl.*', 'jl.uniqueid AS cid', 'ag.url AS companyUrl', 'ag.firma AS name', 'jt.name AS typeName']).join('arbeitgeber AS ag', 'jl.uniqueid', 'ag.id').join('auftraege AS a', 'a.id', 'jl.id').join('jobtypes AS jt', 'jt.id', 'a.jobtyp').orderByRaw('jl.is_premium DESC , jl.is_foreign ASC, jl.uniqueid').whereIn('jl.id', jobIds);
-    console.log(query.toString());
+
     query.then(function (rows) {
         var records = [];
         var jobLocsToFetch = rows.length;
@@ -582,7 +579,7 @@ exports.getJobList = function (request, callBack) {
     function getJobList(request) {
         
         var esQuery = getEsJobsQuery(request);
-        console.log(JSON.stringify(esQuery));
+
         esClient.search(esQuery, function (err, data) {
             
             if (err) {
@@ -662,11 +659,22 @@ exports.getJobList = function (request, callBack) {
 }
 
 
-exports.updateJob = function(req, callBack){
+exports.saveJob = function(req, callBack){
 
-    req.dbCon("auftraege").update(req.filter).where('id', req.filter.id).then(function(result){
-        callBack({records: [result]})
-    })
+    if(req.filter.id)
+
+        req.dbCon("auftraege").update(req.filter).where('id', req.filter.id).then(function(result){
+            callBack({records: [result]})
+        })
+    else
+        req.dbCon("auftraege").insert(req.filter).then(function(newId){
+            req.filter.job = newId[0];
+            base.getJob(req, callBack)
+
+
+
+        })
+
 
 }
 

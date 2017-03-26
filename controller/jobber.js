@@ -43,7 +43,7 @@ exports.getApplicationHistory = function(req, callBack){
 
 exports.logout = function (req, callBack) {
 
-    console.log(req.session);
+
     delete req.session.user;
     callBack({records: []});
 
@@ -51,10 +51,14 @@ exports.logout = function (req, callBack) {
 exports.getSessionInfo = function (req, callBack) {
 
 
-        console.log(req.session);
         var user = req.session && req.session.user ? req.session.user : false;
-        if(user)
-            bindFiles(req, user);
+        if(user) {
+
+            if (user.role == 'studenten')
+                bindFiles(req, user);
+            else
+                cCtrl.bindFiles(req, user);
+        }
         callBack({records: [user]});
 
 
@@ -80,12 +84,11 @@ exports.loginUser = function (req, callBack) {
             bindFiles(req, req.session.user);
             req.session.save();
 
-            console.log(req.session.user);
 
             callBack({records: [req.session.user]});
 
             req.dbCon("studenten").update("lastVisit", new Date()).where("id",req.session.user.id).then(function(result){
-                console.log(result);
+
             });
         }
         else {
@@ -134,11 +137,55 @@ exports.deletePdf =function(req,callBack){
     })
 }
 
+
+exports.persistFile = function (req, callBack) {
+
+    var file = Object.assign({}, req.filter.file);
+
+    var isPdf = file.name.match(/\.(pdf)$/i) !=null;
+
+    var parent = req.filter.additional;
+
+    var base64Str = file.base64.replace('data:image/gif;base64,', '');
+    var path = base.config.rsBaseDir + '/img/users/' + parent.id;
+
+
+    if (!fs.existsSync(path))
+        fs.mkdirSync(path);
+
+    path+= file.name.match(/\.(pdf)$/i) == null ? '/foto' : '/pdf'
+
+    if (!fs.existsSync(path))
+        fs.mkdirSync(path);
+
+    if (!fs.existsSync(path))
+        fs.mkdirSync(path);
+
+
+    var buffer = new Buffer(base64Str, 'base64');
+    path += '/'+file.name;
+
+    if (fs.existsSync(path))
+        fs.unlinkSync(path)
+
+    fs.writeFileSync(path, buffer);
+
+    if(!isPdf)
+        file.src = base.config.rsImgServer + 'img/users/' + parent.id + '/'+file.name
+    else
+        file.src = "http://recspec.de/img/frontend/pdflogo.png";
+
+
+    callBack({records: [file]});
+
+}
+
+
 exports.deleteFile = function(req, callBack){
 
-    var fName = req.filter.filename;
+    var fName = req.filter.file.name;
 
-    var path = getUserFolder(req, fName);
+    var path = getUserFolder(req,fName );
     if(fs.existsSync(path))
         fs.unlinkSync(path);
 
@@ -168,6 +215,7 @@ function persistPicture(req, pic) {
     req.session.user.pic = pic;
 }
 
+exports.searchFile = searchFile;
 function searchFile( path, typeRgx) {
     var foundFiles = [];
     if (fs.existsSync(path)) {
@@ -184,9 +232,14 @@ function searchFile( path, typeRgx) {
     return foundFiles;
 }
 
-exports.bindFiles = bindFiles;
-function bindFiles(req, user) {
+var cCtrl = require('./companies.js');
 
+exports.bindFiles = bindFiles;
+function bindFiles(req, user, subFolder) {
+
+
+    if(!subFolder)
+        subFolder = "users";
 
 
     var path = req.rsBaseDir + '/img/users/' + user.id+ '/foto';
@@ -196,9 +249,13 @@ function bindFiles(req, user) {
 
     if (pic.length > 0 && fs.existsSync(pic[0].src)) {
         var buffer = fs.readFileSync(pic[0].src);
-        pic[0].base64 = buffer.toString('base64');
+
+       // pic[0].base64 = buffer.toString('base64');
+
         pic[0].src =  req.rsImgServer + 'img/users/' + user.id+ '/foto/' + pic[0].name;
-            user.pic = pic[0];
+        pic[0].thumb =  pic[0].src
+
+        user.pic = pic[0];
     }
     path = req.rsBaseDir + '/img/users/' + user.id+ '/pdf';
     var pdfs = searchFile(path, /\.(pdf)/i);
@@ -208,13 +265,12 @@ function bindFiles(req, user) {
         pdfs.forEach(function (pdf) {
             if(fs.existsSync(pdf.src)) {
 
+                pdf.thumb = "http://recspec.de/img/frontend/pdflogo.png";
                 pdf.src = req.rsImgServer + 'img/users/' + user.id+ '/pdf/' + pdf.name;
                 user.pdfs.push(pdf);
             }
         })
     }
-
-
 }
 
 
@@ -233,10 +289,10 @@ exports.saveUser = function(req, callBack){
 exports.registerUser = function (req, callBack) {
 
     var user = req.filter.user;
-    console.log(req.filter);
+
     findByEmail(req, function (result) {
         if (result.length > 0) {
-            console.log(result);
+
             callBack({records: [{error: true, msg: "Emailaddresse existiert bereits."}]})
         } else {
 
@@ -244,7 +300,7 @@ exports.registerUser = function (req, callBack) {
             var pic = Object.assign({}, req.filter.pic);
             normalize(req.filter);
             req.dbCon("studenten").insert(req.filter).then(function (result) {
-                console.log(result);
+
                 req.session.user = req.filter;
                 req.session.user.id = result[0];
                 req.session.user.role = 'jobber';
