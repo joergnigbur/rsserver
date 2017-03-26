@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require('fs');
 var RsResourceServer = (function () {
     function RsResourceServer(conf, app, dbCon) {
@@ -16,7 +15,6 @@ var RsResourceServer = (function () {
                 var file = { src: undefined, name: req.files.file.name };
                 Object.assign(file, additional);
                 if (req.files.file.name.match(/\.(pdf)$/i) == null) {
-                    //    jCtrl.persistPicture(req, file)
                 }
                 res.json(file);
             });

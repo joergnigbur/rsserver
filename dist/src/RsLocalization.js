@@ -1,6 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var moment = require("moment");
+var moment = require('moment');
 var RsLocalization = (function () {
     function RsLocalization() {
         this._i18n = new (require('i18n-2'))({

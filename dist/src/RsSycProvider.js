@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var Syc = require("syc");
 var RsSycProvider = (function () {
     function RsSycProvider() {

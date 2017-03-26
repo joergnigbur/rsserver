@@ -1,21 +1,20 @@
 // the polyfills must be the first thing imported in node.js
 //import 'angular2-universal-polyfills';
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var path = require("path");
-var express = require("express");
-var expSession = require("express-session");
+var path = require('path');
+var express = require('express');
+var expSession = require('express-session');
 process.env.TZ = 'Europe/Berlin';
 console.log(new Date());
 var sharedSession = require("express-socket.io-session");
-var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var fs = require('fs');
 var fileUpload = require('express-fileupload');
 // Angular 2
 //import {enableProdMode} from '@angular/core';
 // Angular 2 Universal
-var angular2_express_engine_1 = require("angular2-express-engine");
+var angular2_express_engine_1 = require('angular2-express-engine');
 // enable prod for faster renders
 //enableProdMode();
 var app = express();
@@ -59,9 +58,9 @@ function indexFile(req, res) {
 app.get("/", function (req, res) {
     indexFile(req, res);
 });
-var RsKnexConnection_1 = require("./RsKnexConnection");
-var RsResourceServer_1 = require("./RsResourceServer");
-var RsSocket_1 = require("./RsSocket");
+var RsKnexConnection_1 = require('./RsKnexConnection');
+var RsResourceServer_1 = require('./RsResourceServer');
+var RsSocket_1 = require('./RsSocket');
 var dbCon = new RsKnexConnection_1.RsKnexConnection(conf.development.db);
 new RsResourceServer_1.RsResourceServer(conf, app, dbCon);
 var server = app.listen(80 || process.env.PORT || 80, function () {
