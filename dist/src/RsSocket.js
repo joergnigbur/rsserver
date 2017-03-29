@@ -1,7 +1,8 @@
 "use strict";
-var socketIO = require('socket.io');
-var RsLocalization_1 = require('./RsLocalization');
-var RsSycProvider_1 = require('./RsSycProvider');
+Object.defineProperty(exports, "__esModule", { value: true });
+var socketIO = require("socket.io");
+var RsLocalization_1 = require("./RsLocalization");
+var RsSycProvider_1 = require("./RsSycProvider");
 var RsSocket = (function () {
     function RsSocket(sharedSession, session, server, dbCon, config) {
         this.clients = [];

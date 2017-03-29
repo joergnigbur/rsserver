@@ -1,5 +1,6 @@
 "use strict";
-var Knex = require('knex');
+Object.defineProperty(exports, "__esModule", { value: true });
+var Knex = require("knex");
 var RsKnexConnection = (function () {
     function RsKnexConnection(dbConf) {
         dbConf.connection.timezone = 'utc';

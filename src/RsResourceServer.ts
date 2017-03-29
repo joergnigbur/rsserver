@@ -1,7 +1,7 @@
 ﻿import {Request} from "express-serve-static-core";
 import * as  Knex from 'knex';
 var fs = require('fs');
-
+var oAssign = require('object-assign');
 
 
 
@@ -43,7 +43,7 @@ export class RsResourceServer{
 
             upload.uploadFile(req, function (additional) {
                 let file = {src: undefined, name: req.files.file.name};
-                Object.assign(file, additional);
+                oAssign(file, additional);
 
                 if (req.files.file.name.match(/\.(pdf)$/i) == null) {
                 //    jCtrl.persistPicture(req, file)

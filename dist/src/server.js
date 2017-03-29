@@ -1,37 +1,39 @@
 // the polyfills must be the first thing imported in node.js
 //import 'angular2-universal-polyfills';
 "use strict";
-var path = require('path');
-var express = require('express');
-var expSession = require('express-session');
+Object.defineProperty(exports, "__esModule", { value: true });
+var path = require("path");
+var express = require("express");
+var expSession = require("express-session");
+var os = require("os");
 process.env.TZ = 'Europe/Berlin';
 console.log(new Date());
 var sharedSession = require("express-socket.io-session");
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 var fs = require('fs');
 var fileUpload = require('express-fileupload');
 // Angular 2
 //import {enableProdMode} from '@angular/core';
 // Angular 2 Universal
-var angular2_express_engine_1 = require('angular2-express-engine');
+//import {createEngine} from 'angular2-express-engine';
 // enable prod for faster renders
 //enableProdMode();
 var app = express();
 var ROOT = path.resolve(__dirname, '..');
-var BUILDPATH = '../rsdesktop/dist/client';
+var BUILDPATH = '../rsdesktop/dist';
 //var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'rsserver'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
 //conf = JSON.parse(conf);
-var conf = require('./config.js');
+var conf = require(os.hostname().match(/local/) ? './config.dev.js' : './config.prod.js');
 app.use(function (req, res, next) {
-    //res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", req.headers["origin"]);
+    // res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "*");
     next();
 });
 // Express View
-app.engine('.html', angular2_express_engine_1.createEngine({}));
+//app.engine('.html', createEngine({}));
 app.set('views', path.join(__dirname, 'src'));
 app.set('view engine', 'html');
 app.use(cookieParser('Angular 2 Universal'));
@@ -58,12 +60,12 @@ function indexFile(req, res) {
 app.get("/", function (req, res) {
     indexFile(req, res);
 });
-var RsKnexConnection_1 = require('./RsKnexConnection');
-var RsResourceServer_1 = require('./RsResourceServer');
-var RsSocket_1 = require('./RsSocket');
+var RsKnexConnection_1 = require("./RsKnexConnection");
+var RsResourceServer_1 = require("./RsResourceServer");
+var RsSocket_1 = require("./RsSocket");
 var dbCon = new RsKnexConnection_1.RsKnexConnection(conf.development.db);
 new RsResourceServer_1.RsResourceServer(conf, app, dbCon);
-var server = app.listen(80 || process.env.PORT || 80, function () {
+var server = app.listen(conf.development.port || process.env.PORT || 80, function () {
     console.log("Listening on: http://localhost:" + server.address().port);
 });
 new RsSocket_1.RsSocket(sharedSession, session, server, dbCon, conf.development);

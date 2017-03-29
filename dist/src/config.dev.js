@@ -2,6 +2,7 @@
   "development": {
     "env": "dev",
     "rsBaseDir": "C:\\xampp\\htdocs\\recspec",
+    "port":"80",
     "rsImgServer": "http://localhost/",
     "defaultLocale": "de-DE",
     "db": {

@@ -8,6 +8,7 @@ var jCtrl = require("./jobber.js");
 var jobCtrl = require("./jobs.js");
 var qx = require('qx');
 var fs = require('fs');
+var oAssign = require('object-assign');
 exports.exec = function () {
     exec.apply(this, arguments);
 }
@@ -130,7 +131,7 @@ function normalize(user) {
 
 }
 exports.saveUser = function (req, callBack) {
-    var pic = Object.assign({}, req.filter.pic);
+    var pic = oAssign({}, req.filter.pic);
     var branches = req.filter.branches;
     normalize(req.filter);
     console.log('update', req.filter);
@@ -174,7 +175,7 @@ exports.deleteFile = function (req, callBack) {
 
 exports.persistFile = function (req, callBack) {
 
-    var file = Object.assign({}, req.filter.file);
+    var file = oAssign({}, req.filter.file);
     var additional = req.filter.additional;
 
 

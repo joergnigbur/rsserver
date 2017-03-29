@@ -1,9 +1,8 @@
 ﻿module.exports = {
   "development": {
     "env": "dev",
-    //"rsBaseDir": "C:\\xampp\\htdocs\\recspec",
     "rsBaseDir": "/var/www/clients/client0/web1/web/",
-
+    "port":"8123",
     "rsImgServer": "http://localhost/",
     "defaultLocale": "de-DE",
     "db": {

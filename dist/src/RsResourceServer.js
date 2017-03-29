@@ -1,5 +1,7 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require('fs');
+var oAssign = require('object-assign');
 var RsResourceServer = (function () {
     function RsResourceServer(conf, app, dbCon) {
         //Fileupload
@@ -13,8 +15,9 @@ var RsResourceServer = (function () {
             }
             upload.uploadFile(req, function (additional) {
                 var file = { src: undefined, name: req.files.file.name };
-                Object.assign(file, additional);
+                oAssign(file, additional);
                 if (req.files.file.name.match(/\.(pdf)$/i) == null) {
+                    //    jCtrl.persistPicture(req, file)
                 }
                 res.json(file);
             });

@@ -4,6 +4,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as expSession from 'express-session';
+import * as os from 'os';
 
 process.env.TZ = 'Europe/Berlin';
 console.log(new Date());
@@ -17,23 +18,24 @@ var fileUpload = require('express-fileupload');
 // Angular 2
 //import {enableProdMode} from '@angular/core';
 // Angular 2 Universal
-import {createEngine} from 'angular2-express-engine';
+//import {createEngine} from 'angular2-express-engine';
 
 // enable prod for faster renders
 //enableProdMode();
 
 const app = express();
 const ROOT = path.resolve(__dirname, '..');
-const BUILDPATH = '../rsdesktop/dist/client';
+const BUILDPATH = '../rsdesktop/dist';
 //var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'rsserver'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
 //conf = JSON.parse(conf);
-var conf = require('./config.js');
+
+var conf = require(os.hostname().match(/local/) ? './config.dev.js' : './config.prod.js');
 
 
 app.use(function (req, res, next) {
 
-  //res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
+ // res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "*");
 
@@ -43,7 +45,7 @@ app.use(function (req, res, next) {
 
 
 // Express View
-app.engine('.html', createEngine({}));
+//app.engine('.html', createEngine({}));
 app.set('views', path.join(__dirname, 'src'));
 app.set('view engine', 'html');
 
@@ -93,7 +95,7 @@ var dbCon: RsKnexConnection = new RsKnexConnection(conf.development.db);
 
 new RsResourceServer(conf, app, dbCon)
 
-let server = app.listen(80 || process.env.PORT || 80, () => {
+let server = app.listen(conf.development.port || process.env.PORT || 80, () => {
   console.log(`Listening on: http://localhost:${server.address().port}`);
 });
 
