@@ -1,6 +1,10 @@
 ﻿
 var base = this;
 var exec = require('./exec.js').exec;
+var execSocket = require('./exec.js').execSocket;
+exports.execSocket = function () {
+    execSocket.apply(this, arguments);
+}
 
 exports.exec = function () {
     exec.apply(this, arguments);
@@ -15,12 +19,12 @@ exports.getBranches = function (req, callBack) {
             
             branch.key = branch.id;
             branch.name = branch.branch;
-            branch.icon = '<i class="material-icons">' + branch.icon + '</i>';
+            branch.icon = '<md-icon>' + branch.icon + '</md-icon>';
             branch.type = 'branch'
 
         })
         
-        callBack({ records: records, translate: req.i18n.t('multiselect', { returnObjectTrees: true }) });
+        callBack({ records: records, translate: req.i18n.__('multiselect', { returnObjectTrees: true }) });
     })
     
 }

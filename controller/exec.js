@@ -19,7 +19,7 @@ exports.execSocket = function (socket, config, dbCon, msg, callBack) {
     this.dbCon = dbCon;
     this.config = config;
     this.i18n = config.i18n;
-    var request = extend({session: config.session}, {}, msg, config, { dbCon: dbCon });
+    var request = extend({i18n: config.i18n, session: config.session}, {}, msg, config, { dbCon: dbCon });
 
     var method = this[request.action];
     method.apply(this, [request, function (result) {

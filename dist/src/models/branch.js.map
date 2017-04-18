@@ -1,0 +1,1 @@
+{"version":3,"file":"branch.js","sourceRoot":"C:/Projekte/RecruitmentSpecialist/rsserver/","sources":["src/models/branch.ts"],"names":[],"mappings":";;AAAA,qCAAuC;AAGvC,gBAAuB,SAAS;IAE5B,MAAM,CAAC,SAAS,CAAC,MAAM,CAAC,QAAQ,EAAE;QAE9B,MAAM,EAAE;YACJ,IAAI,EAAE,SAAS,CAAC,MAAM;YACtB,SAAS,EAAE,KAAK;SACnB;KACJ,CAAC,CAAC;AACP,CAAC;AATD,wBASC"}

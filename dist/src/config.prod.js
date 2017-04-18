@@ -2,8 +2,8 @@
   "development": {
     "env": "dev",
     "rsBaseDir": "/var/www/clients/client0/web1/web/",
-    "port":"8123",
-    "rsImgServer": "http://localhost/",
+    "port":"80",
+    "rsImgServer": "http://test.recspec.de",
     "defaultLocale": "de-DE",
     "db": {
       "connection": {

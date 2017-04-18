@@ -10,5 +10,5 @@
 	"defaultDateTimeFormat": "DD.MM.YYYY hh:mm",
 	"labelDate": "Datum",
 	"labelTime": "Uhrzeit",
-	"loctable": "loctable"
+	"multiselect": "multiselect"
 }

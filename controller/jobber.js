@@ -23,6 +23,7 @@ function normalize(user){
     delete user.role;
     delete user.bdate;
     delete user.pdfs;
+    delete user.branches;
 }
 
 function findByEmail(req, callBack) {
@@ -80,16 +81,20 @@ exports.loginUser = function (req, callBack) {
 
             req.session.user = result[0];
             req.session.user.role = 'jobber';
+            req.session.user.branches = [];
+            req.dbCon.raw("SELECT *, ifnull((SELECT branch_id FROM jobber_branches WHERE branch_id = b.id AND jobber_id = '" + req.session.user.id + "'), 0) AS selected FROM branches b").then(function (branches) {
 
-            bindFiles(req, req.session.user);
-            req.session.save();
+                req.session.user.branches = branches[0];
+
+                bindFiles(req, req.session.user);
+                req.session.save();
 
 
-            callBack({records: [req.session.user]});
-
-            req.dbCon("studenten").update("lastVisit", new Date()).where("id",req.session.user.id).then(function(result){
+                callBack({records: [req.session.user]});
 
             });
+
+
         }
         else {
 
@@ -276,9 +281,26 @@ function bindFiles(req, user, subFolder) {
 
 exports.saveUser = function(req, callBack){
     var pic = Object.assign({}, req.filter.pic);
+    var branches = req.filter.branches;
     normalize(req.filter);
     console.log('update', req.filter);
     req.dbCon("studenten").update(req.filter).where("id", req.filter.id).then(function(){
+        req.dbCon('jobber_branches').delete().where("jobber_id", req.filter.id).then(function () {
+
+            branches.filter(function (branch) {
+                return branch.selected;
+            }).forEach(function (branch) {
+                req.dbCon("jobber_branches").insert({jobber_id: req.filter.id, branch_id: branch.id}).then();
+            })
+
+            extend(req.session.user, req.filter);
+            req.session.user.branches = branches;
+            req.session.save();
+            callBack({records: [req.session.user]});
+
+        })
+
+
         extend(req.session.user, req.filter);
         req.session.save();
         callBack();

@@ -1,0 +1,11 @@
+[{
+  "anrede":"Herr",
+  "vorname":"Max",
+  "nachname":"Mustermann",
+  "strasse": "Hauptstraße",
+  "hausnummer":5,
+  "plz":52477,
+  "ort":"Kasachstan",
+  "email":"test123@feather.de",
+  "mobil":"015146725338"
+}]

@@ -7,10 +7,10 @@
     "defaultLocale": "de-DE",
     "db": {
       "connection": {
-        "host": "www.recruitment-specialist.de",
-        "user": "recruitment",
-        "password": "DykaybUdIEd7",
-        "database": "recruitment"
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "recspec"
       },
       "client": "mysql"
     },

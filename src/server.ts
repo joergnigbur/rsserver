@@ -6,6 +6,10 @@ import * as express from 'express';
 import * as expSession from 'express-session';
 import * as os from 'os';
 
+import {RsKnexConnection} from './RsKnexConnection';
+import {RsResourceServer} from './RsResourceServer';
+import {RsFeathersApp} from './RsFeathers';
+
 process.env.TZ = 'Europe/Berlin';
 console.log(new Date());
 
@@ -23,18 +27,24 @@ var fileUpload = require('express-fileupload');
 // enable prod for faster renders
 //enableProdMode();
 
-const app = express();
+
+
+
 const ROOT = path.resolve(__dirname, '..');
-const BUILDPATH = '../rsdesktop/dist';
+const BUILDPATH = path.join(ROOT, '../../rsdesktop/dist');
 //var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'rsserver'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
 //conf = JSON.parse(conf);
 
-var conf = require(os.hostname().match(/local/) ? './config.dev.js' : './config.prod.js');
+var isDebug = os.hostname().match(/Joerg-PC/) != null;
 
+var conf = require(isDebug ? './config.dev.js' : './config.prod.js');
+conf.development.debug = isDebug;
+
+let app = new RsFeathersApp(conf.development).app;
 
 app.use(function (req, res, next) {
 
-  res.header( "Access-Control-Allow-Origin", req.headers["origin"] );
+  res.header( "Access-Control-Allow-Origin", "*" );
  // res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "*");
@@ -64,7 +74,7 @@ app.use(session)
 // Serve static files
 app.use('/assets', express.static(path.join(BUILDPATH, 'assets')));
 
-app.use('/ckeditor', express.static('../rsdesktop/node_modules/ckeditor'));
+app.use('/ckeditor', express.static(path.join(BUILDPATH, '../node_modules/ckeditor')));
 app.use(express.static(BUILDPATH, {index: false}));
 app.use('/img', express.static(conf.development.rsBaseDir + '/img'));
 
@@ -87,9 +97,7 @@ app.get("/", function (req, res) {
 
 })
 
-import {RsKnexConnection} from './RsKnexConnection';
-import {RsResourceServer} from './RsResourceServer';
-import {RsSocket} from './RsSocket';
+//import {RsSocket} from './RsSocket';
 
 var dbCon: RsKnexConnection = new RsKnexConnection(conf.development.db);
 
@@ -100,6 +108,7 @@ let server = app.listen(conf.development.port || process.env.PORT || 80, () => {
 });
 
 
+/*
 new RsSocket(sharedSession, session, server, dbCon, conf.development);
 
 
@@ -115,4 +124,4 @@ var exec = require('../../controller/exec.js');
       res.json(result);
 
     })
-  })
+  })*/

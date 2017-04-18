@@ -6,6 +6,9 @@ var path = require("path");
 var express = require("express");
 var expSession = require("express-session");
 var os = require("os");
+var RsKnexConnection_1 = require("./RsKnexConnection");
+var RsResourceServer_1 = require("./RsResourceServer");
+var RsFeathers_1 = require("./RsFeathers");
 process.env.TZ = 'Europe/Berlin';
 console.log(new Date());
 var sharedSession = require("express-socket.io-session");
@@ -19,14 +22,16 @@ var fileUpload = require('express-fileupload');
 //import {createEngine} from 'angular2-express-engine';
 // enable prod for faster renders
 //enableProdMode();
-var app = express();
 var ROOT = path.resolve(__dirname, '..');
-var BUILDPATH = '../rsdesktop/dist';
+var BUILDPATH = path.join(ROOT, '../../rsdesktop/dist');
 //var conf =  fs.readFileSync(path.join(path.join(path.resolve(ROOT, '..'), 'rsserver'),'config.json'), 'utf8').replace(/\n/g, '').replace(/\r/g, '');
 //conf = JSON.parse(conf);
-var conf = require(os.hostname().match(/local/) ? './config.dev.js' : './config.prod.js');
+var isDebug = os.hostname().match(/Joerg-PC/) != null;
+var conf = require(isDebug ? './config.dev.js' : './config.prod.js');
+conf.development.debug = isDebug;
+var app = new RsFeathers_1.RsFeathersApp(conf.development).app;
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", req.headers["origin"]);
+    res.header("Access-Control-Allow-Origin", "*");
     // res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "*");
@@ -47,7 +52,7 @@ var session = expSession({
 app.use(session);
 // Serve static files
 app.use('/assets', express.static(path.join(BUILDPATH, 'assets')));
-app.use('/ckeditor', express.static('../rsdesktop/node_modules/ckeditor'));
+app.use('/ckeditor', express.static(path.join(BUILDPATH, '../node_modules/ckeditor')));
 app.use(express.static(BUILDPATH, { index: false }));
 app.use('/img', express.static(conf.development.rsBaseDir + '/img'));
 app.use(fileUpload());
@@ -60,21 +65,27 @@ function indexFile(req, res) {
 app.get("/", function (req, res) {
     indexFile(req, res);
 });
-var RsKnexConnection_1 = require("./RsKnexConnection");
-var RsResourceServer_1 = require("./RsResourceServer");
-var RsSocket_1 = require("./RsSocket");
+//import {RsSocket} from './RsSocket';
 var dbCon = new RsKnexConnection_1.RsKnexConnection(conf.development.db);
 new RsResourceServer_1.RsResourceServer(conf, app, dbCon);
 var server = app.listen(conf.development.port || process.env.PORT || 80, function () {
     console.log("Listening on: http://localhost:" + server.address().port);
 });
-new RsSocket_1.RsSocket(sharedSession, session, server, dbCon, conf.development);
+/*
+new RsSocket(sharedSession, session, server, dbCon, conf.development);
+
+
 var exec = require('../../controller/exec.js');
-var jController = require('../../controller/jobs.js');
-app.get('/complete/:action/:searchText', function (req, res) {
+
+  var jController = require('../../controller/jobs.js');
+
+  app.get('/complete/:action/:searchText', (req, res)=>{
+
     jController.dbCon = dbCon.getConnection();
-    jController[req.params.action]({ filter: { searchText: req.params.searchText } }, function (result) {
-        res.json(result);
-    });
-});
+    jController[req.params.action]({filter:{searchText:req.params.searchText}}, result => {
+
+      res.json(result);
+
+    })
+  })*/ 
 //# sourceMappingURL=server.js.map
