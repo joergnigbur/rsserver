@@ -30,13 +30,6 @@ var isDebug = os.hostname().match(/Joerg-PC/) != null;
 var conf = require(isDebug ? './config.dev.js' : './config.prod.js');
 conf.development.debug = isDebug;
 var app = new RsFeathers_1.RsFeathersApp(conf.development).app;
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();
-});
 // Express View
 //app.engine('.html', createEngine({}));
 app.set('views', path.join(__dirname, 'src'));

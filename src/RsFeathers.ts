@@ -9,8 +9,7 @@ const service = require('feathers-sequelize');
 const hooks = require('feathers-hooks');
 const jsonFile = require('jsonfile');
 
-import {Jobber} from './models/jobber';
-import {Branch} from './models/branch';
+import {Jobber, Branch, Jobs} from './models';
 
 export class RsFeathersApp{
 
@@ -26,21 +25,24 @@ export class RsFeathersApp{
         let sequelize = this.getSequelizeConfig(config);
         let jobberModel = Jobber(sequelize);
         let branchModel = Branch(sequelize);
+        let jobsModel = Jobs(sequelize);
 
         this.app.use(bodyParser.json())
             .configure(rest())
             .configure(socketio())
             .configure(hooks())
-            .use('/api/jobber', service({
-                Model: jobberModel
-            }))
-            .use('/api/branch', service({
-                Model: Branch(sequelize)
-            }))
+            .use('/api/jobber', service({Model: jobberModel}))
+            .use('/api/branch', service({Model: branchModel}))
+            .use('/api/jobs', service({Model: jobsModel}))
 
 
             .use('/', feathers.static(__dirname))
-            .use(handler())
+            .use(handler()).use((req, res, next)=>{
+                res.header( "Access-Control-Allow-Origin", "*" );
+                res.header("Access-Control-Allow-Credentials", "true");
+                res.header("Access-Control-Allow-Headers", "*");
+                next();
+            })
             .set('debug', config.debug);
 
 
@@ -73,23 +75,40 @@ export class RsFeathersApp{
         });
     }
 
+    private createTestDataForModel(model, modelName, jsonFilename){
+
+        return new Promise((resolve)=>{
+
+            model.sync({force: true}).then(() => {
+
+                let items = jsonFile.readFileSync('./src/json/'+jsonFilename+'.json');
+                items.forEach(data => {
+                    this.app.service('api/'+modelName).create(data)
+                })
+                resolve();
+
+            });
+
+
+        })
+
+
+
+    }
+
     private createTestData(){
 
-        this.getService('/api/jobber').Model.sync({force: true}).then(() => {
 
-            let jobbers = jsonFile.readFileSync('./src/json/jobbers.json');
-            jobbers.forEach(jobber => {
-                this.app.service('api/jobber').create(jobber)
-            })
-        });
+                this.createTestDataForModel(this.getService('/api/jobber').Model, 'jobber', 'jobbers').then(()=>{
+                    Promise.resolve(this.createTestDataForModel(this.getService('/api/branch').Model, 'branch', 'branches'));
+                });
 
-        this.getService('/api/branch').Model.sync({force: true}).then(() => {
+                Promise.resolve(this.createTestDataForModel(this.getService('/api/jobs').Model, 'jobs', 'jobs'));
 
-            let branches = jsonFile.readFileSync('./src/json/branches.json');
-            branches.forEach(branch => {
-                this.app.service('api/branch').create(branch)
-            })
-        });
+
+
+
+
 
     }
 

@@ -10,27 +10,29 @@ var socketio = require('feathers-socketio');
 var service = require('feathers-sequelize');
 var hooks = require('feathers-hooks');
 var jsonFile = require('jsonfile');
-var jobber_1 = require("./models/jobber");
-var branch_1 = require("./models/branch");
+var models_1 = require("./models");
 var RsFeathersApp = (function () {
     function RsFeathersApp(config) {
         this.app = feathers();
         this.config = config;
         var sequelize = this.getSequelizeConfig(config);
-        var jobberModel = jobber_1.Jobber(sequelize);
-        var branchModel = branch_1.Branch(sequelize);
+        var jobberModel = models_1.Jobber(sequelize);
+        var branchModel = models_1.Branch(sequelize);
+        var jobsModel = models_1.Jobs(sequelize);
         this.app.use(bodyParser.json())
             .configure(rest())
             .configure(socketio())
             .configure(hooks())
-            .use('/api/jobber', service({
-            Model: jobberModel
-        }))
-            .use('/api/branch', service({
-            Model: branch_1.Branch(sequelize)
-        }))
+            .use('/api/jobber', service({ Model: jobberModel }))
+            .use('/api/branch', service({ Model: branchModel }))
+            .use('/api/jobs', service({ Model: jobsModel }))
             .use('/', feathers.static(__dirname))
-            .use(handler())
+            .use(handler()).use(function (req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Credentials", "true");
+            res.header("Access-Control-Allow-Headers", "*");
+            next();
+        })
             .set('debug', config.debug);
         jobberModel.hasMany(branchModel);
         if (config.debug)
@@ -53,20 +55,24 @@ var RsFeathersApp = (function () {
             }
         });
     };
+    RsFeathersApp.prototype.createTestDataForModel = function (model, modelName, jsonFilename) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            model.sync({ force: true }).then(function () {
+                var items = jsonFile.readFileSync('./src/json/' + jsonFilename + '.json');
+                items.forEach(function (data) {
+                    _this.app.service('api/' + modelName).create(data);
+                });
+                resolve();
+            });
+        });
+    };
     RsFeathersApp.prototype.createTestData = function () {
         var _this = this;
-        this.getService('/api/jobber').Model.sync({ force: true }).then(function () {
-            var jobbers = jsonFile.readFileSync('./src/json/jobbers.json');
-            jobbers.forEach(function (jobber) {
-                _this.app.service('api/jobber').create(jobber);
-            });
+        this.createTestDataForModel(this.getService('/api/jobber').Model, 'jobber', 'jobbers').then(function () {
+            Promise.resolve(_this.createTestDataForModel(_this.getService('/api/branch').Model, 'branch', 'branches'));
         });
-        this.getService('/api/branch').Model.sync({ force: true }).then(function () {
-            var branches = jsonFile.readFileSync('./src/json/branches.json');
-            branches.forEach(function (branch) {
-                _this.app.service('api/branch').create(branch);
-            });
-        });
+        Promise.resolve(this.createTestDataForModel(this.getService('/api/jobs').Model, 'jobs', 'jobs'));
     };
     return RsFeathersApp;
 }());
