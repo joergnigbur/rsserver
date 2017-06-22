@@ -9,13 +9,20 @@ const service = require('feathers-sequelize');
 const hooks = require('feathers-hooks');
 const jsonFile = require('jsonfile');
 
-import {Jobber, Branch, Jobs} from './models';
+
+import {Jobber, Branch, Jobs, Companies, JobberBranches} from './models';
 
 export class RsFeathersApp{
 
     private static instance;
     app: any;
     config: any;
+
+    private socketIoConnector(io){
+        io.on('connection', (socket) => {
+            console.log("socket connected",socket.socketId);
+        })
+    }
 
     constructor(config){
 
@@ -26,15 +33,16 @@ export class RsFeathersApp{
         let jobberModel = Jobber(sequelize);
         let branchModel = Branch(sequelize);
         let jobsModel = Jobs(sequelize);
+        let companiesModel = Companies(sequelize);
 
         this.app.use(bodyParser.json())
             .configure(rest())
-            .configure(socketio())
+            .configure(socketio(this.socketIoConnector))
             .configure(hooks())
             .use('/api/jobber', service({Model: jobberModel}))
             .use('/api/branch', service({Model: branchModel}))
             .use('/api/jobs', service({Model: jobsModel}))
-
+            .use('/api/companies', service({Model: companiesModel}))
 
             .use('/', feathers.static(__dirname))
             .use(handler()).use((req, res, next)=>{
@@ -46,7 +54,8 @@ export class RsFeathersApp{
             .set('debug', config.debug);
 
 
-        jobberModel.hasMany(branchModel);
+        jobberModel.belongsToMany(branchModel, {through:{model: JobberBranches, unique: false }, foreignKey: 'branch_id'});
+        companiesModel.hasMany(jobsModel);
 
         if(config.debug)
             this.createTestData();
@@ -81,29 +90,42 @@ export class RsFeathersApp{
 
             model.sync({force: true}).then(() => {
 
+                let promises = [];
                 let items = jsonFile.readFileSync('./src/json/'+jsonFilename+'.json');
                 items.forEach(data => {
-                    this.app.service('api/'+modelName).create(data)
+                    promises.push(this.app.service('api/'+modelName).create(data))
                 })
-                resolve();
+                Promise.all(promises).then(()=>{
+                    resolve();
+                })
+
 
             });
-
-
         })
-
-
-
     }
 
     private createTestData(){
 
+        this.createTestDataForModel(this.getService('/api/branch').Model, 'branch', 'branches').then(()=>{
+            this.createTestDataForModel(this.getService('/api/jobber').Model, 'jobber', 'jobbers').then(()=>{
+                let jobberService = this.getService('/api/jobber');
+                let branchService = this.getService('/api/branch');
+                branchService.find({id: 1}).then(branches => {
+                    jobberService.find({id: 1}).then(jobber =>{
+                        jobber[0].addBranch(branches[0]);
+                    })
+                })
 
-                this.createTestDataForModel(this.getService('/api/jobber').Model, 'jobber', 'jobbers').then(()=>{
-                    Promise.resolve(this.createTestDataForModel(this.getService('/api/branch').Model, 'branch', 'branches'));
-                });
 
-                Promise.resolve(this.createTestDataForModel(this.getService('/api/jobs').Model, 'jobs', 'jobs'));
+            });
+        })
+
+
+        this.createTestDataForModel(this.getService('/api/jobs').Model, 'jobs', 'jobs').then(()=>{
+            Promise.resolve(this.createTestDataForModel(this.getService('/api/companies').Model, 'companies', 'companies'));
+        });
+
+
 
 
 

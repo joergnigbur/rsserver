@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Sequelize = require("sequelize");
 function Jobs(sequelize) {
     return sequelize.define('jobs', {
-        titel: {
+        title: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        jobbeschreibung: {
+        description: {
             type: Sequelize.STRING,
             allowNull: false
         }

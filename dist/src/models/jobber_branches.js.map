@@ -1,0 +1,1 @@
+{"version":3,"file":"jobber_branches.js","sourceRoot":"C:/Projekte/RecruitmentSpecialist/rsserver/","sources":["src/models/jobber_branches.ts"],"names":[],"mappings":";;AAAA,qCAAuC;AAGvC,wBAA+B,SAAS;IAEpC,MAAM,CAAC,SAAS,CAAC,MAAM,CAAC,iBAAiB,EAAE;QAEvC,QAAQ,EAAE;YACN,IAAI,EAAE,SAAS,CAAC,OAAO;YACvB,SAAS,EAAE,KAAK;SACnB;KAEJ,CAAC,CAAC;AACP,CAAC;AAVD,wCAUC"}

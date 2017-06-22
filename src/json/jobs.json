@@ -1,4 +1,5 @@
 [{
-  "titel":"Testanzeige Nummero Uno",
-  "jobbeschreibung":"Lorem ipsum..."
+  "title":"Testanzeige Nummero Uno",
+  "description":"Lorem ipsum...",
+  "companyId":1
 }]

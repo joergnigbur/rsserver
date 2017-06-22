@@ -1,0 +1,1 @@
+{"version":3,"file":"companies.js","sourceRoot":"C:/Projekte/RecruitmentSpecialist/rsserver/","sources":["src/models/companies.ts"],"names":[],"mappings":";;AAAA,qCAAuC;AAEvC,mBAA0B,SAAS;IAE/B,MAAM,CAAC,SAAS,CAAC,MAAM,CAAC,WAAW,EAAE;QAEjC,WAAW,EAAE;YACT,IAAI,EAAE,SAAS,CAAC,MAAM;YACtB,SAAS,EAAE,KAAK;SACnB;KACJ,CAAC,CAAC;AACP,CAAC;AATD,8BASC"}
